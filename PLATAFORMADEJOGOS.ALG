@@ -1,0 +1,635 @@
+algoritmo "PlataformaDeJogos"
+
+var
+   //VARIAVEIS DE INICIALIZAÇÃO
+   opcao : inteiro
+   sair : logico
+   pontos: inteiro
+
+   // JOGO DA FORCA
+procedimento jogoDaForca()
+var
+   palavra:vetor[0..2] de caractere
+   elemento:vetor[1..20] de caractere
+   posicao:vetor[1..3] de inteiro
+   restante:vetor[1..3] de caractere
+   qtdrestante:vetor[1..2] de inteiro
+   acao:vetor[1..2] de caractere
+   info:caracter
+   tentativas,chances:inteiro
+   escolhida,letra:caractere
+   aleat,qtdcaracteres,i,pontos,pontosperdidos:inteiro
+inicio
+   //AS PALAVRAS
+   palavra[0]<-"oftalmologia"
+   palavra[1]<-"elemento"
+   palavra[2]<-"batata"
+
+   aleat<- RandI(3)
+   escolhida<-palavra[aleat]
+   qtdcaracteres<-compr (escolhida)
+   chances<-15
+   pontos <- 0
+   tentativas <- 0
+   para i de 1 ate qtdcaracteres faca
+      elemento[i]<-"_ "
+   fimpara
+   enquanto (pontos<qtdcaracteres) e (tentativas<chances) faca
+      limpatela
+      escreval("":35,"A FORCA")
+      escreval("")
+      escreva("Palavra: ")
+      para i de 1 ate qtdcaracteres faca
+         escreva("":1,Maiusc (elemento[i]) )
+      fimpara
+      escreval("")
+      escreva("Tente uma letra: ")
+      tentativas<-tentativas+1
+      leia(letra)
+      letra<-Minusc (letra)
+      acao[1]<-"on"
+      acao[2]<-"on"
+      para i de 1 ate qtdcaracteres faca
+         se (letra = (Copia (escolhida ; i, 1))) e (acao[1]="on") entao
+            acao[1]<-"off"
+            posicao[1]<-(Pos (letra, escolhida))
+            se (elemento[posicao[1]]="_ ") entao
+               elemento[posicao[1]]<-letra
+               pontos<-pontos+1
+            fimse
+            restante[1]<-(Copia (escolhida ; posicao[1]+1, qtdcaracteres-posicao[1]) )
+            qtdrestante[1]<-compr (restante[1])
+            para i de 1 ate qtdrestante[1] faca
+               se (letra = (Copia (restante[1] ; i, 1) )) e (acao[2]="on") entao
+                  acao[2]<-"off"
+                  posicao[2]<-(Pos (letra, restante[1]))
+                  se (elemento[posicao[1]+posicao[2]]="_ ") entao
+                     elemento[posicao[1]+posicao[2]]<-letra
+                     pontos<-pontos+1
+                  fimse
+               fimse
+            fimpara
+            restante[2]<-(Copia (escolhida ; posicao[1]+posicao[2]+1, qtdcaracteres-posicao[2]) )
+            qtdrestante[2]<-compr (restante[2])
+            para i de 1 ate qtdrestante[2] faca
+               se letra = (Copia (restante[2] ; i, 1) ) entao
+                  posicao[3]<-(Pos (letra, restante[2]))
+                  se (elemento[posicao[1]+posicao[2]+posicao[3]]="_ ") entao
+                     elemento[posicao[1]+posicao[2]+posicao[3]]<-letra
+                     pontos<-pontos+1
+                  fimse
+               fimse
+            fimpara
+         fimse
+      fimpara
+   fimenquanto
+   limpatela
+   escrevaL("":35,"A FORCA")
+   escreval("")
+   escreva("Palavra: ")
+   para i de 1 ate qtdcaracteres faca
+      escreva("":1,Maiusc (elemento[i]) )
+   fimpara
+   se tentativas<chances entao
+      escreval("")
+      escreval("Parabéns! Você acertou!")
+   senao
+      escreval("")
+      escreval("Você excedeu o número de tentativas! =(")
+   fimse
+   escreval("")
+   escrevaL("FIM DO JOGO")
+   escreval("")
+   escreval("Pressione ENTER para voltar ao menu")
+   leia()
+fimprocedimento
+
+//  PEDRA, PAPEL  E  TESOURA
+procedimento pedraPapelTesoura()
+var
+   optSelected : inteiro
+   optMachine : inteiro
+   continueJogo : logico
+   answer : caractere
+   optString_y : caractere
+   optString_m : caractere
+   valid : logico
+
+inicio
+   continueJogo <- verdadeiro
+   enquanto continueJogo faca
+      optSelected <- 0
+      valid <- verdadeiro
+      optMachine <- RandI(3)
+
+      escreval("Escolha sua jogada")
+      Escreval("[Pedra - 1]")
+      escreval("[Papel - 2]")
+      escreval("[Tesoura - 3]")
+      leia(optSelected)
+      //OPÇÕES
+      escolha optSelected
+      caso 1
+         optString_y <- "Pedra"
+      caso 2
+         optString_y <- "Papel"
+      caso 3
+         optString_y <- "Tesoura"
+      outrocaso
+         optString_y <- "Jogada inválida"
+         valid <- falso
+      fimescolha
+
+      se(valid) entao
+         escolha optMachine
+         caso 0
+            optString_m <- "Pedra"
+         caso 1
+            optString_m <- "Papel"
+         caso 2
+            optString_m <- "Tesoura"
+         fimescolha
+
+         escreval()
+         escreval("Sua opção - ", optString_y)
+         escreval("Opção da máquina - ", optString_m)
+         escreval()
+
+         se (optMachine = 0) e (optSelected = 3) ou (optMachine = 1) e (optSelected = 1) ou (optMachine = 2) e (optSelected = 2) entao
+            escreval("A máquina venceu!")
+         senao
+            se(optMachine = 0) e (optSelected = 1) ou (optMachine = 1) e (optSelected = 2) ou (optMachine = 2) e (optSelected = 3) entao
+               escreval("Empate")
+            senao
+               escreval("Você venceu")
+            fimse
+         fimse
+         escreval()
+         escreval("Deseja finalizar o jogo? Digite [SIM] ou [NAO]")
+         leia(answer)
+         se(answer = "SIM") ou (answer = "sim") entao
+            continueJogo <- falso
+         senao
+            limpatela
+         fimse
+      fimse
+   fimenquanto
+fimprocedimento
+
+//GENIUS(JOGO DA MEMORIA)
+
+procedimento genius()
+
+Var
+   //VAR PARA O JOGO DA MEMORIA
+   comando,pontos: inteiro
+   numaleatorio: vetor [1..10] de inteiro
+   resultado: vetor [1..10] de inteiro
+
+Inicio
+
+   pontos <- 0
+   escreval ("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-")
+   escreval ("Seja bem-vindo ao Genius            " )
+   escreval ("ME PASSA COM 10 DARCY")
+   escreval ("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-")
+   escreval ()
+   escreval ("Deseja iniciar o jogo?")
+   escreval ("Digite 1 para sim ou 2 para não")
+   leia (comando)
+   se (comando=1) entao
+      escreval ("Grave a sequência")
+   senao
+      escreval ("Bye")
+   fimse
+   timer 1000
+   limpatela
+   escreval ("           Nível 1          ")
+   escreval ("============================")
+   escreval ("Mostrando números aleatórios")
+   timer 1000
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[1])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[2])
+   aleatorio off
+   timer 500
+   limpatela
+   escreval ("           Nível 1           ")
+   escreval ("=============================")
+   escreval ("Digite a sequência de números")
+   leia (resultado[1])
+   leia (resultado[2])
+   se (resultado[1]<>numaleatorio[1]) entao
+      errou ()
+   senao
+      continue ()
+      se (resultado[2]<>numaleatorio[2]) entao
+         errou ()
+      senao
+         acertou ()
+      fimse
+   fimse
+   limpatela
+   escreval ("           Nível 2          ")
+   escreval ("============================")
+   escreval ("Mostrando números aleatórios")
+   timer 1000
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[1])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[2])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[3])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[4])
+   aleatorio off
+   timer 500
+   limpatela
+   escreval ("           Nível 2           ")
+   escreval ("=============================")
+   escreval ("Digite a sequência de números")
+   leia (resultado[1])
+   leia (resultado[2])
+   leia (resultado[3])
+   leia (resultado[4])
+   se (resultado[1]<>numaleatorio[1]) entao
+      errou ()
+   senao
+      continue ()
+      se (resultado[2]<>numaleatorio[2]) entao
+         errou ()
+      senao
+         continue ()
+         se (resultado[3]<>numaleatorio[3]) entao
+            errou ()
+         senao
+            continue ()
+            se (resultado[4]<>numaleatorio[4]) entao
+               errou ()
+            senao
+               acertou ()
+            fimse
+         fimse
+      fimse
+   fimse
+   limpatela
+   escreval ("           Nível 3          ")
+   escreval ("============================")
+   escreval ("Mostrando números aleatórios")
+   timer 1000
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[1])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[2])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[3])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[4])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[5])
+   aleatorio off
+   timer 500
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[6])
+   aleatorio off
+   timer 500
+   limpatela
+   escreval ("           Nível 3           ")
+   escreval ("=============================")
+   escreval ("Digite a sequência de números")
+   leia (resultado[1])
+   leia (resultado[2])
+   leia (resultado[3])
+   leia (resultado[4])
+   leia (resultado[5])
+   leia (resultado[6])
+   se (resultado[1]<>numaleatorio[1]) entao
+      errou ()
+   senao
+      continue ()
+      se (resultado[2]<>numaleatorio[2]) entao
+         errou ()
+      senao
+         continue ()
+         se (resultado[3]<>numaleatorio[3]) entao
+            errou ()
+         senao
+            continue ()
+            se (resultado[4]<>numaleatorio[4]) entao
+               errou ()
+            senao
+               continue ()
+               se (resultado[5]<>numaleatorio[5]) entao
+                  errou ()
+               senao
+                  continue ()
+                  se (resultado[6]<>numaleatorio[6]) entao
+                     errou ()
+                  senao
+                     acertou ()
+                  fimse
+               fimse
+            fimse
+         fimse
+      fimse
+   fimse
+   escreval ("           Nível 4          ")
+   escreval ("============================")
+   escreval ("Mostrando números aleatórios")
+   timer 1000
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[1])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[2])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[3])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[4])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[5])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[6])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[7])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[8])
+   aleatorio off
+   limpatela
+   escreval ("           Nível 4           ")
+   escreval ("=============================")
+   escreval ("Digite a sequência de números")
+   leia (resultado[1])
+   leia (resultado[2])
+   leia (resultado[3])
+   leia (resultado[4])
+   leia (resultado[5])
+   leia (resultado[6])
+   leia (resultado[7])
+   leia (resultado[8])
+   se (resultado[1]<>numaleatorio[1]) entao
+      errou ()
+   senao
+      continue ()
+      se (resultado[2]<>numaleatorio[2]) entao
+         errou ()
+      senao
+         continue ()
+         se (resultado[3]<>numaleatorio[3]) entao
+            errou ()
+         senao
+            continue ()
+            se (resultado[4]<>numaleatorio[4]) entao
+               errou ()
+            senao
+               continue ()
+               se (resultado[5]<>numaleatorio[5]) entao
+                  errou ()
+               senao
+                  continue ()
+                  se (resultado[6]<>numaleatorio[6]) entao
+                     errou ()
+                  senao
+                     continue ()
+                     se (resultado[7]<>numaleatorio[7]) entao
+                        errou ()
+                     senao
+                        continue ()
+                        se (resultado[6]<>numaleatorio[8]) entao
+                           errou ()
+                        senao
+                           acertou ()
+                        fimse
+                     fimse
+                  fimse
+               fimse
+            fimse
+         fimse
+      fimse
+   fimse
+   escreval ("           Nível 5          ")
+   escreval ("============================")
+   escreval ("Mostrando números aleatórios")
+   timer 1000
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[1])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[2])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[3])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[4])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[5])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[6])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[7])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[8])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[9])
+   aleatorio off
+   limpatela
+   aleatorio 1,4
+   leia (numaleatorio[10])
+   aleatorio off
+   limpatela
+   escreval ("           Nível 5           ")
+   escreval ("=============================")
+   escreval ("Digite a sequência de números")
+   leia (resultado[1])
+   leia (resultado[2])
+   leia (resultado[3])
+   leia (resultado[4])
+   leia (resultado[5])
+   leia (resultado[6])
+   leia (resultado[7])
+   leia (resultado[8])
+   leia (resultado[9])
+   leia (resultado[10])
+   se (resultado[1]<>numaleatorio[1]) entao
+      errou ()
+   senao
+      continue ()
+      se (resultado[2]<>numaleatorio[2]) entao
+         errou ()
+      senao
+         continue ()
+         se (resultado[3]<>numaleatorio[3]) entao
+            errou ()
+         senao
+            continue ()
+            se (resultado[4]<>numaleatorio[4]) entao
+               errou ()
+            senao
+               continue ()
+               se (resultado[5]<>numaleatorio[5]) entao
+                  errou ()
+               senao
+                  continue ()
+                  se (resultado[6]<>numaleatorio[6]) entao
+                     errou ()
+                  senao
+                     continue ()
+                     se (resultado[7]<>numaleatorio[7]) entao
+                        errou ()
+                     senao
+                        continue ()
+                        se (resultado[8]<>numaleatorio[8]) entao
+                           errou ()
+                        senao
+                           continue ()
+                           se (resultado[9]<>numaleatorio[9]) entao
+                              errou ()
+                           senao
+                              continue ()
+                              se (resultado[10]<>numaleatorio[10]) entao
+                                 errou ()
+                              senao
+                                 acertou ()
+                              fimse
+                           fimse
+                        fimse
+                     fimse
+                  fimse
+               fimse
+            fimse
+         fimse
+      fimse
+   fimse
+   se (pontos = 30) entao
+      escreval ("Você ganhou o Genius, obtendo o total de ",pontos)
+   senao
+      escreval ("voce perdeu e obteve os seguintes pontos ",pontos)
+   fimse
+fimprocedimento
+
+
+procedimento acertou ()
+var
+inicio
+   pontos <- pontos + 1
+   escreval ("O total de pontos até agora é ", pontos)
+   timer 500
+   limpatela
+fimprocedimento
+
+
+
+procedimento errou ()
+
+var
+inicio
+   escreval ("Você errou e foi derrotado pelo GENIUS!")
+   escreval ("Você obteve um total de ",pontos," ponto(s)")
+fimprocedimento
+
+
+procedimento continue ()
+var
+inicio
+   pontos <- pontos + 1
+fimprocedimento
+
+
+// Código principal com o menu
+
+inicio
+   sair <- falso
+   enquanto nao sair faca
+      limpatela
+      escreval("=======================================")
+      escreval("         PLATAFORMA DE JOGOS           ")
+      escreval("=======================================")
+      escreval("1 - Jogo da Forca")
+      escreval("2 - Pedra, Papel e Tesoura")
+      escreval("3 - Jogo GENIUS")
+      escreval("4 - Asteroides")
+      escreval("5 - Sair")
+      escreval("=======================================")
+      escreva("Escolha uma opção: ")
+      leia(opcao)
+      //ESCOLHER O JOGO
+      escolha opcao
+      caso 1
+         limpatela
+         jogoDaForca()
+      caso 2
+         limpatela
+         pedraPapelTesoura()
+      caso 3
+         limpatela
+         genius()
+      caso 4
+         limpatela
+         asteroides()
+      caso 5
+         escreval("Encerrando... Até logo!")
+         sair <- verdadeiro
+
+      outrocaso
+         escreval("Opção inválida. Tente novamente.")
+      fimescolha
+   fimenquanto
+fimalgoritmo
