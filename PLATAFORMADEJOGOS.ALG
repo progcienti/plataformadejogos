@@ -7,6 +7,7 @@ var
    pontos: inteiro
 
    // JOGO DA FORCA
+
 procedimento jogoDaForca()
 var
    palavra:vetor[0..2] de caractere
@@ -21,9 +22,62 @@ var
    aleat,qtdcaracteres,i,pontos,pontosperdidos:inteiro
 inicio
    //AS PALAVRAS
+
+   timer 60
+
+   escreval(".~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!7777777777777777777???????????????JYJY!                         ")
+   escreval("!&&&&&&&&&&&&&&&&&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&@Y                         ")
+   escreval("!&#&BY5YYYYYYYYJ5#&&BYJJJJJYJJJJJJJJJJ????????????????????7777777P&#&J                         ")
+   escreval("!&#&P         ^YB&P7.                                            J&#&J                         ")
+   escreval("!&#&P      .7G&&5~                                               Y&#&?                         ")
+   escreval("!&#&P    ^Y#@BJ:                                                 Y&#&?                         ")
+   escreval("!&#&P .7P&&G7.                                                   Y&#&?                         ")
+   escreval("!&#&GJB@#Y~                                                      5&#&7                         ")
+   escreval("7&##&@BJ:                                                   .~?5G#&&&#G5?^                     ")
+   escreval("7&#&B!.                                                   .JB&@#G5YJY5G#@&G?.                  ")
+   escreval("7&#&5                                                    !B&&P!:       :7G&&G^                 ")
+   escreval("7&#&5                                                   ~&&#?             J&&#^               ")
+   escreval("7&#&5                                                   P&&Y               5&&5               ")
+   escreval("7&#&5                                                  .B&&7               ?&&G               ")
+   escreval("7&#&5                                      .:           5&&P              .G&&Y           :.  ")
+   escreval("7&#&5                                     :G&GJ~.       :B&&5:           ^P&&G.       :!JG#B^ ")
+   escreval("7&#&5                                     :?P#&&#P?~.    :5&@#Y!:.   .:75&@#Y.    :!YG#@&B5?^ ")
+   escreval("7&#&5                                        .~JP#@&B57^.  ^YB&@&BGGG#&@&BJ:  ^7YB&@&B57^.    ")
+   escreval("7&#&5                                            :!JG&@&B57:  ^7J#&&GYJ!^.^75B&@&GY7^.        ")
+   escreval("7&#&5                                                :!YG&@&GY!. G&&7 ^75B&@#GY!:            ")
+   escreval("7&#&5                                                    ^75B&@#G##&BB&&#GJ!:                ")
+   escreval("7&#&5                                                       .^?5#####PJ~:                    ")
+   escreval("7&#&5                                                           .B&&?                        ")
+   escreval("?&#&5                                                            G&&7                        ")
+   escreval("?&#&Y                                                            G&&7                        ")
+   escreval("?&#&5                                                            G&&7                        ")
+   escreval("?&#&Y                                                            G&&7                        ")
+   escreval("?&#&Y                                                            G&&7                        ")
+   escreval("?&#&Y                                                            G&&7                        ")
+   escreval("?&#&Y                                                            G&&7                        ")
+   escreval("?&#&Y                                                            G&&7                        ")
+   escreval("?&#&Y                                                            G&&7                        ")
+   escreval("?&#&Y                                                           ?#&&P^                       ")
+   escreval("?&#&Y                                                         :5&&B#&#?                      ")
+   escreval("?&#&Y                                                        ~B&&5.~G&&P^                    ")
+   escreval("?&#&Y                                                       ?#&#?   .J#&#J.                  ")
+   escreval("?&#&Y                                                     :5&&B~      ^G&&G~                 ")
+   escreval("?&#&Y                                                    ~B&&5.         ?#&&Y.               ")
+   escreval("?&#&Y                                                   ?#&#?            ^P&&B!              ")
+   escreval("?&#&Y                                                 :P&&B~               7#&&Y.            ")
+   escreval("?&#&Y                                                !B&&5.                 :5&&#7           ")
+   escreval("?&#&Y                                                7PB?                     7G5!           ")
+   escreval("?&#&J                                                  .                                     ")
+   escreval("?&#&J                                                                                         ")
+
+
+   timer 60
+   limpatela
+
    palavra[0]<-"oftalmologia"
    palavra[1]<-"elemento"
    palavra[2]<-"batata"
+
 
    aleat<- RandI(3)
    escolhida<-palavra[aleat]
@@ -36,7 +90,9 @@ inicio
    fimpara
    enquanto (pontos<qtdcaracteres) e (tentativas<chances) faca
       limpatela
+      escreval("===============================================================================")
       escreval("":35,"A FORCA")
+      escreval("===============================================================================")
       escreval("")
       escreva("Palavra: ")
       para i de 1 ate qtdcaracteres faca
@@ -84,7 +140,9 @@ inicio
       fimpara
    fimenquanto
    limpatela
+   escreval("=================================================================================")
    escrevaL("":35,"A FORCA")
+   escreval("=================================================================================")
    escreval("")
    escreva("Palavra: ")
    para i de 1 ate qtdcaracteres faca
@@ -116,64 +174,101 @@ var
    valid : logico
 
 inicio
-   continueJogo <- verdadeiro
-   enquanto continueJogo faca
-      optSelected <- 0
-      valid <- verdadeiro
-      optMachine <- RandI(3)
 
-      escreval("Escolha sua jogada")
-      Escreval("[Pedra - 1]")
-      escreval("[Papel - 2]")
-      escreval("[Tesoura - 3]")
-      leia(optSelected)
-      //OPÇÕES
-      escolha optSelected
+   timer 60
+   escreval("....................................................................................................")
+   escreval("....................................................................................................")
+   escreval("....................................................................................................")
+   escreval("....................................................................................................")
+   escreval("..........................................................................   ........   ............")
+   escreval("..................................................   ................... :~~^  ....  ^~~: ..........")
+   escreval(".............................................    .77?:    .............:7JPPY7^ ...^7YPPJ7:.........")
+   escreval("........................................   .:JYYYYYYYYYYY5~........... ^&Y~~7&J .. J&7~~5&^ ........")
+   escreval("......................................  ^^^YG??7G&!~~P&???PP:...........^JB7!7YG^.:JB7~~5&^ ........")
+   escreval(".................    .    .    .......~75PPB#!~~P#!~~P#!~~G#:........... ?&7~~5&^:#Y~~!JY5:.........")
+   escreval("................ 7YY7 7YY7 7YY7 ..... 5&!~~P#!~~P#!~~P#!~~G#:..........:JG&PY~?YJ5&Y~~7&J ..........")
+   escreval("...........:?P5PGY??JGY??YGY??JG~ ... 5#!~~P#!~~P#!~~P#!~~G#:....:~5P5PP???BB~~~B#?!~PP~:...........")
+   escreval("......... !#J!!Y&J~~J&J~~J&J~~J&7 ... 5#!~~G#!~~P&!~~P#!~~G#:....PG!!!BB~~~BB~~~55~~~BB. ...........")
+   escreval("......... !&J~~J&J~~J&J!~J&J!~J&! ... 5#!~~JY!~~JY!!!J5!!~G#: ...GB~~~BB~~~BB!!!!!!!!BG.............")
+   escreval("......... !&?~~J&J~~J&GPPG#GPPG#7.... 5#!~~~~~!!YGPPPPPPPPBB^....GB~~~BB~~!G#PPPPPPPP#G:............")
+   escreval("......... !&Y??YBY?J5&J!!!!!!7!!PB:.. 5#!~~~~!!!G&7!!!!!!7!7BY ..GB???PP??J#B!!!!!!!7!?#? ..........")
+   escreval("......... !&G5PY!JP555YYYYYYY!~~P#:.. 5#!~~~~~!!Y5YYYYYY?~~!#5 ..G#5557755555YYYYYY?~~7&J ..........")
+   escreval("......... !&J~~~~~~~~~?YJYYYJ!~~P#:.. 5#!~~~~~!!~!JYYYYY?~~!&5 ..GB~~~~~~~~~!JYYYYY7~~7&J ..........")
+   escreval("......... !&J~~~~~~~~~~~~~~~~~!?5P:.. 5&!~!!~~~~~~~~~~~~~~7?GJ ..GB~~~!~~~~~~~~~~~~~!7JG7 ..........")
+   escreval("......... ^YYY!~~~~~~~~~~~~~~~J&7 ....7YYJ~~~~~~~~~~~~~~~~G#:....?YY?~~~~~~~~~~~~~~~!BB.............")
+   escreval("........... 5#7!~!~!~~~~~~~!7PY7: .... .#G!!~~~~!!~~~~!!?PJ!..... ^&5!!~~~~~~~!!~!!JP?!.............")
+   escreval("............:~GP!!!!~~!!!!!PG~: ........:?#J!!!~~!!!!!7B5^. .......^J#?!!!~~!!!!!?BJ^. .............")
+   escreval("............ .#G!!~~~~~!~!!G#: ......... !&J!!~~~~~~!!7#5 ......... ?&?!!~~~~!!!!?&? ...............")
+   escreval(".............:#G!!~~~~~~~!!G#:.......... 7&J!~~~~~~~~!7#5 ......... ?&?!!~~~~~~~!?&? ...............")
+   escreval(".............:#G!!~~!!!~~!!G#:.......... 7&J!!~~~~~~~!7#5 ......... ?&?!!~!~~~~~!?&? ...............")
+   escreval(".............:#G!!~~!~~~~!!G#:.......... 7&J!~~~~~~~~!7#5 ......... ?&?!~~~~~~~~!?&? ...............")
+   escreval(".............:#G!!~~!~~~~!!G#:.......... 7&J!~~~~~~~~!7#5 ......... ?&?!~~~~~~~!!?&? ...............")
+   escreval(".............:#G!!!!!!!!!!!G#:.......... 7&J!!!!!!!!!!7#5 ......... ?&?!!!!!!!!!!?&? ...............")
+
+   timer 50
+   limpatela
+
+continueJogo <- verdadeiro
+enquanto continueJogo faca
+   optSelected <- 0
+   valid <- verdadeiro
+   optMachine <- RandI(3)
+
+   escreval("=======================================")
+   escreval("         PEDRA, PAPEL E TESOURA        ")
+   escreval("=======================================")
+   escreval("Escolha sua jogada")
+   Escreval("[Pedra - 1]")
+   escreval("[Papel - 2]")
+   escreval("[Tesoura - 3]")
+   leia(optSelected)
+   //OPÇÕES
+   escolha optSelected
+   caso 1
+      optString_y <- "Pedra"
+   caso 2
+      optString_y <- "Papel"
+   caso 3
+      optString_y <- "Tesoura"
+   outrocaso
+      optString_y <- "Jogada inválida"
+      valid <- falso
+   fimescolha
+
+   se(valid) entao
+      escolha optMachine
+      caso 0
+         optString_m <- "Pedra"
       caso 1
-         optString_y <- "Pedra"
+         optString_m <- "Papel"
       caso 2
-         optString_y <- "Papel"
-      caso 3
-         optString_y <- "Tesoura"
-      outrocaso
-         optString_y <- "Jogada inválida"
-         valid <- falso
+         optString_m <- "Tesoura"
       fimescolha
 
-      se(valid) entao
-         escolha optMachine
-         caso 0
-            optString_m <- "Pedra"
-         caso 1
-            optString_m <- "Papel"
-         caso 2
-            optString_m <- "Tesoura"
-         fimescolha
+      escreval()
+      escreval("Sua opção - ", optString_y)
+      escreval("Opção da máquina - ", optString_m)
+      escreval()
 
-         escreval()
-         escreval("Sua opção - ", optString_y)
-         escreval("Opção da máquina - ", optString_m)
-         escreval()
-
-         se (optMachine = 0) e (optSelected = 3) ou (optMachine = 1) e (optSelected = 1) ou (optMachine = 2) e (optSelected = 2) entao
-            escreval("A máquina venceu!")
+      se (optMachine = 0) e (optSelected = 3) ou (optMachine = 1) e (optSelected = 1) ou (optMachine = 2) e (optSelected = 2) entao
+         escreval("A máquina venceu!")
+      senao
+         se(optMachine = 0) e (optSelected = 1) ou (optMachine = 1) e (optSelected = 2) ou (optMachine = 2) e (optSelected = 3) entao
+            escreval("Empate")
          senao
-            se(optMachine = 0) e (optSelected = 1) ou (optMachine = 1) e (optSelected = 2) ou (optMachine = 2) e (optSelected = 3) entao
-               escreval("Empate")
-            senao
-               escreval("Você venceu")
-            fimse
-         fimse
-         escreval()
-         escreval("Deseja finalizar o jogo? Digite [SIM] ou [NAO]")
-         leia(answer)
-         se(answer = "SIM") ou (answer = "sim") entao
-            continueJogo <- falso
-         senao
-            limpatela
+            escreval("Você venceu")
          fimse
       fimse
-   fimenquanto
+      escreval()
+      escreval("Deseja finalizar o jogo? Digite [SIM] ou [NAO]")
+      leia(answer)
+      se(answer = "SIM") ou (answer = "sim") entao
+         continueJogo <- falso
+      senao
+         limpatela
+      fimse
+   fimse
+fimenquanto
 fimprocedimento
 
 //GENIUS(JOGO DA MEMORIA)
@@ -187,6 +282,53 @@ Var
    resultado: vetor [1..10] de inteiro
 
 Inicio
+
+timer 60
+
+escreval("                                                                                                  ")
+   escreval("                                                                                                  ")
+   escreval("                                                                                                  ")
+   escreval("                                                                                                  ")
+   escreval("                                      .::^^::.        .::^^::.                                    ")
+   escreval("                                   ^7JJJ????JJJ!    !JJJ????JJJ7^                                 ")
+   escreval("                                .75J!:    .   ^JP::PJ^   .    :~J57.                              ")
+   escreval("                             ^!?5J:     ~YY^    ?GG?    ^YY~     :J5?!^                           ")
+   escreval("                          .7YJ7^.      ?P~      .GG.      ~P?      .^7JY7.                        ")
+   escreval("                         ^PJ:         !B:        55        :B!         :JP^                      ")
+   escreval("                        :B7          :GB!        PP        !BG:          7B:                     ")
+   escreval("                      .!PB.       7?J5!~G7.    ^YBBY^    .7G~!5J?7       .BP!.                    ")
+   escreval("                     !PJ~PJ       .::   :?^  .JY!55!YJ.  ^?:   ::.       JP~JP!                   ")
+   escreval("                    7G^  :55!~^::.            .  YY  .            .::^~!55:  ^G7                  ")
+   escreval("                   :B!     ?BY???~    ..         YY          :    ~???YB?     !B:                ")
+   escreval("                   :B~     :B!       7P~         YY          ?5^      !B:     ~B:                ")
+   escreval("                  :JP:    :Y!       !B:          YY           ?G.      !Y:    :PJ:               ")
+   escreval("                 !G7                Y5           YY           :B^               7G!              ")
+   escreval("                ^B~                 JB7.         YY          ^5B:                ~B^             ")
+   escreval("                JP                 .P5?5?^       YY       .!J57G7                 PJ             ")
+   escreval("                7G.              ^JJ?. .~!  ^~.  YY  .~^  :!^  ^JJ?.             .G7             ")
+   escreval("                 PP:              .         :?5J:YY:J5?:          .             :PP             ")
+   escreval("                !G?5J^.  ..:                   7PGGP!                   :..  .^J5?G!             ")
+   escreval("               :B! .!YPPJJJ?.                   ~BB~                   .?JJJPPY!. !B:            ")
+   escreval("               !B.    :YP.          .Y?  .:::    P5    :::.  ?Y.          .PY:    .B!            ")
+   escreval("               :G!     7B:           :PY75???.   YY   .??J57YP:           :B7     !G:            ")
+   escreval("                ~G!    !^             :BG:       YY       :GB:             ^!    !G~             ")
+   escreval("                 ~B~         .        !G^        YY        ^G!        .         ~B~              ")
+   escreval("                 ^B^        ~P.    .^JP^         YY         ^PJ^.    .P~        ^B^              ")
+   escreval("                 !B.     ..^Y5.    7J~           YY           ~J7    .5Y^..     .B!              ")
+   escreval("                 .PJ .~?JJ5G5~.             ..   YY   ..             .~5G5JJ?~. JP.              ")
+   escreval("                  :PY5?~:...^?5~        .   ~YY7 YY 7YY~   .        ~5?^.. :~?5YP:               ")
+   escreval("                   !B^        ..      !5?     :JPPPPJ:     ?5!      ..        ^B!                ")
+   escreval("                   ?P            .~^::B7        7BB7        7B::^~.            P?                ")
+   escreval("                   ^G7           :77?YGP.        PP        .PGY?77:           7G^                ")
+   escreval("                    ^5Y~.             :JP.       YY       .PJ:             .~Y5^                 ")
+   escreval("                      ~JYJ7!~~:.        PJ       PP       JP        .:~~!7JYJ~                   ")
+   escreval("                         :^!!7JYJ:      PJ      ?GG?      JP      :JYJ7!!^:                      ")
+   escreval("                               .!5J~:   !.   :!5Y..Y5!:   .!   .~J5!.                            ")
+   escreval("                                  ~?JJJ?7??JJJ7:    :7JJJ??7?JJJ?~                               ")
+   escreval("                                     .::^^::.          .::^^::.                                 ")
+
+  timer 60
+  limpatela
 
    pontos <- 0
    escreval ("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-")
@@ -204,6 +346,7 @@ Inicio
    fimse
    timer 1000
    limpatela
+   escreval ("============================")
    escreval ("           Nível 1          ")
    escreval ("============================")
    escreval ("Mostrando números aleatórios")
@@ -219,6 +362,7 @@ Inicio
    aleatorio off
    timer 500
    limpatela
+   escreval ("=============================")
    escreval ("           Nível 1           ")
    escreval ("=============================")
    escreval ("Digite a sequência de números")
@@ -235,6 +379,7 @@ Inicio
       fimse
    fimse
    limpatela
+   escreval ("============================")
    escreval ("           Nível 2          ")
    escreval ("============================")
    escreval ("Mostrando números aleatórios")
@@ -260,6 +405,7 @@ Inicio
    aleatorio off
    timer 500
    limpatela
+   escreval ("=============================")
    escreval ("           Nível 2           ")
    escreval ("=============================")
    escreval ("Digite a sequência de números")
@@ -288,6 +434,7 @@ Inicio
       fimse
    fimse
    limpatela
+   escreval ("============================")
    escreval ("           Nível 3          ")
    escreval ("============================")
    escreval ("Mostrando números aleatórios")
@@ -323,6 +470,7 @@ Inicio
    aleatorio off
    timer 500
    limpatela
+   escreval ("=============================")
    escreval ("           Nível 3           ")
    escreval ("=============================")
    escreval ("Digite a sequência de números")
@@ -362,6 +510,7 @@ Inicio
          fimse
       fimse
    fimse
+   escreval ("============================")
    escreval ("           Nível 4          ")
    escreval ("============================")
    escreval ("Mostrando números aleatórios")
@@ -399,6 +548,7 @@ Inicio
    leia (numaleatorio[8])
    aleatorio off
    limpatela
+   escreval ("=============================")
    escreval ("           Nível 4           ")
    escreval ("=============================")
    escreval ("Digite a sequência de números")
@@ -450,6 +600,7 @@ Inicio
          fimse
       fimse
    fimse
+   escreval ("============================")
    escreval ("           Nível 5          ")
    escreval ("============================")
    escreval ("Mostrando números aleatórios")
@@ -495,6 +646,7 @@ Inicio
    leia (numaleatorio[10])
    aleatorio off
    limpatela
+   escreval ("=============================")
    escreval ("           Nível 5           ")
    escreval ("=============================")
    escreval ("Digite a sequência de números")
@@ -597,16 +749,60 @@ fimprocedimento
 
 inicio
    sair <- falso
+
+   timer 100
+
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("55555555555555555555555555555YYJ?77777777777777777777777777777777777777777777?JYY5555555555555555555")
+   escreval("5555555555555555555555555Y7~:.    .........................................     .^!?Y555555555555555")
+   escreval("5555555555555555555555Y!:  .:~7?JYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYJ?!~.  .^7Y555555555555")
+   escreval("55555555555555555555J~  .~?Y555555555555555555555555555555555555555555555555555555J7^  .!Y5555555555")
+   escreval("555555555555555555Y~  :7Y555555555555555555555555555555555555555555555555555555555555J~  .7555555555")
+   escreval("5555555555555555Y!.  !555555555555557^::~Y555555555555555555555555555J!~~7Y555555555555J:  ~Y5555555")
+   escreval("5555555555555557.  .?555555555555557     ^555555555555555555555555557     ^55555555555555~  ^5555555")
+   escreval("5555555555555?:    ?55555555555555P7     :55555555555555555555555555?.    ~555555555555555^  !555555")
+   escreval("55555555555J^     ^5555555555Y????J~     :?????J555555555555555J??Y55Y?7?J55YJ?JY555555555J  .Y55555")
+   escreval("555555555Y~       ?555555555^                   :J55555555555Y^    ~5555555?.   .?555555555:  755555")
+   escreval("55555555?.        J55555555Y.                    755555555555J     .Y555555~     ~555555555^  755555")
+   escreval("5555555!          !555555555Y!~~~~~:     .~~~~~~?5555555555555J~^^!J555YY55Y7~^~75555555555.  ?55555")
+   escreval("5555557           :555555555555555P7     :55555555555555555555555555Y~...^?5555555555555557  :555555")
+   escreval("555555.            ~5555555555555557     :555555555555555555555555557     :55555555555555J.  ?555555")
+   escreval("55555?              ^Y5555555555555Y:   .755555555555555555555555555Y~...^?5555555555555?.  75555555")
+   escreval("555557               .?55555555555555J?JY555555555555555555555555555555YY5555555555555Y~  :J55555555")
+   escreval("55555?                 :7Y5555555555555555555555555555555555555555555555555555555555J~   !Y555555555")
+   escreval("555555:                  .^7JY55555555555555555555555555555555555555555555555555Y?~:   ~Y55555555555")
+   escreval("555555?                      .:^~!77777777777777777777777777777777777777777!!~^:    .!Y5555555555555")
+   escreval("5555555?                                                                          ^7Y555555555555555")
+   escreval("55555555J:                                                                     .~J555555555555555555")
+   escreval("55555555557:                                                                .^?Y55555555555555555555")
+   escreval("555555555555?^.                                                          .^7Y55555555555555555555555")
+   escreval("55555555555555Y?!^..                                                 .^!?Y55555555555555555555555555")
+   escreval("5555555555555555555YJ?77777777777777777777777777777777777777777777?JY5555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+   escreval("5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
+
+   timer 100
+   limpatela
+
+
+
+
+
    enquanto nao sair faca
       limpatela
       escreval("=======================================")
-      escreval("         PLATAFORMA DE JOGOS           ")
+      escreval("         JOGOS RETRO                   ")
       escreval("=======================================")
       escreval("1 - Jogo da Forca")
       escreval("2 - Pedra, Papel e Tesoura")
       escreval("3 - Jogo GENIUS")
-      escreval("4 - Asteroides")
-      escreval("5 - Sair")
+      escreval("4 - Sair")
       escreval("=======================================")
       escreva("Escolha uma opção: ")
       leia(opcao)
@@ -622,9 +818,6 @@ inicio
          limpatela
          genius()
       caso 4
-         limpatela
-         asteroides()
-      caso 5
          escreval("Encerrando... Até logo!")
          sair <- verdadeiro
 
