@@ -1,0 +1,89 @@
+algoritmo "DoomASCIIVisualg"
+var
+   mapa: vetor[1..5, 1..15] de caractere
+   i, j: inteiro
+   comando: caractere
+   px, py: inteiro  // posição do jogador
+
+procedimento mostrarMapa()
+var x, y: inteiro
+inicio
+   para x de 1 até 5 faca
+      para y de 1 até 15 faca
+         escreva(mapa[x, y])
+      fimpara
+      escreval("")
+   fimpara
+fimprocedimento
+
+inicio
+   // Inicializar o mapa (5x15)
+   mapa[1] <- "###############"
+   mapa[2] <- "#     #     X #"
+   mapa[3] <- "# ### # ##### #"
+   mapa[4] <- "#   #     #   #"
+   mapa[5] <- "###############"
+
+   // Convertendo string para matriz de caracteres
+   para i de 1 até 5 faca
+      para j de 1 até 15 faca
+         mapa[i, j] := copia(mapa[i], j, 1)
+      fimpara
+   fimpara
+
+   // Posição inicial do jogador
+   px := 2
+   py := 2
+   mapa[px, py] := "@"
+
+   // Loop do jogo
+   enquanto verdadeiro faca
+      limpatela
+      mostrarMapa()
+      escreva("Use W/A/S/D para mover. Q para sair: ")
+      leia(comando)
+
+      // Remover jogador da posição atual
+      mapa[px, py] := " "
+
+      // Verificar comando
+      se (comando = "W") ou (comando = "w") entao
+         se mapa[px - 1, py] <> "#" entao
+            px := px - 1
+         fimse
+      senao
+         se (comando = "S") ou (comando = "s") entao
+            se mapa[px + 1, py] <> "#" entao
+               px := px + 1
+            fimse
+         senao
+            se (comando = "A") ou (comando = "a") entao
+               se mapa[px, py - 1] <> "#" entao
+                  py := py - 1
+               fimse
+            senao
+               se (comando = "D") ou (comando = "d") entao
+                  se mapa[px, py + 1] <> "#" entao
+                     py := py + 1
+                  fimse
+               senao
+                  se (comando = "Q") ou (comando = "q") entao
+                     escreval("Jogo encerrado.")
+                     pare
+                  fimse
+               fimse
+            fimse
+         fimse
+      fimse
+
+      // Verificar se venceu
+      se mapa[px, py] = "X" entao
+         escreval("Você venceu!")
+         pare
+      fimse
+
+      // Atualizar jogador na nova posição
+      mapa[px, py] := "@"
+   fimenquanto
+fimalgoritmo
+

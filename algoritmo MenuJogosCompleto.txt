@@ -1,0 +1,296 @@
+algoritmo "MenuJogosCompleto"
+var
+   game: inteiro
+   continuar: caractere
+
+   // Declarações para o jogo RPG
+   mapa: vetor[1..5, 1..15] de caractere
+   i, j: inteiro
+   comando: caractere
+   px, py: inteiro
+
+   // Declarações para o jogo da Forca
+   palavra:vetor[0..2] de caractere
+   elemento:vetor[1..20] de caractere
+   posicao:vetor[1..3] de inteiro
+   restante:vetor[1..3] de caractere
+   qtdrestante:vetor[1..2] de inteiro
+   acao:vetor[1..2] de caractere
+   info:caractere
+   tentativas,chances:inteiro
+   escolhida,letra:caractere
+   aleat,qtdcaracteres,pontos,pontosperdidos:inteiro
+
+   // Declarações para o jogo da velha
+   l, c, a, b, resultx, resulty, ch, t, q: inteiro
+   simNao, o, x, ff : caractere
+   jogoMatriz : vetor [1..3, 1..3] de caractere
+   checaNum : vetor [1..9] de inteiro
+   aux: logico
+   diferente: caractere
+
+   // Declarações para pedra, papel e tesoura
+   jogador, computador: caractere
+   opcoes: vetor[1..3] de caractere
+   sorteio: inteiro
+
+   // Funções e procedimentos reutilizados
+
+procedimento mostrarMapa()
+var x, y: inteiro
+inicio
+   para x de 1 até 5 faca
+      para y de 1 até 15 faca
+         escreva(mapa[x, y])
+      fimpara
+      escreval("")
+   fimpara
+fimprocedimento
+
+procedimento criaMatriz()
+inicio
+   q <- 4
+   t <- 7
+   para i de 1 ate 3 faca
+      jogoMatriz[1,i] <- numpcarac(i)
+      jogoMatriz[2,i] <- numpcarac(q)
+      jogoMatriz[3,i] <- numpcarac(t)
+      q <- q + 1
+      t <- t + 1
+   fimpara
+fimprocedimento
+
+procedimento velha()
+inicio
+   escreval("      +---+---+---+")
+   escreval("      | ", jogoMatriz[1,1], " | ", jogoMatriz[1,2], " | ", jogoMatriz[1,3], " |")
+   escreval("      +---+---+---+")
+   escreval("      | ", jogoMatriz[2,1], " | ", jogoMatriz[2,2], " | ", jogoMatriz[2,3], " |")
+   escreval("      +---+---+---+")
+   escreval("      | ", jogoMatriz[3,1], " | ", jogoMatriz[3,2], " | ", jogoMatriz[3,3], " |")
+   escreval("      +---+---+---+")
+fimprocedimento
+
+funcao linhaX(x : inteiro) : inteiro
+inicio
+   se (x >= 1) e (x <= 3) entao
+      retorne 1
+   senao
+      se (x >= 4) e (x <= 6) entao
+         retorne 2
+      senao
+         retorne 3
+      fimse
+   fimse
+fimfuncao
+
+funcao colunaY(y : inteiro) : inteiro
+inicio
+   se (y = 1) ou (y = 4) ou (y = 7) entao
+      retorne 1
+   senao
+      se (y = 2) ou (y = 5) ou (y = 8) entao
+         retorne 2
+      senao
+         retorne 3
+      fimse
+   fimse
+fimfuncao
+
+procedimento limpaVet()
+var i : inteiro
+inicio
+   para i de 1 ate 9 faca
+      checaNum[i] <- 0
+   fimpara
+fimprocedimento
+
+procedimento jogar()
+var i, j, a: inteiro
+inicio
+   limpaVet()
+   criaMatriz()
+   velha()
+   i <- 1
+   enquanto i <= 9 faca
+      se (i % 2 <> 0) entao
+         x <- "X"
+      senao
+         x <- "O"
+      fimse
+      escreva("Digite um número para ", x, ": ")
+      leia(a)
+      aux <- falso
+      para j de 1 ate i faca
+         se (a = checaNum[j]) entao
+            escreval(a, " já foi digitado!")
+            aux <- verdadeiro
+         fimse
+      fimpara
+      se (aux = falso) entao
+         checaNum[i] <- a
+         resultx <- linhaX(a)
+         resulty <- colunaY(a)
+         jogoMatriz[resultx,resulty] <- x
+         limpatela
+         velha()
+         i <- i + 1
+      fimse
+   fimenquanto
+fimprocedimento
+
+inicio
+   repita
+      limpatela
+      escreval("BEM VINDO À PLATAFORMA DE JOGOS")
+      escreval("1 - RPG")
+      escreval("2 - JOGO DA FORCA")
+      escreval("3 - JOGO DA VELHA")
+      escreval("4 - PEDRA, PAPEL E TESOURA")
+      escreval("5 - SAIR")
+      leia(game)
+
+      escolha game
+      caso 1
+         // Jogo RPG
+         mapa[1] <- "###############"
+         mapa[2] <- "#     #     X #"
+         mapa[3] <- "# ### # ##### #"
+         mapa[4] <- "#   #     #   #"
+         mapa[5] <- "###############"
+
+         para i de 1 até 5 faca
+            para j de 1 até 15 faca
+               mapa[i, j] := copia(mapa[i], j, 1)
+            fimpara
+         fimpara
+
+         px := 2
+         py := 2
+         mapa[px, py] := "@"
+
+         enquanto verdadeiro faca
+            limpatela
+            mostrarMapa()
+            escreva("Use W/A/S/D para mover. Q para sair: ")
+            leia(comando)
+            mapa[px, py] := " "
+            se (comando = "W") ou (comando = "w") entao
+               se mapa[px - 1, py] <> "#" entao
+                  px := px - 1
+               fimse
+            senao
+               se (comando = "S") ou (comando = "s") entao
+                  se mapa[px + 1, py] <> "#" entao
+                     px := px + 1
+                  fimse
+               senao
+                  se (comando = "A") ou (comando = "a") entao
+                     se mapa[px, py - 1] <> "#" entao
+                        py := py - 1
+                     fimse
+                  senao
+                     se (comando = "D") ou (comando = "d") entao
+                        se mapa[px, py + 1] <> "#" entao
+                           py := py + 1
+                        fimse
+                     senao
+                        se (comando = "Q") ou (comando = "q") entao
+                           escreval("Jogo encerrado.")
+                           // para
+                        fimse
+                     fimse
+                  fimse
+               fimse
+            fimse
+            se mapa[px, py] = "X" entao
+               escreval("Você venceu!")
+               pare
+            fimse
+            mapa[px, py] := "@"
+         fimenquanto
+
+      caso 2
+         palavra[0] <- "oftalmologia"
+         palavra[1] <- "elemento"
+         palavra[2] <- "batata"
+         aleat <- RandI(3)
+         escolhida <- palavra[aleat]
+         qtdcaracteres <- compr(escolhida)
+         chances <- 15
+         tentativas <- 0
+         pontos <- 0
+         para i de 1 ate qtdcaracteres faca
+            elemento[i] <- "_ "
+         fimpara
+         enquanto (pontos < qtdcaracteres) e (tentativas < chances) faca
+            limpatela
+            escreval("":35,"A FORCA")
+            escreval("")
+            escreva("Palavra: ")
+            para i de 1 ate qtdcaracteres faca
+               escreva("":1,Maiusc(elemento[i]))
+            fimpara
+            escreval("")
+            escreva("Tente uma letra: ")
+            tentativas <- tentativas + 1
+            leia(letra)
+            letra <- Minusc(letra)
+            para i de 1 ate qtdcaracteres faca
+               se letra = copia(escolhida, i, 1) entao
+                  se elemento[i] = "_ " entao
+                     elemento[i] <- letra
+                     pontos <- pontos + 1
+                  fimse
+               fimse
+            fimpara
+         fimenquanto
+         escreval("Palavra: ")
+         para i de 1 ate qtdcaracteres faca
+            escreva(Maiusc(elemento[i]))
+         fimpara
+         se pontos = qtdcaracteres entao
+            escreval("Parabéns! Você acertou!")
+         senao
+            escreval("Você excedeu o número de tentativas!")
+         fimse
+
+      caso 3
+         jogar()
+
+      caso 4
+         opcoes[1] <- "pedra"
+         opcoes[2] <- "papel"
+         opcoes[3] <- "tesoura"
+         escreva("Escolha: pedra, papel ou tesoura: ")
+         leia(jogador)
+         sorteio <- randomico(3) + 1
+         computador <- opcoes[sorteio]
+         escreval("Computador escolheu: ", computador)
+         se jogador = computador entao
+            escreval("Empate!")
+         senao
+            se (jogador = "pedra" e computador = "tesoura") ou
+               (jogador = "papel" e computador = "pedra") ou
+               (jogador = "tesoura" e computador = "papel") entao
+               escreval("Você venceu!")
+            senao
+               escreval("Você perdeu!")
+            fimse
+         fimse
+
+      caso 5	
+         escreval("Saindo...")
+
+      outrocaso
+         escreval("Opção inválida.")
+
+      fimescolha
+      se game <> 5 entao
+         escreva("Deseja voltar ao menu? (S/N): ")
+         leia(continuar)
+      fimse
+   ate (game = 5) ou (continuar = "N") ou (continuar = "n")
+fimalgoritmo
+
+

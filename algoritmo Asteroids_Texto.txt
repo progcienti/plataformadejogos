@@ -1,0 +1,109 @@
+algoritmo "Asteroids_Texto"
+
+const
+   LARGURA = 20
+   ALTURA = 10
+   NAVE = "^"
+   ASTEROIDE = "*"
+
+var
+   mapa: vetor[1..ALTURA, 1..LARGURA] de caractere
+   xNave, yNave: inteiro
+   tecl: caractere
+   i, j: inteiro
+   jogoRodando: logico
+
+procedimento inicializarMapa()
+var i, j: inteiro
+inicio
+   para i de 1 ate ALTURA faca
+      para j de 1 ate LARGURA faca
+         mapa[i, j] <- " "
+      fimpara
+   fimpara
+fimprocedimento
+
+procedimento desenharMapa()
+var i, j: inteiro
+inicio
+   para i de 1 ate ALTURA faca
+      para j de 1 ate LARGURA faca
+         escreva(mapa[i, j])
+      fimpara
+      escreval()
+   fimpara
+fimprocedimento
+
+procedimento atualizarAsteroides()
+var i, j: inteiro
+inicio
+   // Move os asteroides para baixo
+   para i de ALTURA - 1 ate 1 passo -1 faca
+      para j de 1 ate LARGURA faca
+         se mapa[i, j] = ASTEROIDE entao
+            se (i + 1) <= ALTURA entao
+               mapa[i + 1, j] <- ASTEROIDE
+               mapa[i, j] <- " "
+            fimse
+         fimse
+      fimpara
+   fimpara
+
+   // Gera novos asteroides na linha 1 (topo)
+  // Gera novos asteroides na linha 1 (topo)
+para j de 1 ate LARGURA faca
+   se (20) = 0 entao
+      mapa[1, j] <- ASTEROIDE
+   fimse
+fimpara
+
+fimprocedimento
+
+
+funcao verificarColisao(): logico
+inicio
+   se mapa[yNave, xNave] = ASTEROIDE entao
+      retorne verdadeiro
+   senao
+      retorne falso
+   fimse
+fimfuncao
+
+inicio
+   jogoRodando <- verdadeiro
+   xNave <- LARGURA div 2
+   yNave <- ALTURA
+
+   enquanto jogoRodando faca
+      limpatela()
+      inicializarMapa()
+
+      atualizarAsteroides()
+
+      // Verifica colisão antes de posicionar a nave
+      se mapa[yNave, xNave] = ASTEROIDE entao
+         desenharMapa()
+         escreval("Você foi atingido! Game Over.")
+         jogoRodando <- falso
+      senao
+         mapa[yNave, xNave] <- NAVE
+         desenharMapa()
+
+         escreva("Mover (a/d) ou sair (s): ")
+         leia(tecl)
+
+         // Movimento da nave
+         se tecl = "a" e xNave > 1 entao
+            xNave <- xNave - 1
+         fimse
+         se tecl = "d" e xNave < LARGURA entao
+            xNave <- xNave + 1
+         fimse
+         se tecl = "s" entao
+            jogoRodando <- falso
+         fimse
+      fimse
+   fimenquanto
+
+   escreval("Jogo finalizado.")
+fimalgoritmo

@@ -1,0 +1,122 @@
+algoritmo "semnome"
+//PEDRA PAPEL E TESOURA 
+
+var
+
+  optSelected : inteiro
+
+  optMachine : inteiro
+
+  continue : logico
+
+  answer : caractere
+
+  optString_y : caractere
+
+  optString_m : caractere
+
+  valid : logico
+
+inicio
+
+  continue <- verdadeiro
+
+  enquanto continue faca
+
+     optSelected <- 0
+
+     valid <- verdadeiro
+
+     optMachine <- RandI(3)
+
+     escreval("Escolha sua jogada [Pedra - 1] [Papel - 2] [Tesoura - 3]")
+
+     leia(optSelected)
+
+     escolha optSelected
+
+     caso 1
+
+        optString_y <- "Pedra"
+
+     caso 2
+
+        optString_y <- "Papel"
+
+     caso 3
+
+        optString_y <- "Tesoura"
+
+     outrocaso
+
+        optString_y <- "Jogada inválida".
+
+        valid <- falso
+
+     fimescolha
+
+     se(valid) entao
+
+        escolha optMachine
+
+        caso 0
+
+           optString_m <- "Pedra"
+
+        caso 1
+
+           optString_m <- "Papel"
+
+        caso 2
+
+           optString_m <- "Tesoura"
+
+        fimescolha
+
+        escreval()
+
+        escreval("Sua opção - ", optString_y)
+
+        escreval("Opção da máquina - ", optString_m)
+
+        escreval()
+
+        se (optMachine = 0) e (optSelected = 3) ou (optMachine = 1) e (optSelected = 1) ou (optMachine = 2) e (optSelected = 2) entao
+
+           escreval("A máquina venceu!")
+
+        senao
+
+           se(optMachine = 0) e (optSelected = 1) ou (optMachine = 1) e (optSelected = 2) ou (optMachine = 2) e (optSelected = 3) entao
+
+              escreval("Deu velha")
+
+           senao
+
+              escreval("Você venceu")
+
+           fimse
+
+        fimse
+
+        escreval()
+
+        fimse
+
+        escreval("Deseja finalizar o jogo? Digite [SIM] ou [NÃO]")
+
+        leia(answer)
+
+        se(answer = "SIM") entao
+
+           continue <- falso
+
+        senao
+
+           limpatela
+
+        fimse
+
+     fimenquanto
+
+fimalgoritmo

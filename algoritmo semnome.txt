@@ -1,0 +1,36 @@
+algoritmo "semnome"
+
+var
+
+game: inteiro
+
+inicio
+
+
+Escreval("BEM VINDO A PLATAFORMA DE JOGOS ")
+
+Escreval("Escolha o jogo: ")
+Escreval("1-RPG")
+Escreval("2-JOGO DA FORCA")
+Escreval("3-JOGO DA VELHA")
+Escreval("4-PEDRA, PAPEL E TESOURA")
+leia(game)
+
+escolha game
+
+caso 1
+
+
+
+caso 2
+
+caso 3
+
+caso 4
+
+outrocaso
+
+ESCREVAL("INVÁLIDO")
+fimescolha
+
+fimalgoritmo
