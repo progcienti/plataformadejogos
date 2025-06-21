@@ -1,0 +1,3490 @@
+algoritmo "semnome"
+
+
+const
+   TAM = 10
+
+
+var
+
+   //DECIDIR JOGO
+   game: inteiro
+
+   //MENU 1
+   menu1: inteiro
+   sair1, conmenu1: caractere
+
+   //MENU 2
+   menu2: inteiro
+   sair2, conmenu2:caractere
+
+   //MENU 3
+
+   menu3: inteiro
+   sair3, conmenu3: caractere
+
+   //MENU 4
+   menu4: inteiro
+   sair4, conmenu4: caractere
+
+   //MENU 5
+   menu5: inteiro
+   sair5, conmenu5: caractere
+
+   //MENU 6
+   menu6: inteiro
+   sair6, conmenu6: caractere
+
+   //MENU 7
+   menu7: inteiro
+   sair7, conmenu7: caractere
+
+
+   //PODER SAIR DO JOGO
+   sair_menu_principal: caractere
+
+   // VAR DO JOGO BATALHA NAVAL
+
+   a:inteiro                         //auxilia o desenho dos 2 mapas um ao lado do outro
+   b:inteiro                         //auxilia para regação de barcos da maquina (roda 2 vezes a função aleatorio para coseguir as cordenadas)
+   j:Inteiro                         //auxilia para varredura das matrizes ( varre as colunas)
+   i:inteiro                         //auxilia para varredura das matrizes (varre as linhas )
+
+   adm:inteiro                       //redireciona o usuaria para o menu do administrador
+   run:inteiro                       //variavel para travar o jogo rodando ( coloque um valor negarivo para as bonbas para sair do jogo )
+   meno:inteiro                      //Trava o jogador no menu ate selecionar um valor valido
+   vazio:caractere                   //variavel para travar o programa em pontos expecificos quando a função mustre_tudo estiver ligada
+   bomba:inteiro                     //salva uma entrada de cordenada para a colocação das bombas aleatorias da maquina
+   barco:inteiro                     //salva uma entrada de cordenada para função aleatoria
+   numero_barcos_maquina:inteiro     //auxilia para contagem de quantos barcos a maquina ja colocou ( impede q ela coloque barcos na mesma posição )
+   numero_barcos_jogador:inteiro     //auxilia para contagem de quantos barcos o jogador ja colocou ( impede q ela coloque barcos na mesma posição )
+   numero_barcos:inteiro             //numero de barcos q serao colocados para o jogador e para a maquina
+   validacao_bomba:inteiro           //Indica q a posição selecionada e valida
+   pontos_maquina:inteiro            //pontos da maquina
+   pontos_jogador:inteiro            //pontos do jogador
+
+   mapa_barco_maquina:vetor[1..9,1..9] de caractere         //armazena as posições dos barcos da maquina
+   mapa_barco_jogador:vetor[1..9,1..9] de caractere         //armazena as posições dos barcos do jogador
+   mapa_bomba_maquina:vetor[1..9,1..9] de caractere         //armazena as posições das bombas jogadas pela maquina
+   mapa_bomba_jogador:vetor[1..9,1..9] de caractere         //armazena as posições das bombas jogadas pelo jogador
+
+   posicoes_validas:vetor[1..81,1..2] de inteiro            //matriz q salva todas as posibilidades possiveis para a maquina jogar
+   posicao:inteiro                                          //auxilia na entrada de cordenadas para aplicar na matriz posicoes_validas
+
+   entrada_bomba:vetor[1..2] de inteiro                     //armazena temporariamente a posição da bomba q sera colocada no mapa
+   entrada_barco:vetor[1..2] de inteiro                     //armazena temporariamente a posição do barco q seja colocado no mapa
+
+   //funcoes adm
+   funcao_adm:caractere
+   mvsm:caractere
+   mostre_tudo:caractere
+
+
+   //VAR DO JOGO PEDRA, PAPEL E TESOURA
+
+   optSelected : inteiro
+
+   optMachine : inteiro
+
+   continueee : logico
+
+   answer : caractere
+
+   optString_y : caractere
+
+   optString_m : caractere
+
+   valid : logico
+
+   //VAR E PROCEDIMENTOS DO JOGO DA FORCA
+   //
+   palavras: vetor[1..10] de caracter   // guarda as palavras do jogo
+
+   jogo: vetor[1..20] de caracter      // guarda as letras que o jogador acerta
+   sorteada: vetor[1..20] de caracter   // guarda a palavra sorteada no vetor
+
+   letra: caracter    // a letra que o jogador informa
+   erros, sorteio, tamanho, PONTOS, cont: inteiro
+   ganhou, continua: logico
+   op, resposta:caracter
+
+procedimento desenha_ultimas_linhas()
+var i,j: inteiro
+inicio
+   escreva("         *********         ")
+   para i de 1 ate tamanho faca
+      escreva (jogo[i], " " )
+   fimpara
+   escreval("  ")
+
+   escreva("         *********         ")
+   para j de 1 ate tamanho faca
+      escreva ("-", " " )
+   fimpara
+   escreval ("  ")
+   escreval ("  ")
+   escreval ("  ")
+
+
+fimprocedimento
+
+
+procedimento desenha()
+inicio
+   escolha erros
+   caso 0
+      escreval("            ************************")
+      escreval("            ************************")
+      escreval("            ***                 *** ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("           *****                    ")
+      desenha_ultimas_linhas()
+
+   caso 1
+
+      escreval("            ************************")
+      escreval("            ************************")
+      escreval("            ***                 *** ")
+      escreval("            ***                 * *  ")
+      escreval("            ***                *   * ")
+      escreval("            ***                 * *  ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("           *****                    ")
+      desenha_ultimas_linhas()
+
+
+   caso 2
+      escreval("            ************************")
+      escreval("            ************************")
+      escreval("            ***                 *** ")
+      escreval("            ***                * * *  ")
+      escreval("            ***               *     * ")
+      escreval("            ***                * * * ")
+      ESCREVAL("            ***                  |    ")
+      escreval("            ***                  |   ")
+      escreval("            ***                  |  ")
+      escreval("            ***                  |   ")
+      escreval("            ***                  |  ")
+      escreval("            ***                  |   ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("           *****                    ")
+      desenha_ultimas_linhas()
+   caso 3
+      escreval("            ************************")
+      escreval("            ************************")
+      escreval("            ***                 *** ")
+      escreval("            ***                * * * ")
+      escreval("            ***               *     * ")
+      escreval("            ***                * * *  ")
+      ESCREVAL("            ***                  |    ")
+      escreval("            ***                 /|   ")
+      escreval("            ***                / |  ")
+      escreval("            ***               /  |   ")
+      escreval("            ***              *   |  ")
+      escreval("            ***                  |   ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("            ***                     ")
+      escreval("           *****                    ")
+      desenha_ultimas_linhas()
+   caso 4
+      escreval("            ************************")
+      escreval("            ************************")
+      escreval("            ***                 *** ")
+      escreval("            ***                * * *  ")
+      escreval("            ***               *     * ")
+      escreval("            ***                * * *  ")
+      ESCREVAL("            ***                  |    ")
+      escreval("            ***                 /|\   ")
+      escreval("            ***                / | \ ")
+      escreval("            ***               /  |  \ ")
+      escreval("            ***              *   |   *")
+      escreval("            ***                  |    ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("           *****                     ")
+      desenha_ultimas_linhas()
+   caso 5
+      escreval("            ************************")
+      escreval("            ************************")
+      escreval("            ***                 *** ")
+      escreval("            ***                * * *  ")
+      escreval("            ***               *     * ")
+      escreval("            ***                * * *  ")
+      ESCREVAL("            ***                  |    ")
+      escreval("            ***                 /|\   ")
+      escreval("            ***                / | \ ")
+      escreval("            ***               /  |  \ ")
+      escreval("            ***              *   |   *")
+      escreval("            ***                  |    ")
+      escreval("            ***                 /    ")
+      escreval("            ***                /      ")
+      escreval("            ***               /       ")
+      escreval("            ***             _/        ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("            ***                      ")
+      escreval("           *****                     ")
+      desenha_ultimas_linhas()
+   caso 6
+      escreval("            ************************")
+      escreval("            ************************")
+      escreval("            ***                 *** ")
+      escreval("            ***                * * *   ")
+      escreval("            ***               *     *  ")
+      escreval("            ***                * * *   ")
+      ESCREVAL("            ***                  |     ")
+      escreval("            ***                 /|\    ")
+      escreval("            ***                / | \                       *** VOCÊ PERDEU*** ")
+      escreval("            ***               /  |  \  ")
+      escreval("            ***              *   |   * ")
+      escreval("            ***                  |     ")
+      escreval("            ***                 / \    ")
+      escreval("            ***                /   \   ")
+      escreval("            ***               /     \  ")
+      escreval("            ***             _/       \_")
+      escreval("            ***                        ")
+      escreval("            ***                        ")
+      escreval("            ***                        ")
+      escreval("           *****                       ")
+      desenha_ultimas_linhas()
+   fimescolha
+
+fimprocedimento
+
+procedimento carrega_sorteada()
+var i: inteiro
+inicio
+
+   para i  de 1 ate tamanho faca
+      sorteada[i] <- copia(palavras[sorteio], i,1) // Funcao copia retorna a letra na posicao informada
+      // retorna
+   fimpara
+
+   para i de 1 ate tamanho faca
+      jogo[i]<-" "
+   fimpara
+
+fimprocedimento
+
+procedimento verifica_letra()
+var i: inteiro
+   achou: logico
+inicio
+   achou <- falso
+   para i de 1 ate tamanho faca
+      se (letra = sorteada[i]) entao
+         jogo[i] <- letra
+         achou <- verdadeiro
+         cont<-cont+1
+      fimse
+   fimpara
+   se achou = falso entao
+      erros <- erros + 1
+   fimse
+fimprocedimento
+
+procedimento frutas
+inicio
+   palavras[1] <- "abacaxi"
+   palavras[2] <- "abacate"
+   palavras[3] <- "uva"
+   palavras[4] <- "pera"
+   palavras[5] <- "goiaba"
+   palavras[6] <- "jaca"
+   palavras[7] <- "laranja"
+   palavras[8] <- "banana"
+   palavras[9] <- "melancia"
+   palavras[10] <- "limao"
+fimprocedimento
+PROCEDIMENTO VERIFICA_GANHADOR
+INICIO
+   GANHOU <- FALSO
+   SE (cont=tamanho) ENTAO
+      GANHOU <- VERDADEIRO
+      PONTOS<-PONTOS+1
+   FIMSE
+FIMPROCEDIMENTO
+
+procedimento lugares
+inicio
+   palavras[1] <- "australia"
+   palavras[2] <- "Inglaterra"
+   palavras[3] <- "Egito"
+   palavras[4] <- "Brasil"
+   palavras[5] <- "Estados Unidos"
+   palavras[6] <- "Turquia"
+   palavras[7] <- "Japão"
+   palavras[8] <- "Cuba"
+   palavras[9] <-"China"
+   palavras[10]<-"Ungria"
+fimprocedimento
+
+procedimento nomes
+inicio
+   palavras[1] <- "João"
+   palavras[2] <- "Ana"
+   palavras[3] <- "Paula"
+   palavras[4] <- "Fernando"
+   palavras[5] <- "Cristiana"
+   palavras[6] <- "Maria"
+   palavras[7] <- "Pietro"
+   palavras[8] <- "Dulce"
+   palavras[9] <- "Pedro"
+   palavras[10]<- "Henrique"
+fimprocedimento
+
+procedimento ANATOMIA
+inicio
+   palavras[1] <- "Cabeça"
+   palavras[2] <- "Pescoço"
+   palavras[3] <- "Barriga"
+   palavras[4] <- "Pé"
+   palavras[5] <- "Joelho"
+   palavras[6] <- "Estomago"
+   palavras[7] <- "dedos"
+   palavras[8] <- "tendao"
+   palavras[9] <- "Femur"
+   palavras[10]<- "Boca"
+fimprocedimento
+PROCEDIMENTO CATEGORIA(X:CARACTER)
+INICIO
+
+   ESCREVAL("PONTOS: ", PONTOS)
+   ESCOLHA X
+   CASO "A"
+      ESCREVAL ("CATEGORIA: FRUTAS")
+   CASO "B"
+      ESCREVAL("CATEGORIA: LUGARES")
+   CASO "C"
+      ESCREVAL("CATEGORIA: NOMES")
+   CASO "D"
+      ESCREVAL("CATEGORIA: ANATOMIA")
+   FIMESCOLHA
+FIMPROCEDIMENTO
+
+
+//VAR E PROCEDIMENTO DO JOGO GENIUS(JOGO DA MEMORIA)
+
+//VAR DO JOGO
+
+comando1,pontos1: inteiro
+numaleatorio: vetor [1..10] de inteiro
+resultado: vetor [1..10] de inteiro
+
+
+procedimento acertou ()
+var
+inicio
+   pontos1 <- pontos1 + 1
+   escreval ("O total de pontos até agora é ", pontos1)
+   timer 500
+   limpatela
+fimprocedimento
+
+
+
+procedimento errou ()
+
+var
+inicio
+   escreval ("Você errou e foi derrotado pelo GENIUS!")
+   escreval ("Você obteve um total de ",pontos1," ponto(s)")
+fimprocedimento
+
+
+
+procedimento continue ()
+var
+inicio
+   pontos1 <- pontos1 + 1
+fimprocedimento
+
+//VAR DO JOGO CAMPO MINADO
+
+campo: vetor [1..5, 1..5] de caractere
+linha, coluna, oi, ja: inteiro
+jogoAtivo: logico
+casasSeguras: inteiro
+
+
+//VAR E PROCEDIMENTO DO JOGO DA COBRINHA(SNAKE)
+
+campo1: vetor[1..TAM, 1..TAM] de caractere
+cabecaX, cabecaY, frutaX, frutaY, ei, ji, direcao, pontos2: inteiro
+jogoAtivo1: logico
+
+procedimento desenharCampo()
+inicio
+   limpatela
+   para ei de 1 ate TAM faca
+      para ji de 1 ate TAM faca
+         escreva(campo1[ei,ji], " ")
+      fimpara
+      escreval()
+   fimpara
+   escreval("Pontos: ", pontos2)
+fimprocedimento
+
+procedimento posicionarFruta()
+inicio
+   frutaX <- randi(TAM - 2) + 2   // Não gerar na parede de cima
+   frutaY <- randi(TAM - 2) + 2   // Não gerar nas laterais
+   enquanto campo1[frutaX, frutaY] <> " " faca
+      frutaX <- randi(TAM - 2) + 2
+      frutaY <- randi(TAM - 2) + 2
+   fimenquanto
+   campo1[frutaX, frutaY] <- "F"
+fimprocedimento
+
+//VAR E PROCEDIMENTOS DO JOGO RPG
+caminho: inteiro
+comecar: inteiro
+menu: inteiro //começo do jogo
+enter: caracter //usado apenas para o jogador apertar "enter"
+nome: caracter
+cont_horda: inteiro
+escolhe_opcional: inteiro
+xHP: inteiro
+vitoria: logico
+quant_wave: inteiro
+condicao_wave: inteiro
+
+//-------------------------SISTEMA_BATALHA_E_LOJA------------------------------//
+atk1: caracter
+atk2: caracter
+atk3: caracter
+persoHP: inteiro
+persoHPfixo: inteiro   //usado para colocar o HP no menu
+inimHP: inteiro
+fixoHP: inteiro        // ^^
+
+dano: inteiro
+inimDano: inteiro
+
+def: inteiro
+inimDef: inteiro
+
+forc, inimForc: inteiro
+mag, inimMag: inteiro
+
+mana: inteiro
+manaInim: inteiro
+manastats: caracter  //para verificar se tem a mana necessaria para usar skill
+
+battlePlayer: inteiro
+battleInim: inteiro
+
+nomeInim, nomePerso: caracter
+inimigo: inteiro
+
+jogador1: logico
+cpu: logico
+
+atk: caracter
+inimAtk: caracter
+
+contDef: inteiro  //contador para limitar quantas vezes pode usar a skill
+loja: inteiro
+loot: inteiro
+lootgold: inteiro
+goldrecebido: inteiro
+lootrecebido: inteiro
+gold: inteiro
+lj: inteiro
+manatotal: inteiro
+dano_wave: inteiro
+vida_wave: inteiro
+//-----------------------------------------------------------------------------//
+
+procedimento inicial
+inicio
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (500)
+   escreval("                           Alunos:                         ")
+   escreval("                                                           ")
+   escreval("                          VOCÊS SABEM QUEM SÃO             ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (0)
+   escreval("                                                           ")
+   escreval("                                                           ")
+   limpatela
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (300)
+   escreval("                                                           ")
+   escreval("                                   Apresentam:             ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (0)
+   escreval("                                                           ")
+   limpatela
+
+
+fimprocedimento
+
+procedimento nome_jogo
+inicio
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("       |      |                             _______                         ")
+   escreval("       |      |                            |       |                   ")
+   escreval("       |______| _____         ___ _____    |       |   ____                     ")
+   escreval("       |      | |    |   /\   |  \  |      |       |  |                 ")
+   escreval("       |      | |____|  /__\  |     |      |       |  |__                     ")
+   escreval("       |      | |_____ /    \ |     |      |_______|  |                     ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("      \          /                                                          ")
+   escreval("       \        /                                                           ")
+   escreval("        \      /  _____  _____   ______  _____     _    _____  _____ _____  ")
+   escreval("         \    /   |    | |    |  |     | |    |   / \   |    | |     |    | ")
+   escreval("          \  /    |____| |    |  |     | |____|  /___\  |    | |     |____| ")
+   escreval("           \/     |_____ |    |  |_____| |_____ /     \ |    | |____ |_____ ")
+   escreval("                                 |                                          ")
+   escreval("                                 |                                          ")
+   escreval("                                 |_____|                                    ")
+   timer (1500)
+   escreva
+   timer (0)
+   limpatela
+
+fimprocedimento
+
+procedimento menu_inicial
+inicio
+   escreval("__________________________________________________________________________________")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                      |   | ___    _   __ ___     ____  ___                     |")
+   escreval("|                      |___| |__|  /_\  | \ |      |   | |_                      |")
+   escreval("|                      |   | |___ /   \ |   |      |___| |                       |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|               \      /                                                         |")
+   escreval("|                \    / ___  ___  ___  ___    _   ___  ___ ___                   |")
+   escreval("|                 \  /  |__| |  | |  | |__|  /_\  |  | |   |__|                  |")
+   escreval("|                  \/   |___ |  | |__| |___ /   \ |  | |__ |___                  |")
+   escreval("|                                 |                                              |")
+   escreval("|                                 |__|                                           |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                  1 - Começar aventura              0 - Sair                    |")
+   escreval("|                                                                                |")
+   escreval("|________________________________________________________________________________|")
+   leia(menu)
+fimprocedimento
+
+procedimento criacao
+inicio
+   limpatela
+   escreval("                                Escolha sua classe!")
+   escreval("          ________________________  ")
+   escreval("         |    1 - Cavaleiro       | ")
+   escreval("         |  |                     | ")
+   escreval("         |  |                     | ")
+   escreval("         |  |                     | ")
+   escreval("         | -+- O       HP:    70  | ")
+   escreval("         |  |--+-      MP:    20  | ")
+   escreval("         |     |       Força: 12  | ")
+   escreval("         |    / \      Magia:  3  | ")
+   escreval("         |             Defesa 10  | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |________________________| ")
+
+
+
+
+
+   escreval("          ________________________  ")
+   escreval("         |    2 - Arqueiro        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |       \                | ")
+   escreval("         |  ^ O  |\    HP:    50  | ")
+   escreval("         |  |-+--||    MP:    50  | ")
+   escreval("         |  ^ |  |/    Força:  9  | ")
+   escreval("         |   / \ /     Magia:  8  | ")
+   escreval("         |             Defesa: 7  | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |________________________| ")
+
+
+   escreval("          ________________________  ")
+   escreval("         |    3 - Feiticeiro      | ")
+   escreval("         |                        | ")
+   escreval("         |       _                | ")
+   escreval("         |      [*]               | ")
+   escreval("         |    O  |     HP:    30  | ")
+   escreval("         |   -+--|     MP:   120  | ")
+   escreval("         |    |  |     Força:  3  | ")
+   escreval("         |   / \ |     Magia: 20  | ")
+   escreval("         |             Defesa: 5  | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |________________________| ")
+
+fimprocedimento
+
+procedimento historia_papel
+inicio
+   escreval("     ________________________________________________________________________    ")
+   escreval("   /_\                                                                       \    ")
+   escreval("  / \ \                                                                       \  ")
+   escreval("  |/@ /\                                                                       \ ")
+   escreval("   \_/__\======================================================================| ")
+   escreval("        | ",nome," era um cozinheiro, treinou desde pequeno                             |            ")
+   escreval("        | a fazer os melhores pratos do reino, se esforçando todos             |                                     ")
+   escreval("        | os dias para que conseguisse um emprego em uma casa de               |                                   ")
+   escreval("        | familia nobre, porém sem sucesso, até que um dia, andando            |                                      ")
+   escreval("        | pela floresta local, viu um garoto sendo atacado por um              |                                   ")
+   escreval("        | Goblin, como Goblins são as criaturas mais fracas do reino,          |                                        ")
+   escreval("        | teve coragem de ataca-lo, fazendo o monstro se assustar e            |                                      ")
+   escreval("        | fugir, salvando o garoto.                                            |      ")
+   escreval("        | ",nome," falou ao garoto:                                                   |       ")
+   escreval("        |  'Está tudo bem agora, o montro fugiu'                               |                  ")
+   escreval("        |  O menino respondeu:                                                 |              ")
+   escreval("        |  'Muito obrigado moço, eu estou perdido, poderia me levar            |                                     ")
+   escreval("        |   até a cidade? Se eu chegar na cidade eu sei o caminho              |                                  ")
+   escreval("        |   para minha casa!'                                                  |               ")
+   escreval("        | ",nome," respondeu:                                                            |          ")
+   escreval("        |  'Mas é claro, não vou deixar você sozinho nesta floresta!'          |                                       ")
+   escreval("        |  O garoto sorriu para ",nome," e o agradeceu.                               |                         ")
+   escreval("        |  Chegando na cidade o menino arregalou os olhos e disse:             |                                    ")
+   escreval("        |  'Eu sei, agora ja sei o caminho de casa moço!'                      |                           ")
+   escreval("        | ",nome," disse:                                                                |          ")
+   escreval("        |  'Que bom, vá para casa e não entre mais na floresta sozinho!'       |                                          ")
+   escreval("        |  O garoto retrucou:                                                  |         ")
+   escreval("        |  'Venho comigo moço.'                                                |        ")
+   escreval("        | ",nome,":                                                                        |          ")
+   escreval("        |  'Porque?'                                                           |        ")
+   escreval("        |  Garoto:                                                             |        ")
+   escreval("        |  'Estou com vergonha de ver meu papai e minha mamãe depois           |                                      ")
+   escreval("        |   de fugir para brincar na floresta e ser atacado.'                  |                               ")
+   escreval("        | ",nome," concordou.                                                            |       ")
+   escreval("        |  Chegando na casa do menino percebeu que ele não era qualquer menino,|                                                 ")
+   escreval("        |  ele viu o simbolo da familia na entrada, ele era da Familia Ghunter,|                                                 ")
+   escreval("        |  uma das familias mais notórias do reino.                            |                     ")
+   escreval("        |  Caminhou junto ao menino até a porta da mansão, olhou para a porta, |                                                ")
+   escreval("        |  alta, talvez umas quatro vezes o tamanho de ",nome,".                         |                                  ")
+   escreval("        | ",nome," estava suando frio, intimidado, preocupado, será que os                 |                                            ")
+   escreval("        |  membros da familia expulsariam ele pensando que era um mendigo ou   |                                              ")
+   escreval("        |  que estava perseguindo o menino, pois estava com trajes furados e   |                                              ")
+   escreval("        |  baratos, nada comparados ao trajes dos nobres.                      |                           ")
+   escreval("        |  O menino bate na porta.                                             |    ")
+   escreval("        |  A mãe do menino abre a porta, quando o vê começa a chorar de feli-  |                                               ")
+   escreval("        |  cidade e de raiva ao mesmo tempo, estava furiosa com o menino por   |                                              ")
+   escreval("        |  ter fugido, ela o abraça, depois de alguns segundos abraçados, ela  |                                               ")
+   escreval("        |  o solta, e pergunta o que aquele homem estava fazendo ali.          |                                       ")
+   escreval("        |  O menino então explica a sua mãe o que aconteceu, ela solta um      |                                           ")
+   escreval("        |  suspiro aliviada, agradece ",nome," por salvar a vida de seu filho               |                                               ")
+   escreval("        |  e o oferece uma recompensa:                                         |        ")
+   escreval("        |  'Escolha algo que o dinheiro possa comprar e eu te darei' disse     |                                            ")
+   escreval("        |  a mulher.                                                           |          ")
+   escreval("        | ",nome," não pensou duas vezes, logo veio em sua mente o seu sonho               |                                              ")
+   escreval("        |  desde que começou a cozinhar e pediu se ele poderia trabalhar       |                                              ")
+   escreval("        |  na mansão como cozinheiro.                                          |       ")
+   escreval("        |  A mulher deu uma gargalhada e perguntou:                            |                     ")
+   escreval("        |  'Você poderia ter pedido por qualquer coisa e escolheu trabalhar    |                                             ")
+   escreval("        |   para mim?'                                                         |           ")
+   escreval("        | ",nome," respondeu:                                                              |        ")
+   escreval("        |   'Sim, é meu sonho desde criança trabalhar com o que eu amo que é   |                                             ")
+   escreval("        |    cozinhar, ainda mais em uma mansão de uma familia nobre!'         |                                      ")
+   escreval("        |   A mulher sorriu e aceitou seu pedido.                              |                  ")
+   escreval("        |   Passaram-se anos, ",nome," se casou com uma das empregadas da                   |                                          ")
+   escreval("        |   mansão, compraram uma casa e tiveram dois filhos, estava tudo      |                                          ")
+   escreval("        |   conforme seu sonho.                                                |   ")
+   escreval("        |                                                                      |      ")
+   escreval("        |   Porém, a vida pode ser cruel.                                      |                   ")
+   escreval("        |                                                                      |        ")
+   escreval("        |   ",nome," aprendeu isso da mainera mais horrivel possivel.                        |                                     ")
+   escreval("        |                                                                      |      ")
+   escreval("        |   Voltando para casa depois de um dia de trabalho, teve um           |                                     ")
+   escreval("        |   pressentimento ruim, junto com um calafrio que foi desde o         |                                       ")
+   escreval("        |   começo de sua nuca até o final de suas costas, logo depois         |                                      ")
+   escreval("        |   escutou um estouro ensurdecedor na direção de sua casa             |                                    ")
+   escreval("        |   Chegando lá, sua casa havia sumido, no lugar havia uma             |                                   ")
+   escreval("        |   cratéra, no meio um cavaleiro com armadura completamente preta,    |                                            ")
+   escreval("        |   como a escuridão da noite.                                         |       ")
+   escreval("        |   ",nome,":                                                                       | ")
+   escreval("        |   'O que você fez com minha casa? Com minha familia?'                |                                ")
+   escreval("        |   Cavaleiro:                                                         | ")
+   escreval("        |   'Mil perdões, estava testando minha nova magia, não sabia que     |                                          ")
+   escreval("        |    haviam pessoas lá dentro, a magia saiu do contro-hahahAHAHAHA'    |                                           ")
+   escreval("        |   O Cavaleiro começou a rir no meio de sua frase, olhou para         |                                       ")
+   escreval("        |   ",nome," com um olhar presunçoso, montou em seu cavalo e                            |                                     ")
+   escreval("        |    saiu sem dizer mais nada, somente rindo para si.                  |                             ")
+   escreval("        |   ",nome," estava perdido, sem saber o que fazer correu para a                          |                                        ")
+   escreval("        |    mansão para pedir ajuda a Familia Ghunter, e explicou             |                                  ")
+   escreval("        |    a terrivel situação.                                              | ")
+   escreval("        |    Infelizmente o explicaram que não poderiam o ajudar, eles         |                                      ")
+   escreval("        |    não queriam se meter com o cavaleiro, o uníco cavaleiro que       |                                        ")
+   escreval("        |    usa uma armadura toda negra, Kazir, o cavaleiro                   |                            ")
+   escreval("        |    da escuridão.                                                     |    ")
+   escreval("        |   ",nome," se sentindo traído por todos, decidiu virar um                                 |                                    ")
+   escreval("        |    aventureiro para ficar mais forte e M A T A R o cavaleiro         |                                      ")
+   escreval("        |    chamado Kazir, e vingar sua familia, pois agora, no seu           |                                    ")
+   escreval("        |    coração só existia um sentimento:                                 |              ")
+   escreval("        |                                                                      |  ")
+   escreval("        |                          V I N G A N Ç A                             |         ")
+   escreval("        |                                                                      |")
+   escreval("     ___|                                                                      |")
+   escreval("    /_\ |======================================================================| ")
+   escreval("   / \ \/                                                                      | ")
+   escreval("   |/@ /                                                                       /  ")
+   escreval("    \_/_______________________________________________________________________/   ")
+   escreval("")
+   escreval("                              Aperte 'ENTER' para continuar")
+   leia(enter)
+
+fimprocedimento
+
+procedimento begin_bandido
+inicio
+
+   nomeInim <- "Saqueador"
+   vida_wave <- 2
+   xHP <- randi(3 * vida_wave + 1) + 1
+   inimHP <- xHP
+   fixoHP <- xHP
+   inimForc <- 3
+   inimMag <- 0
+   inimDef  <- 2
+   manaInim <- 0
+fimprocedimento
+
+procedimento nome_perso
+var
+   confirma: caracter
+inicio
+   limpatela
+   confirma <- "N"
+   enquanto (confirma = "N") faca
+      escreval("_________________________________________________________________________________")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                         Digite o nome do seu personagem!                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|_______________________________________________________________________________|")
+      leia(nome)
+      escreval("_________________________________________________________________________________")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                             Seu nome é ",nome,"?                                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                    (S/N)                                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|_______________________________________________________________________________|")
+      leia(confirma)
+      limpatela
+   fimenquanto
+
+   nomePerso <- nome
+   gold <- 200000
+
+fimprocedimento
+
+procedimento classe
+var
+   class: inteiro
+
+inicio
+
+   leia(class)
+
+   escolha class
+   caso 1
+      escreval("Você é um Cavaleiro")
+      leia(enter)
+      persoHP <- 70
+      persoHPfixo <- persoHP
+      def <- 10
+      forc <- 8
+      mag <- 3
+      manatotal <- 30
+      mana <- manatotal
+      atk1 <- "Corte"
+      atk2 <- "Ataque Forte (MP-10)"
+      atk3 <- "Defesa"
+
+   caso 2
+      escreval("Você é um Arqueiro")
+      leia(enter)
+      persoHP <- 50
+      persoHPfixo <- persoHP
+      def <- 7
+      forc <- 9
+      mag <- 8
+      manatotal <- 120
+      mana <- manatotal
+      atk1 <- "Flechada"
+      atk2 <- "Headshot (MP-25)"
+      atk3 <- "Evasão"
+
+   caso 3
+      escreval("Você é um Feiticeiro")
+      leia(enter)
+      persoHP <- 30
+      persoHPfixo <- persoHP
+      def <- 5
+      forc <- 3
+      mag <- 20
+      manatotal <- 120
+      mana <- manatotal
+      atk1 <- "Cajadada"
+      atk2 <- "Bola de fogo (MP-20)"
+      atk3 <- "Escudo de mana"
+
+   outrocaso
+      escreval("Classe inválida!")
+   fimescolha
+
+fimprocedimento
+
+procedimento eskeli
+inicio
+
+   escreval("                 _______________________     ")
+   escreval("                /                       \    ")
+   escreval("               /                         \   ")
+   escreval("              /                           \  ")
+   escreval("              |    ______       ______    |  ")
+   escreval("              |   |      |     |      |   |  ")
+   escreval("              |   |      |     |      |   |  ")
+   escreval("             /    |      |     |      |    \ ")
+   escreval("            /     |______| ___ |______|     \")
+   escreval("            |             /   \             |")
+   escreval("            \             | _ |             /")
+   escreval("             \            |/ \|            / ")
+   escreval("              \                           /  ")
+   escreval("              |   _____________________   |  ")
+   escreval("              |  |   |   |    |    |   |  |  ")
+   escreval("              |  |---+---+----+----+---|  |  ")
+   escreval("              |  |___|___|____|____|___|  |  ")
+   escreval("              |                           |  ")
+   escreval("              |___________________________|  ")
+
+fimprocedimento
+
+procedimento eskelidead
+inicio
+   escreval("                 _______________________     ")
+   escreval("                /                       \    ")
+   escreval("               /                         \   ")
+   escreval("              /                           \  ")
+   escreval("              |                           |  ")
+   escreval("              |     \  /         \  /     |  ")
+   escreval("              |      \/           \/      |  ")
+   escreval("             /       /\           /\       \ ")
+   escreval("            /       /  \   ___   /  \       \")
+   escreval("            |             /   \             |")
+   escreval("            \             | _ |             /")
+   escreval("             \            |/ \|            / ")
+   escreval("              \                           /  ")
+   escreval("              |   _____________________   |  ")
+   escreval("              |  |   |   |    |    |   |  |  ")
+   escreval("              |  |---+---+----+----+---|  |  ")
+   escreval("              |  |___|___|____|____|___|  |  ")
+   escreval("              |                           |  ")
+   escreval("              |___________________________|  ")
+fimprocedimento
+
+procedimento goblin
+inicio
+   escreval("                      _                       ")
+   escreval("                     /@\                      ")
+   escreval("                    /@@@\                     ")
+   escreval("       __           |@@@|          __         ")
+   escreval("       \  \         |@@@|         /  /        ")
+   escreval("        \  \_  _____|@@@|_____  _/  /         ")
+   escreval("         \   \/     \@@@/     \/   /          ")
+   escreval("          @ &  \____     ____/  & @           ")
+   escreval("           @   ____ \   / ____   @            ")
+   escreval("            @  \_@_\     /_@_/  @             ")
+   escreval("             \       |_|       /              ")
+   escreval("              \   _________   /               ")
+   escreval("               \  \  \/   /  /                ")
+   escreval("                \  \/\_/\/  /                 ")
+   escreval("                 \_________/                  ")
+   escreval
+fimprocedimento
+
+procedimento goblindead
+inicio
+   escreval("                      _                       ")
+   escreval("                     /@\                      ")
+   escreval("                    /@@@\                     ")
+   escreval("       __           |@@@|          __         ")
+   escreval("       \  \         |@@@|         /  /        ")
+   escreval("        \  \_  _____|@@@|_____  _/  /         ")
+   escreval("         \   \/     \@@@/     \/   /          ")
+   escreval("          @ &                   & @           ")
+   escreval("           @    \ /       \ /    @            ")
+   escreval("            @    X         X    @             ")
+   escreval("             \  / \  |_|  / \  /              ")
+   escreval("              \   _________   /               ")
+   escreval("               \  \  \/   /  /                ")
+   escreval("                \  \/\_/\/  /                 ")
+   escreval("                 \_________/                  ")
+   escreval
+fimprocedimento
+
+procedimento sword
+inicio
+   escreval("         ___________________     ")
+   escreval("        |  Ghuthur's Sword  |    ")
+   escreval("        |         _         |    ")
+   escreval("        |        /|\        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |     \__|_|__/     |    ")
+   escreval("        |         |         |    ")
+   escreval("        |         |         |    ")
+   escreval("        |         @         |    ")
+   escreval("        |                   |    ")
+   escreval("        | Forc:+30  Mag:+30 |    ")
+   escreval("        |                   |    ")
+   escreval("        |___________________|    ")
+   escreval
+fimprocedimento
+
+procedimento kazir
+inicio
+
+
+   escreval("        /|                               |\    ")
+   escreval("       / |                               | \   ")
+   escreval("      /  |                               |  \  ")
+   escreval("      |  \                               /  |  ")
+   escreval("      |   \                             /   |  ")
+   escreval("      \    \    __________________     /    /  ")
+   escreval("       \   __\_/        __        \__/_    /   ")
+   escreval("        \ /            /  \            \  /    ")
+   escreval("         /            | ## |            \/     ")
+   escreval("        /              \__/              \     ")
+   escreval("       /                                  \    ")
+   escreval("      |           ___        ___           |   ")
+   escreval("      |          /\  \______/  /\          |   ")
+   escreval("      |         /  \          /  \         |   ")
+   escreval("      |        |  @@\/      \/@@  |        |   ")
+   escreval("      |        |  @@          @@  |        |   ")
+   escreval("      |        |       |  |       |        |   ")
+   escreval("      |        |      (o__o)      |        |   ")
+   escreval("      \        /   ____________   \        /   ")
+   escreval("       \      /\  /            \ / \      /    ")
+   escreval("        \____/  \_______________/   \____/     ")
+
+
+
+
+fimprocedimento
+
+procedimento mostrar_bandido
+inicio
+
+   escreval
+   escreval("              |  (~)                      (~)  |                      ")
+   escreval("             [|]--|--                    --|--[|]                     ")
+   escreval("                  |                        |                          ")
+   escreval("                 D D                      D D                         ")
+   escreval
+fimprocedimento
+
+procedimento textotela1
+inicio
+   dano_wave <- 1
+   escreval("_________________________________________________________________________________")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                   ",nome," caminha pela floresta em busca                               |")
+   escreval("|                        monstros para ficar mais forte...                      |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|_______________________________________________________________________________|")
+
+fimprocedimento
+
+procedimento wave
+inicio
+   escreval("                  Quantos Bandidos quer enfrentar?")
+   leia(quant_wave)
+   limpatela
+   escreval(nome," cruzou com", quant_wave," bandido(s)")
+   mostrar_bandido
+   escreval("            Aperte ENTER para continuar...")
+   leia(enter)
+   limpatela
+   enquanto (cont_horda < quant_wave) faca
+      limpatela
+      escreval("           1 - ",atk1,"    2 - ",atk2,"     3 - ",atk3)
+      escreval
+      escreval("             ",nomePerso,":",PersoHP,"/",persoHPfixo,"HP                       ", nomeInim,": ",inimHP,"/",fixoHP,"HP")
+      escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+      leia(battlePlayer)
+      escolha battlePlayer
+      caso 1
+
+         se (inimDef > forc) entao
+            dano <- 0
+         senao
+            inimHP <- inimHP + inimDef - forc
+            dano <- (inimDef - forc)*-1
+         fimse
+      caso 2
+         se (mana <= 0) entao
+            dano <- 0
+            manastats <- "Sem mana"
+         senao
+            inimHP <- inimHP - (forc + mag)
+            mana <- mana - 20
+            dano <- mag + forc
+         fimse
+      caso 3
+         se (contDef > 0) entao
+            escreval("Pode ser usado somente 1 vez por batalha")
+         senao
+            atk <- "Defesa aumentada"
+            def <- def + 7
+            contDef <- contDef + 1
+         fimse
+      fimescolha
+
+      battleInim <- randi(100)
+      se (battleInim > 15) e (battleInim <= 100) entao
+         inimAtk <- "Facadas")
+         inimForc <- randi(4 * (dano_wave + 1))
+         PersoHP <- PersoHP - inimForc
+         inimDano <- inimForc * -1
+      senao
+         inimAtk <- "Ataque Forte")
+         inimForc <- randi(6 * (dano_wave + 1))
+         PersoHP <- PersoHP - inimForc
+         inimDano <- inimForc * -1
+      fimse
+
+
+      se (PersoHP <= 0) entao
+         cpu <- verdadeiro
+fimalgoritmo
+fimse
+se (inimHP <= 0) entao
+   jogador1 <- verdadeiro
+fimse
+limpatela
+escreval("             Seu ataque: ",atk, "                     Ataque inimigo: ", inimAtk)
+escreval("             ",nomePerso,":",PersoHP,"/",persoHPfixo,"HP                        ", nomeInim,": ",inimHP,"/",fixoHP)
+escreval("             Seu dano: ",dano,"                           ","Dano inimigo: ", inimDano)
+escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+se (jogador1 = verdadeiro) entao
+   jogador1 <- falso
+   cont_horda <- cont_horda + 1
+   begin_bandido
+   escreval("             Você derrotou ",cont_horda," ", nomeInim,"(s)")
+fimse
+escreval("                         ENTER para continuar")
+leia(enter)
+manastats <- " "
+fimenquanto
+jogador1 <- verdadeiro
+fimprocedimento
+
+procedimento lojaouboss //para ir para os bosses depois de visitar a loja caso digite outro numero ao inves de 1 o player não enfrenta os bosses
+inicio
+
+   escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+   leia(loja)
+   enquanto (vitoria = falso) faca
+      enquanto (loja = 1) faca
+         begin_bandido
+         dano <- 0
+         inimDano <- 0
+         limpatela
+         escreval("               1 - ",atk1," 2 - ",atk2,"  3 - ",atk3)
+         escreval
+         escreval("             ", nomePerso,":",PersoHP,"/",persoHPfixo,"HP                       ", nomeInim,": ",inimHP,"/",fixoHP,"HP")
+         escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+         limpatela
+         wave
+
+         se (def > 5) entao
+            def <- 5               //caso o jogador utilize defesa aumentada
+         fimse
+         limpatela
+         se (jogador1 = verdadeiro) entao
+            lootgold <- randi(2)
+            se (lootgold = 0) entao
+               goldrecebido <- 25 * quant_wave
+            fimse
+            se (lootgold = 1) entao
+               goldrecebido <- 50  * quant_wave
+            fimse
+            se (lootgold = 2) entao
+               goldrecebido <- 70  * quant_wave
+            fimse
+            limpatela
+            escreval("                Você recebeu",goldrecebido," Golds")
+            gold <- gold + goldrecebido
+            leia(enter)
+            jogador1 <- falso
+            persoHP <- persoHPfixo
+            mana <- manatotal
+            condicao_wave <- condicao_wave + 1
+            se(condicao_wave > 2) entao
+               dano_wave <- dano_wave + 1
+               vida_wave <- vida_wave + 1
+               condicao_wave <- 0
+            fimse
+
+         fimse
+         se (cpu = verdadeiro) entao
+            escreval("Você foi derrotado...")
+         fimse
+         escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+         leia(loja)
+         cont_horda <- 0
+      fimenquanto
+
+      enquanto (loja = 3) faca
+         escreval("                    BOSSES")
+         escreval("1 - REI GOBLIN")
+         escreval("2 - ESKELI")
+         escreval("3 - KAZIR(HARD)")
+         leia(inimigo)
+         escolha inimigo
+         caso 1
+            nomeInim <- "REI GOBLIN"
+            inimHP <- 100
+            fixoHP <- 100
+            inimForc <- 30
+            inimMag <- 3
+            inimDef  <- 7
+            manaInim <- 20
+            goblin
+            escreval("Aperte ENTER para continuar...")
+            leia (enter)
+         caso 2
+            nomeInim <- "ESKELI"
+            inimHP <- 150
+            fixoHP <- 150
+            inimForc <- 40
+            inimMag <- 3
+            inimDef  <- 12
+            eskeli
+            escreval("Aperte ENTER para continuar...")
+            leia (enter)
+         caso 3
+            nomeInim <- "KAZIR"
+            inimHP <- 300
+            fixoHP <- 300
+            inimForc <- 50
+            inimMag <- 25
+            inimDef  <- 20
+            kazir
+            escreval("Aperte ENTER para continuar...")
+            leia (enter)
+         fimescolha
+
+
+         limpatela
+
+         persoHP <- persoHPfixo
+         enquanto (jogador1 = falso) e (cpu = falso) faca
+            dano <- 0
+            inimDano <- 0
+            limpatela
+            //---------------------------MENU-------------------------------//
+            escreval("               1 - ",atk1,"    2 - ",atk2,"     3 - ",atk3)
+            escreval("             ",nomePerso,":",PersoHP,"/",persoHPfixo,"HP                       ", nomeInim,": ",inimHP,"/",fixoHP)
+            escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+            //---------------------------------------------------------------//
+            //----------------------------ATQ_PLAYER-------------------------//
+            leia(battlePlayer)
+            limpatela
+            escolha battlePlayer
+            caso 1
+               atk <- "Corte"
+               se (inimDef > forc) entao
+                  dano <- 0
+               senao
+                  inimHP <- inimHP + inimDef - forc
+                  dano <- (inimDef - forc)*-1
+               fimse
+            caso 2
+               atk <- "Ataque Forte"
+               forc <- forc + 5
+               se (inimDef > forc) entao
+                  dano <- 0
+               fimse
+               se (mana <= 0) entao
+                  dano <- 0
+                  manastats <- "Sem mana"
+               senao
+                  inimHP <- inimHP - forc
+                  mana <- mana - 7
+                  dano <-  (inimDef - forc)*-1
+               fimse
+            caso 3
+               se (contDef > 0) entao
+                  escreval("Pode ser usado somente 1 vez por batalha")
+               senao
+                  atk <- "Defesa aumentada"
+                  def <- def + 7
+                  contDef <- contDef + 1
+               fimse
+            fimescolha
+
+            //-------------------------ATQ_INIMIGO_ALEATORIO-----------------//
+
+            battleInim <- randi(100)
+            se (battleInim > 20) e (battleInim <= 100) entao
+               inimAtk <- "Perfurar")
+               se (def > inimForc) entao
+                  inimDano <- 0
+               senao
+                  PersoHP <- PersoHP + def - inimForc
+                  inimDano <- (def - inimForc)*-1
+               fimse
+            fimse
+            se (battleInim >= 0) e (battleInim <= 20) entao
+               inimAtk <- "Ataque escondido"
+               se (def > inimForc + 10) entao
+                  inimDano <- 0
+               senao
+                  PersoHP <- PersoHP + def - (inimForc+10)
+
+                  inimDano <- def - inimForc - 10
+                  inimDano <- inimDano*-1
+               fimse
+            fimse
+            //------------------------------------------------------------//
+            //-----------------------CONDIÇÃO_VITORIA---------------------//
+            se (PersoHP <= 0) entao
+               cpu <- verdadeiro
+            fimse
+            se (inimHP <= 0) entao
+               jogador1 <- verdadeiro
+            fimse
+            //-----------------------------------------------------------//
+            //-----------------------MENU_NOVAMENTE----------------------//
+            escreval("               Seu ataque: ",atk, "                     Ataque inimigo: ", inimAtk)
+            escreval("               ", nomePerso,":",PersoHP,"/",persoHPfixo,"HP                        ", nomeInim,": ",inimHP,"/",fixoHP)
+            escreval("               Seu dano: ",dano,"                           ","Dano inimigo: ", inimDano)
+            escreval("               Mana:", mana," ",manastats,"                                Mana:",manaInim)
+            escreval("                             ENTER para continuar")
+            leia(enter)
+            manastats <- " "
+
+         fimenquanto
+         def <- 5               //caso o jogador utilize defesa aumentada
+         limpatela
+         se (jogador1 = verdadeiro) entao
+            se (inimigo = 3) entao
+               vitoria <- verdadeiro
+            fimse
+            jogador1 <- falso
+            escreval("Você derrotou o ",nomeInim,"!!!")
+            se (inimigo = 1) entao
+               goblindead
+               escreval("     Aperte Enter para continuar...")
+               leia(enter)
+               limpatela
+               lootgold <- randi(2)
+               escolha lootgold
+               caso 0
+                  goldrecebido <- 10
+               caso 1
+                  goldrecebido <- 20
+               caso 2
+                  goldrecebido <- 30
+               fimescolha
+               escreval("Você recebeu ",goldrecebido,"Golds")
+               gold <- gold + goldrecebido
+            fimse
+            se (inimigo = 2) entao
+               eskelidead
+               escreval("     Aperte Enter para continuar...")
+               leia(enter)
+               limpatela
+            fimse
+            lootgold <- randi(2)
+            escolha lootgold
+            caso 0
+               goldrecebido <- 10
+            caso 1
+               goldrecebido <- 20
+            caso 2
+               goldrecebido <- 30
+            fimescolha
+            escreval("        Você recebeu ",goldrecebido," Gold(s)")
+            loot <- randi(100)
+            se (loot > 0) e (loot < 100) entao
+               escreval("     Você recebeu um item raro!!!")
+               sword
+               forc <- forc + 30
+               mag <- mag + 30
+
+               escreval("     Aperte Enter para continuar...")
+               leia(enter)
+            fimse
+         fimse
+         se(inimigo = 3) entao
+            vitoria <- verdadeiro
+            interrompa
+         fimse
+         se (cpu = verdadeiro) entao
+            escreval("Você foi derrotado...")
+fimalgoritmo
+fimse
+limpatela
+escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+leia(loja)
+fimenquanto
+se(loja = 2) entao
+   lojas
+   escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+   leia(loja)
+fimse
+fimenquanto
+
+
+fimprocedimento
+
+procedimento lojas
+inicio
+   lj <- 200
+   enquanto (lj <> 0) faca
+      escreval("_________________________________________________________________________________")
+      escreval("|                                                                               |")
+      escreval("|                                                              GOLD:",gold,"               |")
+      escreval("|                                                                               |")
+      escreval("|        1 - Amuleto da vida(+20HP) = 200G                                      |")
+      escreval("|                                                                               |")
+      escreval("|        2 - Talismã da força(+15F)  = 300G                                     |")
+      escreval("|                                                                               |")
+      escreval("|        3 - Corrente Mágica(+15Mg)  = 300G                                     |")
+      escreval("|                                                                               |")
+      escreval("|        4 - Upgrade Arma(+30F/Mg)  = 700G                                      |")
+      escreval("|                                                                               |")
+      escreval("|        5 - Encantar Armadura(+7DF)= 500G                                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|     0 - Sair                                                                  |")
+      escreval("|_______________________________________________________________________________|")
+      leia(lj)
+      se (lj = 1) entao
+         se(gold >= 200) entao
+            persoHPFIXO <- persoHPfixo + 20
+            persoHP <- persoHPfixo
+            gold <- gold - 200
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 2) entao
+         se(gold >= 300) entao
+            forc <- forc + 15
+            gold <- gold - 300
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 3) entao
+         se(gold >= 300) entao
+            mag <- mag + 15
+            gold <- gold - 300
+
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 4) entao
+         se(gold >= 700) entao
+            forc <- forc + 30
+            mag <- mag + 30
+            gold <- gold - 700
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 5) entao
+         se(gold >= 500) entao
+            def <- def + 7
+            gold <- gold - 500
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+   fimenquanto
+   limpatela
+
+
+fimprocedimento
+
+
+inicio
+
+   //OS JOGOS
+   sair_menu_principal <- "N"
+
+   repita
+
+
+      Escreval("BEM VINDO A PLATAFORMA DE JOGOS ")     //ESCOLHER O JOGO
+
+      Escreval("Escolha o jogo: ")
+      Escreval("1-BATALHA NAVAL")
+      Escreval("2-JOGO DA FORCA")
+      Escreval("3-PEDRA, PAPEL E TESOURA")
+      Escreval("4-GENIUS(JOGO DA MEMORIA)")
+      Escreval("5-CAMPO MINADO")
+      Escreval("6-JOGO DA COBRINHA(SNAKE)")
+      Escreval("7-RPG")
+      Escreval("8-SAIR DA PLATAFORMA")
+      leia(game)
+      limpatela
+
+      escolha game
+
+      caso 1
+         repita
+            conmenu1 <- "S"
+
+            escreval("       [1]START GAME")
+            escreval("")
+            escreval("       [2] MANUAL")
+            escreval("")
+            escreval("       [3]RANKING")
+            escreval("")
+            escreval("       [4]MENU")
+            escreval("")
+            escreval("       [5]SAIR")
+            leia(menu1)
+
+            escolha menu1
+
+
+            caso 1
+
+               //inicialização de variaveis
+               numero_barcos_maquina <- 0
+               numero_barcos_jogador <- 0
+               validacao_bomba <-1
+               numero_barcos <- 2
+               mostre_tudo <- "O"
+               mvsm <- "O"
+               adm <-0
+               a<-1
+
+               //inicialização dos mapas
+               para i de 1 ate 9 faca
+                  para j de 1 ate 9 faca
+                     //inicia as matrizes em "_"
+                     mapa_barco_maquina [i,j] <- " _"
+                     mapa_barco_jogador [i,j] <- " _"
+                     mapa_bomba_maquina [i,j] <- " _"
+                     mapa_bomba_jogador [i,j] <- " _"
+
+                  fimpara
+               fimpara
+
+               //Menu do jogo
+               meno <- 1
+               Repita
+
+                  escreval("==========================================================")
+                  escreval("                       BATALHA NAVAL")
+                  escreval("==========================================================")
+                  escreval("")
+                  se meno = 1 entao
+                     escreval("")
+                  senao
+                     escreval ("Escreva um numero valido !")
+                  fimse
+                  escreval("Informe o numero de barcos para o jogo (de 1 a 20)")
+                  leia(numero_barcos)
+                  limpatela
+                  se numero_barcos <> 1001101 entao
+                     se numero_barcos>= 1 entao
+                        se numero_barcos <= 20 entao
+                           meno <- 1
+                        senao
+                           meno<- 0
+                        fimse
+                     senao
+                        meno<-0
+                     fimse
+                  senao
+                     adm <- 1
+                  fimse
+
+
+                  //menu do adm
+                  se adm = 1 entao
+                     meno <- 0
+                     repita
+                        escreval("          BATALHA NAVAL")
+                        escreval("")
+                        se funcao_adm = "F" entao
+                           escreval("COMANDO INVALIDO!")
+                        senao
+                           escreval("Menu do administrador")
+                        fimse
+                        escreva("'A' - MAQUINA VS MAQUINA ")
+                        se mvsm = "O" entao
+                           escreval("(Off)")
+                        senao
+                           escreval("(ON)")
+                        fimse
+                        escreval("           Subistitue o jogador por outra maquina para uma")
+                        escreval("           demostração dinamica")
+                        escreva("'B' - MOSTRE TUDO! ")
+                        se mostre_tudo = "O" entao
+                           escreval("(Off)")
+                        senao
+                           escreval("(ON)")
+                        fimse
+                        escreval("           Mostra todas as mtatrizes e escolhas da maquina")
+                        escreval("           e nao aplima nenhum 'limpatela'")
+                        escreval("'C' - VOLTAR AO MENU")
+                        leia (funcao_adm)
+                        escolha funcao_adm
+                        caso "A"
+                           se mvsm = "A" entao
+                              mvsm <- "O"
+                           senao
+                              mvsm <- "A"
+                           fimse
+                        caso "B"
+                           se mostre_tudo = "B" entao
+                              mostre_tudo <- "O"
+                           senao
+                              mostre_tudo <- "B"
+                           fimse
+                        caso "C"
+                           adm <-0
+                        outrocaso
+                           funcao_adm <-"F"
+                           escreval("Comando invalido")
+                        fimescolha
+                        limpatela
+                     ate adm =0
+                  fimse
+
+               ate meno =1
+               limpatela
+
+               //inicializacao da matriz opções possiveis
+               posicoes_validas [1,1] <- 1
+               posicoes_validas [1,2] <- 1
+               para i de 2 ate 81 faca
+                  para j de 1 ate 2 faca
+                     se j =1 entao
+                        se posicoes_validas [(i-1),2] = 9 entao
+                           posicoes_validas [i,j] <- posicoes_validas [(i-1),j] + 1
+                        senao
+                           posicoes_validas [i,j] <- posicoes_validas [(i-1),j]
+                        fimse
+                     senao
+                        se posicoes_validas [i-1,j] < 9 entao
+                           posicoes_validas [i,j] <- posicoes_validas [i-1,j] + 1
+                        senao
+                           posicoes_validas [i,j] <- 1
+                        fimse
+                     fimse
+
+                     se mostre_tudo = "B" entao
+                        escreva (posicoes_validas [i,j])
+                        se j = 2 entao
+                           escreval("")
+                        fimse
+                     fimse
+                  fimpara
+               fimpara
+               se mostre_tudo = "B" entao
+                  leia(vazio)
+               fimse
+               //gera os navios para a maquina
+               enquanto numero_barcos_maquina < numero_barcos faca //coloca barcos para maquina ate o numero especificado
+
+                  aleatorio on
+                  aleatorio 1,81
+                  leia(posicao)
+                  aleatorio off
+                  para b de 1 ate 2 faca
+                     entrada_barco[b]<- posicoes_validas [posicao,b]
+                     se mostre_tudo = "B" entao
+                        escreva (entrada_barco[b])
+                     fimse
+                  fimpara
+                  se mostre_tudo = "B" entao
+                     escreval("")
+                  senao
+                     limpatela
+                  fimse
+
+                  numero_barcos_maquina <- 0   //zera contagem de barcos
+                  se mostre_tudo = "B" entao
+                     escreval("   1 2 3 4 5 6 7 8 9")
+                  fimse
+                  para i de 1 ate 9 faca
+                     para j de 1 ate 9 faca
+                        se j=1 entao
+                           se mostre_tudo = "B" entao
+                              escreva (i)
+                           fimse
+                        fimse
+
+                        se entrada_barco[1] = i entao
+                           se entrada_barco[2]= j entao
+                              mapa_barco_maquina [i,j] <- " M"
+                           fimse
+                        fimse
+
+                        //conta quantos barcos a maquina colocou
+                        se mapa_barco_maquina [i,j] = " M" entao
+                           numero_barcos_maquina <- numero_barcos_maquina + 1
+                        fimse
+                        se mostre_tudo = "B" entao
+                           escreva(mapa_barco_maquina[i,j])
+                        fimse
+                        se j = 9 entao
+                           se mostre_tudo = "B" entao
+                              escreval ("")
+                           fimse
+                        fimse
+                     fimpara
+                  fimpara
+                  se mostre_tudo = "B" entao
+                     leia(vazio)
+                  fimse
+               fimenquanto
+               escreval("")
+
+               //inicio da colocação do barco do jogador
+
+               entrada_barco[1] <- 0    //zera entrada barcos
+               entrada_barco[2] <- 0    //zera entrada barcos
+               enquanto numero_barcos_jogador < numero_barcos faca //espera o jogador colocar barcos ate o numero especificado
+
+                  numero_barcos_jogador <- 0   //zera contagem de barcos
+
+                  escreval("   1 2 3 4 5 6 7 8 9")
+                  para i de 1 ate 9 faca
+                     para j de 1 ate 9 faca
+                        se j=1 entao
+                           escreva (i)
+                        fimse
+
+                        se entrada_barco[1] = i entao
+                           se entrada_barco[2]= j entao
+                              mapa_barco_jogador [i,j] <- " J"
+                           fimse
+                        fimse
+
+                        //conta quantos barcos a maquina colocou
+                        se mapa_barco_jogador [i,j] = " J" entao
+                           numero_barcos_jogador <- numero_barcos_jogador + 1
+                        fimse
+
+                        escreva(mapa_barco_jogador[i,j])
+
+                        se j = 9 entao
+                           escreval ("")
+                        fimse
+                     fimpara
+                  fimpara
+
+                  se mvsm = "A" entao
+                     aleatorio on
+                     aleatorio 1,81
+                     leia(posicao)
+                     aleatorio off
+                     para b de 1 ate 2 faca
+                        entrada_barco[b]<- posicoes_validas [posicao,b]
+                        se mostre_tudo = "B" entao
+                           escreva (entrada_barco[b])
+                        fimse
+                     fimpara
+                     se mostre_tudo = "B" entao
+                        escreval("")
+                     senao
+                        limpatela
+                     fimse
+                  senao
+                     se numero_barcos_jogador < numero_barcos entao
+                        escreval("")
+                        escreval("Digite a casa onde deseja colocar um barco ")
+                        escreva("Linha: ")
+                        leia(entrada_barco[1])
+                        escreva("Coluna: ")
+                        leia(entrada_barco[2])
+                        se mostre_tudo = "B" entao
+                           escreval("")
+                        senao
+                           limpatela
+                        fimse
+                     fimse
+                  fimse
+               fimenquanto
+
+               //inicio do loop do programa !
+               run <- 1
+               repita
+                  validacao_bomba <- 1
+                  entrada_bomba [1]<-1
+                  entrada_bomba [2]<-1
+                  repita//deixa o jogador preso ate realizar uma jogada valida
+
+                     se mostre_tudo = "B" entao //testa a função montre_tudo
+                        escreval("")
+                     senao
+                        limpatela//Limpa a tela para redesenhar a matriz em uma condição normal
+                     fimse
+
+                     //iguala o numero de pontos com o numero de barcos (quando a matriz e comparada o numero e atualizado para decidir de o jogo acabou)
+                     pontos_jogador <- numero_barcos
+                     pontos_maquina <- numero_barcos
+
+                     //mostra ou nao uma caixa de mensagens ao jogador
+                     se validacao_bomba = 0 entao
+                        escreval("Posição invalida, jogue novamente !")
+                        escreval("")
+                     senao
+                        escreval("      Bom jogo")
+                        escreval("")
+                     fimse
+
+                     //Desenha as mratiz dos mapas do jogador e da maquina e combina as posiçoes onde tem um barco e uma bomba
+                     escreval("       Jogador                      Maquina")
+                     escreval("   1 2 3 4 5 6 7 8 9           1 2 3 4 5 6 7 8 9")
+                     para i de 1 ate 9 faca
+                        para j de 1 ate 18 faca
+
+                           se j=1 entao
+                              escreva (i)
+                           fimse
+
+                           se j <= 9 entao
+                              //checa se na posição do barco tem uma bomba
+                              se mapa_barco_jogador [i,j] = " J" entao
+                                 se mapa_bomba_maquina [i,j] = " *" entao
+                                    escreva (" X")//escreve X onde tem bomba e barco
+                                 senao
+                                    escreva (mapa_barco_jogador [i,j])//Mostra os barcos do jogador
+                                 fimse
+                              senao
+                                 escreva (mapa_bomba_maquina [i,j])//se nao tem barcos mostra onde a maquina esta jogando bombas
+                              fimse
+                           fimse
+
+                           se j >9 entao
+                              //checa se na posição do barco tem uma bomba
+                              se mapa_barco_maquina [i,a] = " M" entao
+                                 se mapa_bomba_jogador [i,a] = " *" entao
+                                    escreva (" X")//escreve X onde tem bomba e barco
+                                 senao
+                                    se mostre_tudo = "B" entao
+                                       escreva (mapa_barco_maquina [i,a])//montra os barcos conforme a função mostre tudo
+                                    senao
+                                       escreva (" _")// esconde os barcos da maquina
+                                    fimse
+                                 fimse
+                              senao
+                                 escreva (mapa_bomba_jogador [i,a])//se nao tem barcos mostra onde a jogador esta colocando bombas
+                              fimse
+                              a <- a +1
+                           fimse
+
+                           se j = 9 entao
+                              escreva ("        ",i)
+                           fimse
+                           se j=18 entao
+                              escreval ("")
+                              a<-1
+                           fimse
+
+                        fimpara
+                     fimpara
+                     escreval("")
+
+                     se mvsm = "A" entao
+                        timer 300
+                        escreva ("")
+                        timer 0
+                     fimse
+
+                     se mvsm = "A" entao
+                        aleatorio on
+                        aleatorio 1,81
+                        leia(posicao)
+                        aleatorio off
+                        para b de 1 ate 2 faca
+                           entrada_bomba[b]<- posicoes_validas [posicao,b]
+                           se mostre_tudo = "B" entao
+                              escreva (entrada_bomba[b])
+                           fimse
+                        fimpara
+                        se mostre_tudo = "B" entao
+                           escreval("")
+                        senao
+                           limpatela
+                        fimse
+                     senao
+                        //Pergunta e coleta a cordenada da nova bomba a ser jogada
+                        escreval("")
+                        escreval("Digite a casa onde deseja jogar uma bomba  (coloque -1 para sair)")
+                        escreva("Linha: ")
+                        leia(entrada_bomba[1])
+                        escreva("Coluna: ")
+                        leia(entrada_bomba[2])
+                        escreval("")
+                     fimse
+
+                     //Atualiza a matriz e checa se as informações sao validas( mas nao a desenha)
+                     para i de 1 ate 9 faca
+                        para j de 1 ate 9 faca
+
+                           //checa se a entrada e um nomero valido
+                           se entrada_bomba [1] >= 1 entao
+                              se entrada_bomba [1]<= 9 entao
+                                 se entrada_bomba [2] >=1 entao
+                                    se entrada_bomba [2] <= 9 entao
+
+                                       //checa se a cordenada ja foi escolhida
+                                       se entrada_bomba[1] = i entao
+                                          se entrada_bomba[2] =j entao
+                                             se mapa_bomba_jogador [i,j] = " *" entao
+                                                validacao_bomba <- 0 //A posição ja tem uma bomba
+                                             senao
+                                                //Se a posicao nao tiver bomba coloca-se a nova bomba
+                                                mapa_bomba_jogador [i,j] <- " *"
+
+                                                //Valida a informacao para sair do loop do jogador
+                                                validacao_bomba <- 1
+                                             fimse
+                                          fimse
+                                       fimse
+
+                                    senao
+                                       validacao_bomba <-0
+                                    fimse
+                                 senao
+                                    validacao_bomba <-0
+                                 fimse
+                              senao
+                                 validacao_bomba <-0
+                              fimse
+                           senao
+                              validacao_bomba <-0
+                           fimse
+
+                           //atualiza pontos do jogador
+                           se mapa_barco_jogador [i,j] = " J" entao
+                              se mapa_bomba_maquina [i,j] = " *" entao
+                                 pontos_jogador <- pontos_jogador -1
+                              fimse
+                           fimse
+
+                           //atualiza pontos da maquina
+                           se mapa_barco_maquina [i,j] = " M" entao
+                              se mapa_bomba_jogador [i,j] = " *" entao
+                                 pontos_maquina <- pontos_maquina -1
+                              fimse
+                           fimse
+                        fimpara
+                     fimpara
+
+                     //fecha o jogo quando alguem perde
+                     se pontos_maquina = 0 entao
+                        run <-0
+                     fimse
+                     se pontos_jogador = 0 entao
+                        run <- 0
+                     fimse
+
+                     //fechao jogo quando a cordenada fornecida e -1
+                     se entrada_bomba[1]<0 entao
+                        run <-0
+                        validacao_bomba <-1
+                     fimse
+                     se entrada_bomba[2]<0 entao
+                        run <-0
+                        validacao_bomba <-1
+                     fimse
+
+                  ate validacao_bomba = 1 //fim do loop do jogador
+
+                  //inicia jogada da maquina
+                  repita //deixa a  maquina jogando ate sair uma jogada valida
+
+                     pontos_jogador <- numero_barcos
+                     pontos_maquina <- numero_barcos
+
+                     aleatorio on
+                     aleatorio 1,81
+                     leia(posicao)
+                     aleatorio off
+                     para b de 1 ate 2 faca
+                        entrada_bomba[b]<- posicoes_validas [posicao,b]
+                        se mostre_tudo = "B" entao
+                           escreva (entrada_bomba[b])
+                        fimse
+                     fimpara
+                     escreval("")
+                     se mostre_tudo <> "B" entao
+                        limpatela
+                     fimse
+
+                     //checa se a cordenada ja foi escolhida
+                     para i de 1 ate 9 faca
+                        para j de 1 ate 9 faca
+                           se entrada_bomba[1] = i entao
+                              se entrada_bomba[2] =j entao
+                                 se mapa_bomba_maquina [i,j] = " *" entao
+                                    validacao_bomba <- 0 //A posição ja tem uma bomba
+                                 senao
+                                    //Se a posicao nao tiver bomba coloca-se a nova bomba
+                                    se entrada_bomba[1] = i entao
+                                       se entrada_bomba[2] =j entao
+                                          mapa_bomba_maquina [i,j] <- " *"
+                                       fimse
+                                    fimse
+                                    //Valida a informacao para sair do loop da maquina
+                                    validacao_bomba <- 1   //A posicao e valida
+                                 fimse
+                              fimse
+                           fimse
+
+                           //atualiza pontos do jogador
+                           se mapa_barco_jogador [i,j] = " J" entao
+                              se mapa_bomba_maquina [i,j] = " *" entao
+                                 pontos_jogador <- pontos_jogador -1
+                              fimse
+                           fimse
+
+                           //atualiza pontos da maquina
+                           se mapa_barco_maquina [i,j] = " M" entao
+                              se mapa_bomba_jogador [i,j] = " *" entao
+                                 pontos_maquina <- pontos_maquina -1
+                              fimse
+                           fimse
+                        fimpara
+                     fimpara
+                  ate validacao_bomba = 1//fim do turno da maquina
+
+                  //fecha o jogo quando alguem perde
+                  se pontos_maquina = 0 entao
+                     run <-0
+                  fimse
+                  se pontos_jogador = 0 entao
+                     run <- 0
+                  fimse
+
+               ate run = 0
+
+               se pontos_maquina = 0 entao
+                  escreval("     PARABENS! VOCE GANHOU!")
+                  escreval("")
+               senao
+                  escreval("     Sinto muito, nao foi dessa vez")
+                  escreval("")
+               fimse
+
+               escreval("       Jogador                       Maquina")
+               escreval("   1 2 3 4 5 6 7 8 9           1 2 3 4 5 6 7 8 9")
+               para i de 1 ate 9 faca
+                  para j de 1 ate 18 faca
+
+                     se j=1 entao
+                        escreva (i)
+                     fimse
+
+                     se j <= 9 entao
+                        //checa se na posição do barco tem uma bomba
+                        se mapa_barco_jogador [i,j] = " J" entao
+                           se mapa_bomba_maquina [i,j] = " *" entao
+                              escreva (" X")//escreve X onde tem bomba e barco
+                           senao
+                              escreva (" J")//em branco para destacar os barcos apos o jogo
+                           fimse
+                        senao
+                           escreva ("  ")//se nao tem barcos mostra onde a maquina esta jogando bombas
+                        fimse
+                     fimse
+
+                     se j >9 entao
+                        //checa se na posição do barco tem uma bomba
+                        se mapa_barco_maquina [i,a] = " M" entao
+                           se mapa_bomba_jogador [i,a] = " *" entao
+                              escreva (" X")//escreve X onde tem bomba e barco
+                           senao
+                              escreva (" M")// esconde os barcos da maquina
+                           fimse
+                        senao
+                           escreva ("  ")//se nao tem barcos mostra onde a jogador esta colocando bombas
+                        fimse
+                        a <- a +1
+                     fimse
+
+                     se j = 9 entao
+                        escreva ("        ",i)
+                     fimse
+                     se j=18 entao
+                        escreval ("")
+                        a<-1
+                     fimse
+
+                  fimpara
+               fimpara
+               escreval("")
+
+
+            caso 2
+            limpatela
+
+               ESCREVAL("===== REGRAS DO JOGO: BATALHA NAVAL =====")
+               ESCREVAL("Objetivo: Afundar todos os navios do oponente antes que os seus sejam destruídos.")
+               ESCREVAL("Tabuleiro: 9x9 casas.")
+               ESCREVAL("Navios: Escolha de 1 a 20 navios. A máquina terá a mesma quantidade.")
+               ESCREVAL("Posicionamento: Jogador define posições. Máquina posiciona aleatoriamente.")
+               ESCREVAL("Modos Especiais:")
+               ESCREVAL("  A - Máquina vs Máquina (tudo automático).")
+               ESCREVAL("  B - Mostra tudo (exibe todos os dados para teste).")
+               ESCREVAL("Fase de Ataque:")
+               ESCREVAL("  Jogadas alternadas entre jogador e máquina.")
+               ESCREVAL("  Ataque: Digite linha e coluna para lançar bomba.")
+               ESCREVAL("  Acerto: 'X' | Erro: '*' | Repetição proibida.")
+               ESCREVAL("Fim de Jogo:")
+               ESCREVAL("  Vitória: Todos os navios da máquina destruídos.")
+               ESCREVAL("  Derrota: Todos os seus navios destruídos.")
+               ESCREVAL("  Digitar -1 encerra o jogo manualmente.")
+               ESCREVAL("Pós-Jogo: Exibe o mapa completo com posições, acertos e erros.")
+               escreval("DIGITE 'S' PARA PODER SAIR")
+               ESCREVAL("============================================")
+
+               repita
+                  leia(sair1)
+
+               até sair1 = "S"
+               limpatela
+
+            caso 3
+               limpatela
+               escreval("Ranking ainda não implementado!")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair1)
+               limpatela
+
+            caso 4
+               limpatela
+               escreval("Menu de opções ainda em desenvolvimento.")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair1)
+               limpatela
+
+            caso 5
+               conmenu1 <- "N" // Sai do menu principal
+               limpatela
+               escreval("Saindo do jogo... Até mais!")
+
+
+            outrocaso
+
+               escreval("FUDEU....")
+
+            fimescolha
+
+         ate conmenu1 <> "S"
+
+
+      caso 2
+         //JOGO DA FORCA
+         repita
+            conmenu2 <- "S"
+
+            escreval("       [1]START GAME")
+            escreval("")
+            escreval("       [2] MANUAL")
+            escreval("")
+            escreval("       [3]RANKING")
+            escreval("")
+            escreval("       [4]MENU")
+            escreval("")
+            escreval("       [5]SAIR")
+            leia(menu2)
+
+            escolha menu2
+
+
+            caso 1
+               // Seção de Comandos
+               repita
+                  limpatela
+                  continua <- verdadeiro
+                  erros <- 0
+                  ganhou <- falso
+                  cont <- 0
+                  escreval("Escolha uma categoria: ")
+                  escreval("A - frutas")
+                  escreval("B - lugares")
+                  escreval("C - nomes")
+                  escreval("D - anatomia")
+                  leia (op)
+                  escolha op
+                  caso "A"
+                     frutaS
+                  caso "B"
+                     lugares
+                  caso "C"
+                     nomes
+                  caso "D"
+                     anatomia
+                  fimescolha
+
+                  sorteio <- randi(10)  // a Funcao Randi escolhe um numero aleatoriamente até o parametro informador
+                  tamanho <- compr(palavras[sorteio]) //Função compr retorna o comprimeito (tamanho) da palavra
+                  carrega_sorteada()
+
+                  repita
+                     limpatela()
+                     CATEGORIA(OP)
+                     desenha()
+                     escreva("Informe a letra :")
+                     leia(letra)
+                     verifica_letra()
+                     verifica_ganhador //  ganhou <- verdadeiro
+
+                  ate (erros > 6) ou (ganhou = verdadeiro)
+
+                  desenha
+                  se (ganhou=verdadeiro) entao
+                     escreval("PARABÉNS!! Você ganhou")
+                  fimse
+                  escreval(" Deseja jogar novamente? ")
+                  escreval(" Sim ou não")
+                  leia(resposta)
+                  se (resposta= "sim")  ENTAO
+                     CONTINUA <-VERDADEIRO
+                  senao
+                     SE (RESPOSTA="nao") ENTAO
+                        CONTINUA <- FALSO
+                        ESCREVAL("Fim de Jogo!")
+                     fimse
+                  fimse
+               ate continua = falso
+
+
+
+            caso 2
+
+               limpatela
+               escreval("===== REGRAS DO JOGO: JOGO DA FORCA =====")
+               escreval("")
+               escreval("OBJETIVO:")
+               escreval("Adivinhar a palavra secreta antes de completar 6 erros.")
+               escreval("")
+               escreval("COMO JOGAR:")
+               escreval("- Escolha uma categoria entre: frutas, lugares, nomes ou anatomia.")
+               escreval("- O jogo sorteia aleatoriamente uma palavra dessa categoria.")
+               escreval("- Você deve digitar letras uma a uma, tentando adivinhar a palavra.")
+               escreval("")
+               escreval("REGRAS:")
+               escreval("- Você pode errar no máximo 6 letras.")
+               escreval("- A cada letra errada, uma parte do boneco da forca é desenhada.")
+               escreval("- Se acertar todas as letras antes de errar 6 vezes, você vence.")
+               escreval("- Se completar os 6 erros antes disso, perde o jogo.")
+               escreval("")
+               escreval("DICAS:")
+               escreval("- Letras corretas são exibidas nos seus devidos lugares.")
+               escreval("- Letras erradas não são repetidas.")
+               escreval("")
+               escreval("FIM DE JOGO:")
+               escreval("- Você poderá escolher se deseja jogar novamente ou sair.")
+               escreval("DIGITE 'S' PRA SAIR ")
+               escreval("============================================")
+
+
+               repita
+                  leia(sair2)
+
+               até sair2 = "S"
+               limpatela
+
+            caso 3
+               limpatela
+               escreval("Ranking ainda não implementado!")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair2)
+               limpatela
+
+            caso 4
+               limpatela
+               escreval("Menu de opções ainda em desenvolvimento.")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair2)
+               limpatela
+
+            caso 5
+               conmenu2 <- "N" // Sai do menu principal
+               limpatela
+               escreval("Saindo do jogo... Até mais!")
+
+
+            outrocaso
+
+               escreval("FUDEU....")
+
+            fimescolha
+
+         ate conmenu2 <> "S"
+
+
+      caso 3
+         //JOGO DO PEDRA, PAPEL E TESOURA
+         repita
+            conmenu3 <- "S"
+
+
+
+            escreval("       [1]START GAME")
+            escreval("")
+            escreval("       [2] MANUAL")
+            escreval("")
+            escreval("       [3]RANKING")
+            escreval("")
+            escreval("       [4]MENU")
+            escreval("")
+            escreval("       [5]SAIR")
+            leia(menu3)
+
+            escolha menu3
+
+
+            caso 1
+
+               continueee <- verdadeiro
+
+               enquanto continueee faca
+
+                  optSelected <- 0
+
+                  valid <- verdadeiro
+
+                  optMachine <- RandI(3)
+
+                  escreval("Escolha sua jogada:")
+                  escreval("[Pedra - 1]")
+                  escreval("[Papel - 2]")
+                  escreval("[Tesoura - 3]")
+
+                  leia(optSelected)
+
+                  escolha optSelected
+
+                  caso 1
+
+                     optString_y <- "Pedra"
+
+                  caso 2
+
+                     optString_y <- "Papel"
+
+                  caso 3
+
+                     optString_y <- "Tesoura"
+
+                  outrocaso
+
+                     optString_y <- "Jogada inválida".
+
+                     valid <- falso
+
+                  fimescolha
+
+                  se(valid) entao
+
+                     escolha optMachine
+
+                     caso 0
+
+                        optString_m <- "Pedra"
+
+                     caso 1
+
+                        optString_m <- "Papel"
+
+                     caso 2
+
+                        optString_m <- "Tesoura"
+
+                     fimescolha
+
+                     escreval()
+
+                     escreval("Sua opção - ", optString_y)
+
+                     escreval("Opção da máquina - ", optString_m)
+
+                     escreval()
+
+                     se (optMachine = 0) e (optSelected = 3) ou (optMachine = 1) e (optSelected = 1) ou (optMachine = 2) e (optSelected = 2) entao
+
+                        escreval("A máquina venceu!")
+
+                     senao
+
+                        se(optMachine = 0) e (optSelected = 1) ou (optMachine = 1) e (optSelected = 2) ou (optMachine = 2) e (optSelected = 3) entao
+
+                           escreval("Deu velha")
+
+                        senao
+
+                           escreval("Você venceu")
+
+                        fimse
+
+                     fimse
+
+                     escreval()
+
+                  fimse
+
+                  escreval("Deseja finalizar o jogo? Digite [SIM] ou [NÃO]")
+
+                  leia(answer)
+
+                  se(answer = "SIM") entao
+
+                     continueee <- falso
+
+                  senao
+
+                     limpatela
+
+                  fimse
+
+               fimenquanto
+
+
+
+            caso 2
+
+               limpatela
+
+               escreval("===== REGRAS DO JOGO: PEDRA, PAPEL E TESOURA =====")
+               escreval("")
+               escreval("OBJETIVO:")
+               escreval("Derrotar a jogada da máquina escolhendo a opção certa.")
+               escreval("")
+               escreval("COMO JOGAR:")
+               escreval("- Você deve escolher entre:")
+               escreval("    [1] Pedra")
+               escreval("    [2] Papel")
+               escreval("    [3] Tesoura")
+               escreval("- A máquina também faz uma escolha aleatória.")
+               escreval("- As jogadas são comparadas para decidir quem venceu.")
+               escreval("")
+               escreval("REGRAS:")
+               escreval("- Pedra vence Tesoura")
+               escreval("- Papel vence Pedra")
+               escreval("- Tesoura vence Papel")
+               escreval("- Jogadas iguais resultam em empate (Deu velha)")
+               escreval("")
+               escreval("FIM DE JOGO:")
+               escreval("- Após cada rodada, você pode escolher continuar ou sair.")
+               escreval("DIGIDTE 'S' PRA SAIR ")
+               escreval("====================================================")
+
+
+               repita
+                  leia(sair3)
+
+               até sair3 = "S"
+               limpatela
+
+            caso 3
+               limpatela
+               escreval("Ranking ainda não implementado!")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair3)
+               limpatela
+
+            caso 4
+               limpatela
+               escreval("Menu de opções ainda em desenvolvimento.")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair3)
+               limpatela
+
+            caso 5
+               conmenu3 <- "N" // Sai do menu principal
+               limpatela
+               escreval("Saindo do jogo... Até mais!")
+
+
+            outrocaso
+
+               escreval("FUDEU....")
+
+            fimescolha
+
+         ate conmenu3 <> "S"
+
+
+      caso 4
+         //JOGO GENIUS(JOGO DA MEMORIA)
+
+         repita
+            conmenu4 <- "S"
+
+
+
+            escreval("       [1]START GAME")
+            escreval("")
+            escreval("       [2] MANUAL")
+            escreval("")
+            escreval("       [3]RANKING")
+            escreval("")
+            escreval("       [4]MENU")
+            escreval("")
+            escreval("       [5]SAIR")
+            leia(menu4)
+
+            escolha menu4
+
+
+            caso 1
+               pontos1 <- 0
+               escreval ("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-")
+               escreval ("Seja bem-vindo ao Genius            " )
+               escreval ("PASSA NÓS COM 10 DARCY")
+               escreval ("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-")
+               escreval ()
+               escreval ("Deseja iniciar o jogo?")
+               escreval ("Digite 1 para sim ou 2 para não")
+               leia (comando1)
+               se (comando1=1) entao
+                  escreval ("Grave a sequência")
+                  timer 1000
+                  limpatela
+                  escreval ("           Nível 1          ")
+                  escreval ("============================")
+                  escreval ("Mostrando números aleatórios")
+                  timer 1000
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[1])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[2])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  escreval ("           Nível 1           ")
+                  escreval ("=============================")
+                  escreval ("Digite a sequência de números")
+                  leia (resultado[1])
+                  leia (resultado[2])
+                  se (resultado[1]<>numaleatorio[1]) entao
+                     errou ()
+                  senao
+                     continue ()
+                     se (resultado[2]<>numaleatorio[2]) entao
+                        errou ()
+                     senao
+                        acertou ()
+                     fimse
+                  fimse
+                  limpatela
+                  escreval ("           Nível 2          ")
+                  escreval ("============================")
+                  escreval ("Mostrando números aleatórios")
+                  timer 1000
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[1])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[2])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[3])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[4])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  escreval ("           Nível 2           ")
+                  escreval ("=============================")
+                  escreval ("Digite a sequência de números")
+                  leia (resultado[1])
+                  leia (resultado[2])
+                  leia (resultado[3])
+                  leia (resultado[4])
+                  se (resultado[1]<>numaleatorio[1]) entao
+                     errou ()
+                  senao
+                     continue ()
+                     se (resultado[2]<>numaleatorio[2]) entao
+                        errou ()
+                     senao
+                        continue ()
+                        se (resultado[3]<>numaleatorio[3]) entao
+                           errou ()
+                        senao
+                           continue ()
+                           se (resultado[4]<>numaleatorio[4]) entao
+                              errou ()
+                           senao
+                              acertou ()
+                           fimse
+                        fimse
+                     fimse
+                  fimse
+                  limpatela
+                  escreval ("           Nível 3          ")
+                  escreval ("============================")
+                  escreval ("Mostrando números aleatórios")
+                  timer 1000
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[1])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[2])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[3])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[4])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[5])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[6])
+                  aleatorio off
+                  timer 500
+                  limpatela
+                  escreval ("           Nível 3           ")
+                  escreval ("=============================")
+                  escreval ("Digite a sequência de números")
+                  leia (resultado[1])
+                  leia (resultado[2])
+                  leia (resultado[3])
+                  leia (resultado[4])
+                  leia (resultado[5])
+                  leia (resultado[6])
+                  se (resultado[1]<>numaleatorio[1]) entao
+                     errou ()
+                  senao
+                     continue ()
+                     se (resultado[2]<>numaleatorio[2]) entao
+                        errou ()
+                     senao
+                        continue ()
+                        se (resultado[3]<>numaleatorio[3]) entao
+                           errou ()
+                        senao
+                           continue ()
+                           se (resultado[4]<>numaleatorio[4]) entao
+                              errou ()
+                           senao
+                              continue ()
+                              se (resultado[5]<>numaleatorio[5]) entao
+                                 errou ()
+                              senao
+                                 continue ()
+                                 se (resultado[6]<>numaleatorio[6]) entao
+                                    errou ()
+                                 senao
+                                    acertou ()
+                                 fimse
+                              fimse
+                           fimse
+                        fimse
+                     fimse
+                  fimse
+                  escreval ("           Nível 4          ")
+                  escreval ("============================")
+                  escreval ("Mostrando números aleatórios")
+                  timer 1000
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[1])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[2])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[3])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[4])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[5])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[6])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[7])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[8])
+                  aleatorio off
+                  limpatela
+                  escreval ("           Nível 4           ")
+                  escreval ("=============================")
+                  escreval ("Digite a sequência de números")
+                  leia (resultado[1])
+                  leia (resultado[2])
+                  leia (resultado[3])
+                  leia (resultado[4])
+                  leia (resultado[5])
+                  leia (resultado[6])
+                  leia (resultado[7])
+                  leia (resultado[8])
+                  se (resultado[1]<>numaleatorio[1]) entao
+                     errou ()
+                  senao
+                     continue ()
+                     se (resultado[2]<>numaleatorio[2]) entao
+                        errou ()
+                     senao
+                        continue ()
+                        se (resultado[3]<>numaleatorio[3]) entao
+                           errou ()
+                        senao
+                           continue ()
+                           se (resultado[4]<>numaleatorio[4]) entao
+                              errou ()
+                           senao
+                              continue ()
+                              se (resultado[5]<>numaleatorio[5]) entao
+                                 errou ()
+                              senao
+                                 continue ()
+                                 se (resultado[6]<>numaleatorio[6]) entao
+                                    errou ()
+                                 senao
+                                    continue ()
+                                    se (resultado[7]<>numaleatorio[7]) entao
+                                       errou ()
+                                    senao
+                                       continue ()
+                                       se (resultado[6]<>numaleatorio[8]) entao
+                                          errou ()
+                                       senao
+                                          acertou ()
+                                       fimse
+                                    fimse
+                                 fimse
+                              fimse
+                           fimse
+                        fimse
+                     fimse
+                  fimse
+                  escreval ("           Nível 5          ")
+                  escreval ("============================")
+                  escreval ("Mostrando números aleatórios")
+                  timer 1000
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[1])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[2])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[3])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[4])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[5])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[6])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[7])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[8])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[9])
+                  aleatorio off
+                  limpatela
+                  aleatorio 1,4
+                  leia (numaleatorio[10])
+                  aleatorio off
+                  limpatela
+                  escreval ("           Nível 5           ")
+                  escreval ("=============================")
+                  escreval ("Digite a sequência de números")
+                  leia (resultado[1])
+                  leia (resultado[2])
+                  leia (resultado[3])
+                  leia (resultado[4])
+                  leia (resultado[5])
+                  leia (resultado[6])
+                  leia (resultado[7])
+                  leia (resultado[8])
+                  leia (resultado[9])
+                  leia (resultado[10])
+                  se (resultado[1]<>numaleatorio[1]) entao
+                     errou ()
+                  senao
+                     continue ()
+                     se (resultado[2]<>numaleatorio[2]) entao
+                        errou ()
+                     senao
+                        continue ()
+                        se (resultado[3]<>numaleatorio[3]) entao
+                           errou ()
+                        senao
+                           continue ()
+                           se (resultado[4]<>numaleatorio[4]) entao
+                              errou ()
+                           senao
+                              continue ()
+                              se (resultado[5]<>numaleatorio[5]) entao
+                                 errou ()
+                              senao
+                                 continue ()
+                                 se (resultado[6]<>numaleatorio[6]) entao
+                                    errou ()
+                                 senao
+                                    continue ()
+                                    se (resultado[7]<>numaleatorio[7]) entao
+                                       errou ()
+                                    senao
+                                       continue ()
+                                       se (resultado[8]<>numaleatorio[8]) entao
+                                          errou ()
+                                       senao
+                                          continue ()
+                                          se (resultado[9]<>numaleatorio[9]) entao
+                                             errou ()
+                                          senao
+                                             continue ()
+                                             se (resultado[10]<>numaleatorio[10]) entao
+                                                errou ()
+                                             senao
+                                                acertou ()
+                                             fimse
+                                          fimse
+                                       fimse
+                                    fimse
+                                 fimse
+                              fimse
+                           fimse
+                        fimse
+                     fimse
+                  fimse
+                  se (pontos1 = 30) entao
+                     escreval ("Você ganhou o Genius, obtendo o total de ",pontos1)
+                  senao
+                     escreval ("voce perdeu e obteve os seguintes pontos ",pontos1)
+                  fimse
+
+
+               senao
+                  escreval ("Bye")
+               fimse
+
+
+            caso 2
+
+               escreval("========= REGRAS DO JOGO: GENIUS =========")
+               escreval("")
+               escreval("OBJETIVO:")
+               escreval("Testar sua memória reproduzindo corretamente")
+               escreval("a sequência de números mostrada pelo jogo.")
+               escreval("")
+               escreval("COMO FUNCIONA:")
+               escreval("- O jogo é dividido em 5 níveis de dificuldade.")
+               escreval("- Em cada nível, uma sequência de números de 1 a 4 é gerada.")
+               escreval("- A sequência é mostrada rapidamente, número por número.")
+               escreval("- Em seguida, você deve digitar a sequência na ordem correta.")
+               escreval("")
+               escreval("DIFICULDADE:")
+               escreval("- Nível 1: 2 números")
+               escreval("- Nível 2: 4 números")
+               escreval("- Nível 3: 6 números")
+               escreval("- Nível 4: 8 números")
+               escreval("- Nível 5: 10 números")
+               escreval("")
+               escreval("PONTUAÇÃO:")
+               escreval("- Cada acerto completa um nível e soma pontos.")
+               escreval("- Se errar qualquer número da sequência, o jogo termina.")
+               escreval("")
+               escreval("FIM DE JOGO:")
+               escreval("- Se completar os 5 níveis com sucesso, você vence o jogo!")
+               escreval("- Caso erre em qualquer nível, você perde.")
+               escreval("- Ao final, é exibida sua pontuação total.")
+               escreval("")
+               escreval("INSIRA A LETRA 'S' PARA ENCERRAR")
+               escreval("==========================================")
+
+               repita
+                  leia(sair4)
+
+               até sair4 = "S"
+               limpatela
+
+            caso 3
+               limpatela
+               escreval("Ranking ainda não implementado!")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair4)
+               limpatela
+
+            caso 4
+               limpatela
+               escreval("Menu de opções ainda em desenvolvimento.")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair4)
+               limpatela
+
+            caso 5
+               conmenu4 <- "N" // Sai do menu principal
+               limpatela
+               escreval("Saindo do jogo... Até mais!")
+
+
+            outrocaso
+
+               escreval("FUDEU....")
+
+            fimescolha
+
+         ate conmenu4 <> "S"
+
+
+      caso 5
+         //JOGO CAMPO MINADO
+         repita
+            conmenu5 <- "S"
+
+
+
+            escreval("       [1]START GAME")
+            escreval("")
+            escreval("       [2] MANUAL")
+            escreval("")
+            escreval("       [3]RANKING")
+            escreval("")
+            escreval("       [4]MENU")
+            escreval("")
+            escreval("       [5]SAIR")
+            leia(menu5)
+
+            escolha menu5
+
+
+            caso 1
+               // Inicializar campo
+               para oi de 1 ate 5 faca
+                  para ja de 1 ate 5 faca
+                     campo[oi, ja] <- "-"
+                  fimpara
+               fimpara
+
+               // Posicionar minas (fixas para facilitar no Visualg)
+               campo[2,3] <- "*"
+               campo[4,1] <- "*"
+               campo[1,5] <- "*"
+               campo[3,4] <- "*"
+               campo[5,2] <- "*"
+
+               casasSeguras <- 25 - 5  // Total de casas sem mina
+               jogoAtivo <- verdadeiro
+
+               Enquanto jogoAtivo faca
+                  // Exibir campo (ocultando as minas)
+                  escreval("Campo atual:")
+                  para oi de 1 ate 5 faca
+                     para ja de 1 ate 5 faca
+                        se campo[oi,ja] = "A" entao
+                           escreva(" A ")
+                        senao
+                           escreva(" - ")
+                        fimse
+                     fimpara
+                     escreval()
+                  fimpara
+
+                  // Exibir campo (ocultando as minas) com numeração
+                  escreval("     1  2  3  4  5") // Cabeçalho das colunas
+                  para oi de 1 ate 5 faca
+                     escreva(oi, "  ") // Número da linha
+                     para ja de 1 ate 5 faca
+                        se campo[oi,ja] = "A" entao
+                           escreva(" A ")
+                        senao
+                           escreva(" - ")
+                        fimse
+                     fimpara
+                     escreval()
+                  fimpara
+
+
+                  escreval("Digite a linha (1 a 5): ")
+                  leia(linha)
+                  escreval("Digite a coluna (1 a 5): ")
+                  leia(coluna)
+
+                  // Verificar entrada válida
+                  se (linha < 1) ou (linha > 5) ou (coluna < 1) ou (coluna > 5) entao
+                     escreval("Posição inválida. Tente novamente.")
+                  senao
+                     se campo[linha, coluna] = "*" entao
+                        escreval("?? Você acertou uma mina! Fim de jogo.")
+                        jogoAtivo <- falso
+                     senao
+                        se campo[linha, coluna] <> "A" entao
+                           campo[linha, coluna] <- "A"
+                           casasSeguras <- casasSeguras - 1
+                        fimse
+
+                        // Verificar se venceu
+                        se casasSeguras = 0 entao
+                           escreval("?? Parabéns! Você venceu o jogo, abriu todas as casas seguras!")
+                           jogoAtivo <- falso
+                        fimse
+                     fimse
+                  fimse
+               fimEnquanto
+
+               // Mostrar campo final revelando as minas
+               escreval("Campo Final:")
+               para oi de 1 ate 5 faca
+                  para ja de 1 ate 5 faca
+                     se campo[oi,ja] = "*" entao
+                        escreva(" * ")
+                     senao
+                        escreva(" ", campo[oi,ja], " ")
+                     fimse
+                  fimpara
+                  escreval()
+               fimpara
+
+
+            caso 2
+
+               escreval("=========== REGRAS DO JOGO: CAMPO MINADO ===========")
+               escreval("")
+               escreval("OBJETIVO:")
+               escreval("Evitar as minas e abrir todas as casas seguras do campo.")
+               escreval("")
+               escreval("COMO FUNCIONA:")
+               escreval("- O campo é uma grade de 5 linhas por 5 colunas (5x5).")
+               escreval("- Existem 5 minas escondidas em posições fixas.")
+               escreval("- O jogador deve informar as coordenadas (linha e coluna)")
+               escreval("  de uma casa para tentar revelá-la.")
+               escreval("")
+               escreval("REGRAS:")
+               escreval("- Se você acertar uma mina ( * ), o jogo termina.")
+               escreval("- Se acertar uma casa segura, ela será marcada com 'A'.")
+               escreval("- Você vence se abrir todas as 20 casas seguras.")
+               escreval("- Você pode visualizar o campo numerado para ajudar.")
+               escreval("")
+               escreval("ENTRADAS:")
+               escreval("- Linha e coluna devem ser valores entre 1 e 5.")
+               escreval("- Valores fora desse intervalo são considerados inválidos.")
+               escreval("")
+               escreval("FIM DE JOGO:")
+               escreval("- Vitória: todas as casas seguras abertas.")
+               escreval("- Derrota: acerto de uma mina.")
+               escreval("- Ao final, o campo completo é exibido com as minas reveladas.")
+               escreval("")
+               escreval("DIGITE A LETRA 'S' PARA ENCERAR")
+               escreval("=====================================================")
+
+
+               repita
+                  leia(sair5)
+
+               até sair5 = "S"
+               limpatela
+
+            caso 3
+               limpatela
+               escreval("Ranking ainda não implementado!")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair5)
+               limpatela
+
+            caso 4
+               limpatela
+               escreval("Menu de opções ainda em desenvolvimento.")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair5)
+               limpatela
+
+            caso 5
+               conmenu5 <- "N" // Sai do menu principal
+               limpatela
+               escreval("Saindo do jogo... Até mais!")
+
+
+            outrocaso
+
+               escreval("FUDEU....")
+
+            fimescolha
+
+         ate conmenu5 <> "S"
+
+
+      caso 6
+         //JOGO DA COBRINHA(SNAKE)
+         repita
+            conmenu6 <- "S"
+
+
+
+            escreval("       [1]START GAME")
+            escreval("")
+            escreval("       [2] MANUAL")
+            escreval("")
+            escreval("       [3]RANKING")
+            escreval("")
+            escreval("       [4]MENU")
+            escreval("")
+            escreval("       [5]SAIR")
+            leia(menu6)
+
+            escolha menu6
+
+
+            caso 1
+               // Inicializar campo com espaços
+               para ei de 1 ate TAM faca
+                  para ji de 1 ate TAM faca
+                     campo1[ei,ji] <- " "
+                  fimpara
+               fimpara
+
+               // Criar as paredes (#)
+               para ei de 1 ate TAM faca
+                  campo1[ei,1] <- "#"
+                  campo1[ei,TAM] <- "#"
+               fimpara
+
+               para j de 1 ate TAM faca
+                  campo1[1,ji] <- "#"
+                  campo1[TAM,ji] <- "#"
+               fimpara
+
+               // Início da cobra (no meio)
+               cabecaX <- TAM div 2
+               cabecaY <- TAM div 2
+               campo1[cabecaX, cabecaY] <- "O"
+
+               pontos <- 0
+               jogoAtivo1 <- verdadeiro
+               posicionarFruta()
+
+               enquanto jogoAtivo1 faca
+                  desenharCampo()
+                  escreval("Digite a direção: 1=Cima, 2=Baixo, 3=Esquerda, 4=Direita")
+                  leia(direcao)
+
+                  // Apagar posição anterior da cabeça
+                  campo1[cabecaX, cabecaY] <- " "
+
+                  // Mover cabeça
+                  se direcao = 1 entao
+                     cabecaX <- cabecaX - 1
+                  fimse
+                  se direcao = 2 entao
+                     cabecaX <- cabecaX + 1
+                  fimse
+
+                  se direcao = 3 entao
+                     cabecaY <- cabecaY - 1
+                  fimse
+
+                  se direcao = 4 entao
+                     cabecaY <- cabecaY + 1
+                  fimse
+
+                  // Verificar colisão com parede
+                  se (campo1[cabecaX, cabecaY] = "#") entao
+                     escreval("?? Você bateu na parede! Fim de jogo.")
+                     jogoAtivo1 <- falso
+                  senao
+                     // Verificar se pegou fruta
+                     se (cabecaX = frutaX) e (cabecaY = frutaY) entao
+                        pontos2 <- pontos2 + 1
+                        posicionarFruta()
+                     fimse
+                     campo1[cabecaX, cabecaY] <- "O"
+                  fimse
+               fimEnquanto
+
+               escreval("Pontuação final: ", pontos2)
+
+
+
+            caso 2
+
+               escreval("=========== REGRAS DO JOGO: COBRINHA ===========")
+               escreval("")
+               escreval("OBJETIVO:")
+               escreval("Mover a cabeça da cobra pelo campo e coletar frutas,")
+               escreval("evitando colidir com as paredes.")
+               escreval("")
+               escreval("COMO FUNCIONA:")
+               escreval("- O jogo acontece em um campo com bordas representadas por '#'.")
+               escreval("- A cobra é representada por 'O' e inicia no centro do campo.")
+               escreval("- Uma fruta é gerada aleatoriamente em algum ponto livre.")
+               escreval("- A cada fruta coletada, você ganha 1 ponto.")
+               escreval("")
+               escreval("COMANDOS DE MOVIMENTO:")
+               escreval("1 - CIMA")
+               escreval("2 - BAIXO")
+               escreval("3 - ESQUERDA")
+               escreval("4 - DIREITA")
+               escreval("")
+               escreval("REGRAS:")
+               escreval("- A cobra se move uma casa por jogada na direção escolhida.")
+               escreval("- Se bater na parede (bordas do campo), o jogo termina.")
+               escreval("- Ao coletar a fruta, ela muda de posição e sua pontuação aumenta.")
+               escreval("")
+               escreval("FIM DE JOGO:")
+               escreval("- O jogo acaba quando a cobra colide com uma parede.")
+               escreval("- Ao final, é exibida sua pontuação total.")
+               escreval("")
+               escreval("Digite a letra 'S' para encerar")
+               escreval("=================================================")
+
+
+               repita
+                  leia(sair6)
+
+               até sair6 = "S"
+               limpatela
+
+            caso 3
+               limpatela
+               escreval("Ranking ainda não implementado!")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair6)
+               limpatela
+
+            caso 4
+               limpatela
+               escreval("Menu de opções ainda em desenvolvimento.")
+               escreval("Digite 'S' para voltar ao menu.")
+               leia(sair6)
+               limpatela
+
+            caso 5
+               conmenu6 <- "N" // Sai do menu principal
+               limpatela
+               escreval("Saindo do jogo... Até mais!")
+
+
+            outrocaso
+
+               escreval("FUDEU....")
+
+            fimescolha
+
+         ate conmenu6 <> "S"
+
+
+      caso 7
+
+         repita
+            conmenu7 <- "S"
+
+
+
+            escreval("       [1]START GAME")
+            escreval("")
+            escreval("       [2] MANUAL")
+            escreval("")
+            escreval("       [3]RANKING")
+            escreval("")
+            escreval("       [4]MENU")
+            escreval("")
+            escreval("       [5]SAIR")
+            leia(menu7)
+
+            escolha menu7
+
+
+            caso 1
+               inicial  //nome dos alunos
+               nome_jogo  //nome para introdução
+               menu_inicial //menu do jogo
+               se(menu = 1) entao
+                  nome_perso
+                  criacao
+                  classe
+                  limpatela
+                  historia_papel
+               senao
+fimalgoritmo
+
+fimse
+textotela1
+leia(enter)
+limpatela
+lojaouboss
+se(vitoria = verdadeiro) entao
+   escreval("            Você zerou o game!!!")
+fimse
+
+
+caso 2
+   escreval("=========== REGRAS DO JOGO: RPG - AVENTURA TEXTO ===========")
+   escreval("")
+   escreval("OBJETIVO:")
+   escreval("Avançar na história escolhendo ações, batalhando e evoluindo seu personagem.")
+   escreval("")
+   escreval("ETAPAS DO JOGO:")
+   escreval("- O jogo começa com uma introdução narrativa.")
+   escreval("- Você cria um personagem e escolhe sua classe (ex: Guerreiro, Mago, etc.).")
+   escreval("- Ao longo do jogo, você toma decisões que afetam a história.")
+   escreval("- Enfrenta inimigos, visita uma loja ou segue direto para um chefão (Boss).")
+   escreval("")
+   escreval("REGRAS:")
+   escreval("- Escolhas feitas afetam os eventos seguintes.")
+   escreval("- Cada classe tem características diferentes como força, defesa e magia.")
+   escreval("- Em batalhas, escolha ataques e use estratégias para vencer.")
+   escreval("- Se vencer o Boss final, você zera o jogo.")
+   escreval("")
+   escreval("DICAS:")
+   escreval("- Leia com atenção os textos e opções de escolha.")
+   escreval("- Equilibre ataques, defesa e uso de habilidades da classe.")
+   escreval("- Use bem os itens comprados na loja (se visitar).")
+   escreval("")
+   escreval("FIM DE JOGO:")
+   escreval("- Vitória: ao derrotar o chefão (Boss) final.")
+   escreval("- Derrota: se os pontos de vida (HP) do seu personagem zerarem.")
+   escreval("")
+   escreval("DIGITE 'S' PARA ENCERAR")
+   escreval("=============================================================")
+
+
+   repita
+      leia(sair7)
+
+   até sair7 = "S"
+   limpatela
+
+caso 3
+   limpatela
+   escreval("Ranking ainda não implementado!")
+   escreval("Digite 'S' para voltar ao menu.")
+   leia(sair7)
+   limpatela
+
+caso 4
+   limpatela
+   escreval("Menu de opções ainda em desenvolvimento.")
+   escreval("Digite 'S' para voltar ao menu.")
+   leia(sair7)
+   limpatela
+
+caso 5
+   conmenu7 <- "N" // Sai do menu principal
+   limpatela
+   escreval("Saindo do jogo... Até mais!")
+
+
+outrocaso
+
+   escreval("FUDEU....")
+
+fimescolha
+
+ate conmenu7 <> "S"
+
+
+caso 8
+
+   sair_menu_principal <- "S"
+   escreval("Saindo da plataforma de jogos...")
+
+
+outrocaso
+
+   ESCREVAL("INVÁLIDO")
+fimescolha
+ate sair_menu_principal = "S"
+fimalgoritmo
+
+
