@@ -1,0 +1,1164 @@
+algoritmo "semnome"
+
+var
+
+   //VAR MENU
+   menu7: inteiro
+   sair7, conmenu7: caractere
+
+   caminho: inteiro
+   comecar: inteiro
+   menu: inteiro //começo do jogo
+   enter: caracter //usado apenas para o jogador apertar "enter"
+   nome: caracter
+   cont_horda: inteiro
+   escolhe_opcional: inteiro
+   xHP: inteiro
+   vitoria: logico
+   quant_wave: inteiro
+   condicao_wave: inteiro
+
+   //-------------------------SISTEMA_BATALHA_E_LOJA------------------------------//
+   atk1: caracter
+   atk2: caracter
+   atk3: caracter
+   persoHP: inteiro
+   persoHPfixo: inteiro   //usado para colocar o HP no menu
+   inimHP: inteiro
+   fixoHP: inteiro        // ^^
+
+   dano: inteiro
+   inimDano: inteiro
+
+   def: inteiro
+   inimDef: inteiro
+
+   forc, inimForc: inteiro
+   mag, inimMag: inteiro
+
+   mana: inteiro
+   manaInim: inteiro
+   manastats: caracter  //para verificar se tem a mana necessaria para usar skill
+
+   battlePlayer: inteiro
+   battleInim: inteiro
+
+   nomeInim, nomePerso: caracter
+   inimigo: inteiro
+
+   jogador1: logico
+   cpu: logico
+
+   atk: caracter
+   inimAtk: caracter
+
+   contDef: inteiro  //contador para limitar quantas vezes pode usar a skill
+   loja: inteiro
+   loot: inteiro
+   lootgold: inteiro
+   goldrecebido: inteiro
+   lootrecebido: inteiro
+   gold: inteiro
+   lj: inteiro
+   manatotal: inteiro
+   dano_wave: inteiro
+   vida_wave: inteiro
+   //-----------------------------------------------------------------------------//
+
+procedimento inicial
+inicio
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (500)
+   escreval("                           Alunos:                         ")
+   escreval("                                                           ")
+   escreval("                          VOCÊS SABEM QUEM SÃO             ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (0)
+   escreval("                                                           ")
+   escreval("                                                           ")
+   limpatela
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (300)
+   escreval("                                                           ")
+   escreval("                                   Apresentam:             ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   escreval("                                                           ")
+   timer (0)
+   escreval("                                                           ")
+   limpatela
+
+
+fimprocedimento
+
+procedimento nome_jogo
+inicio
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("       |      |                             _______                         ")
+   escreval("       |      |                            |       |                   ")
+   escreval("       |______| _____         ___ _____    |       |   ____                     ")
+   escreval("       |      | |    |   /\   |  \  |      |       |  |                 ")
+   escreval("       |      | |____|  /__\  |     |      |       |  |__                     ")
+   escreval("       |      | |_____ /    \ |     |      |_______|  |                     ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("                                                                            ")
+   escreval("      \          /                                                          ")
+   escreval("       \        /                                                           ")
+   escreval("        \      /  _____  _____   ______  _____     _    _____  _____ _____  ")
+   escreval("         \    /   |    | |    |  |     | |    |   / \   |    | |     |    | ")
+   escreval("          \  /    |____| |    |  |     | |____|  /___\  |    | |     |____| ")
+   escreval("           \/     |_____ |    |  |_____| |_____ /     \ |    | |____ |_____ ")
+   escreval("                                 |                                          ")
+   escreval("                                 |                                          ")
+   escreval("                                 |_____|                                    ")
+   timer (1500)
+   escreva
+   timer (0)
+   limpatela
+
+fimprocedimento
+
+procedimento menu_inicial
+inicio
+   escreval("__________________________________________________________________________________")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                      |   | ___    _   __ ___     ____  ___                     |")
+   escreval("|                      |___| |__|  /_\  | \ |      |   | |_                      |")
+   escreval("|                      |   | |___ /   \ |   |      |___| |                       |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|               \      /                                                         |")
+   escreval("|                \    / ___  ___  ___  ___    _   ___  ___ ___                   |")
+   escreval("|                 \  /  |__| |  | |  | |__|  /_\  |  | |   |__|                  |")
+   escreval("|                  \/   |___ |  | |__| |___ /   \ |  | |__ |___                  |")
+   escreval("|                                 |                                              |")
+   escreval("|                                 |__|                                           |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                                                                                |")
+   escreval("|                  1 - Começar aventura              0 - Sair                    |")
+   escreval("|                                                                                |")
+   escreval("|________________________________________________________________________________|")
+   leia(menu)
+fimprocedimento
+
+procedimento criacao
+inicio
+   limpatela
+   escreval("                                Escolha sua classe!")
+   escreval("          ________________________  ")
+   escreval("         |    1 - Cavaleiro       | ")
+   escreval("         |  |                     | ")
+   escreval("         |  |                     | ")
+   escreval("         |  |                     | ")
+   escreval("         | -+- O       HP:    70  | ")
+   escreval("         |  |--+-      MP:    20  | ")
+   escreval("         |     |       Força: 12  | ")
+   escreval("         |    / \      Magia:  3  | ")
+   escreval("         |             Defesa 10  | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |________________________| ")
+
+
+
+
+
+   escreval("          ________________________  ")
+   escreval("         |    2 - Arqueiro        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |       \                | ")
+   escreval("         |  ^ O  |\    HP:    50  | ")
+   escreval("         |  |-+--||    MP:    50  | ")
+   escreval("         |  ^ |  |/    Força:  9  | ")
+   escreval("         |   / \ /     Magia:  8  | ")
+   escreval("         |             Defesa: 7  | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |________________________| ")
+
+
+   escreval("          ________________________  ")
+   escreval("         |    3 - Feiticeiro      | ")
+   escreval("         |                        | ")
+   escreval("         |       _                | ")
+   escreval("         |      [*]               | ")
+   escreval("         |    O  |     HP:    30  | ")
+   escreval("         |   -+--|     MP:   120  | ")
+   escreval("         |    |  |     Força:  3  | ")
+   escreval("         |   / \ |     Magia: 20  | ")
+   escreval("         |             Defesa: 5  | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |                        | ")
+   escreval("         |________________________| ")
+
+fimprocedimento
+
+procedimento historia_papel
+inicio
+   escreval("     ________________________________________________________________________    ")
+   escreval("   /_\                                                                       \    ")
+   escreval("  / \ \                                                                       \  ")
+   escreval("  |/@ /\                                                                       \ ")
+   escreval("   \_/__\======================================================================| ")
+   escreval("        | ",nome," era um cozinheiro, treinou desde pequeno                             |            ")
+   escreval("        | a fazer os melhores pratos do reino, se esforçando todos             |                                     ")
+   escreval("        | os dias para que conseguisse um emprego em uma casa de               |                                   ")
+   escreval("        | familia nobre, porém sem sucesso, até que um dia, andando            |                                      ")
+   escreval("        | pela floresta local, viu um garoto sendo atacado por um              |                                   ")
+   escreval("        | Goblin, como Goblins são as criaturas mais fracas do reino,          |                                        ")
+   escreval("        | teve coragem de ataca-lo, fazendo o monstro se assustar e            |                                      ")
+   escreval("        | fugir, salvando o garoto.                                            |      ")
+   escreval("        | ",nome," falou ao garoto:                                                   |       ")
+   escreval("        |  'Está tudo bem agora, o montro fugiu'                               |                  ")
+   escreval("        |  O menino respondeu:                                                 |              ")
+   escreval("        |  'Muito obrigado moço, eu estou perdido, poderia me levar            |                                     ")
+   escreval("        |   até a cidade? Se eu chegar na cidade eu sei o caminho              |                                  ")
+   escreval("        |   para minha casa!'                                                  |               ")
+   escreval("        | ",nome," respondeu:                                                            |          ")
+   escreval("        |  'Mas é claro, não vou deixar você sozinho nesta floresta!'          |                                       ")
+   escreval("        |  O garoto sorriu para ",nome," e o agradeceu.                               |                         ")
+   escreval("        |  Chegando na cidade o menino arregalou os olhos e disse:             |                                    ")
+   escreval("        |  'Eu sei, agora ja sei o caminho de casa moço!'                      |                           ")
+   escreval("        | ",nome," disse:                                                                |          ")
+   escreval("        |  'Que bom, vá para casa e não entre mais na floresta sozinho!'       |                                          ")
+   escreval("        |  O garoto retrucou:                                                  |         ")
+   escreval("        |  'Venho comigo moço.'                                                |        ")
+   escreval("        | ",nome,":                                                                        |          ")
+   escreval("        |  'Porque?'                                                           |        ")
+   escreval("        |  Garoto:                                                             |        ")
+   escreval("        |  'Estou com vergonha de ver meu papai e minha mamãe depois           |                                      ")
+   escreval("        |   de fugir para brincar na floresta e ser atacado.'                  |                               ")
+   escreval("        | ",nome," concordou.                                                            |       ")
+   escreval("        |  Chegando na casa do menino percebeu que ele não era qualquer menino,|                                                 ")
+   escreval("        |  ele viu o simbolo da familia na entrada, ele era da Familia Ghunter,|                                                 ")
+   escreval("        |  uma das familias mais notórias do reino.                            |                     ")
+   escreval("        |  Caminhou junto ao menino até a porta da mansão, olhou para a porta, |                                                ")
+   escreval("        |  alta, talvez umas quatro vezes o tamanho de ",nome,".                         |                                  ")
+   escreval("        | ",nome," estava suando frio, intimidado, preocupado, será que os                 |                                            ")
+   escreval("        |  membros da familia expulsariam ele pensando que era um mendigo ou   |                                              ")
+   escreval("        |  que estava perseguindo o menino, pois estava com trajes furados e   |                                              ")
+   escreval("        |  baratos, nada comparados ao trajes dos nobres.                      |                           ")
+   escreval("        |  O menino bate na porta.                                             |    ")
+   escreval("        |  A mãe do menino abre a porta, quando o vê começa a chorar de feli-  |                                               ")
+   escreval("        |  cidade e de raiva ao mesmo tempo, estava furiosa com o menino por   |                                              ")
+   escreval("        |  ter fugido, ela o abraça, depois de alguns segundos abraçados, ela  |                                               ")
+   escreval("        |  o solta, e pergunta o que aquele homem estava fazendo ali.          |                                       ")
+   escreval("        |  O menino então explica a sua mãe o que aconteceu, ela solta um      |                                           ")
+   escreval("        |  suspiro aliviada, agradece ",nome," por salvar a vida de seu filho               |                                               ")
+   escreval("        |  e o oferece uma recompensa:                                         |        ")
+   escreval("        |  'Escolha algo que o dinheiro possa comprar e eu te darei' disse     |                                            ")
+   escreval("        |  a mulher.                                                           |          ")
+   escreval("        | ",nome," não pensou duas vezes, logo veio em sua mente o seu sonho               |                                              ")
+   escreval("        |  desde que começou a cozinhar e pediu se ele poderia trabalhar       |                                              ")
+   escreval("        |  na mansão como cozinheiro.                                          |       ")
+   escreval("        |  A mulher deu uma gargalhada e perguntou:                            |                     ")
+   escreval("        |  'Você poderia ter pedido por qualquer coisa e escolheu trabalhar    |                                             ")
+   escreval("        |   para mim?'                                                         |           ")
+   escreval("        | ",nome," respondeu:                                                              |        ")
+   escreval("        |   'Sim, é meu sonho desde criança trabalhar com o que eu amo que é   |                                             ")
+   escreval("        |    cozinhar, ainda mais em uma mansão de uma familia nobre!'         |                                      ")
+   escreval("        |   A mulher sorriu e aceitou seu pedido.                              |                  ")
+   escreval("        |   Passaram-se anos, ",nome," se casou com uma das empregadas da                   |                                          ")
+   escreval("        |   mansão, compraram uma casa e tiveram dois filhos, estava tudo      |                                          ")
+   escreval("        |   conforme seu sonho.                                                |   ")
+   escreval("        |                                                                      |      ")
+   escreval("        |   Porém, a vida pode ser cruel.                                      |                   ")
+   escreval("        |                                                                      |        ")
+   escreval("        |   ",nome," aprendeu isso da mainera mais horrivel possivel.                        |                                     ")
+   escreval("        |                                                                      |      ")
+   escreval("        |   Voltando para casa depois de um dia de trabalho, teve um           |                                     ")
+   escreval("        |   pressentimento ruim, junto com um calafrio que foi desde o         |                                       ")
+   escreval("        |   começo de sua nuca até o final de suas costas, logo depois         |                                      ")
+   escreval("        |   escutou um estouro ensurdecedor na direção de sua casa             |                                    ")
+   escreval("        |   Chegando lá, sua casa havia sumido, no lugar havia uma             |                                   ")
+   escreval("        |   cratéra, no meio um cavaleiro com armadura completamente preta,    |                                            ")
+   escreval("        |   como a escuridão da noite.                                         |       ")
+   escreval("        |   ",nome,":                                                                       | ")
+   escreval("        |   'O que você fez com minha casa? Com minha familia?'                |                                ")
+   escreval("        |   Cavaleiro:                                                         | ")
+   escreval("        |   'Mil perdões, estava testando minha nova magia, não sabia que     |                                          ")
+   escreval("        |    haviam pessoas lá dentro, a magia saiu do contro-hahahAHAHAHA'    |                                           ")
+   escreval("        |   O Cavaleiro começou a rir no meio de sua frase, olhou para         |                                       ")
+   escreval("        |   ",nome," com um olhar presunçoso, montou em seu cavalo e                            |                                     ")
+   escreval("        |    saiu sem dizer mais nada, somente rindo para si.                  |                             ")
+   escreval("        |   ",nome," estava perdido, sem saber o que fazer correu para a                          |                                        ")
+   escreval("        |    mansão para pedir ajuda a Familia Ghunter, e explicou             |                                  ")
+   escreval("        |    a terrivel situação.                                              | ")
+   escreval("        |    Infelizmente o explicaram que não poderiam o ajudar, eles         |                                      ")
+   escreval("        |    não queriam se meter com o cavaleiro, o uníco cavaleiro que       |                                        ")
+   escreval("        |    usa uma armadura toda negra, Kazir, o cavaleiro                   |                            ")
+   escreval("        |    da escuridão.                                                     |    ")
+   escreval("        |   ",nome," se sentindo traído por todos, decidiu virar um                                 |                                    ")
+   escreval("        |    aventureiro para ficar mais forte e M A T A R o cavaleiro         |                                      ")
+   escreval("        |    chamado Kazir, e vingar sua familia, pois agora, no seu           |                                    ")
+   escreval("        |    coração só existia um sentimento:                                 |              ")
+   escreval("        |                                                                      |  ")
+   escreval("        |                          V I N G A N Ç A                             |         ")
+   escreval("        |                                                                      |")
+   escreval("     ___|                                                                      |")
+   escreval("    /_\ |======================================================================| ")
+   escreval("   / \ \/                                                                      | ")
+   escreval("   |/@ /                                                                       /  ")
+   escreval("    \_/_______________________________________________________________________/   ")
+   escreval("")
+   escreval("                              Aperte 'ENTER' para continuar")
+   leia(enter)
+
+fimprocedimento
+
+procedimento begin_bandido
+inicio
+
+   nomeInim <- "Saqueador"
+   vida_wave <- 2
+   xHP <- randi(3 * vida_wave + 1) + 1
+   inimHP <- xHP
+   fixoHP <- xHP
+   inimForc <- 3
+   inimMag <- 0
+   inimDef  <- 2
+   manaInim <- 0
+fimprocedimento
+
+procedimento nome_perso
+var
+   confirma: caracter
+inicio
+   limpatela
+   confirma <- "N"
+   enquanto (confirma = "N") faca
+      escreval("_________________________________________________________________________________")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                         Digite o nome do seu personagem!                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|_______________________________________________________________________________|")
+      leia(nome)
+      escreval("_________________________________________________________________________________")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                             Seu nome é ",nome,"?                                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                    (S/N)                                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|_______________________________________________________________________________|")
+      leia(confirma)
+      limpatela
+   fimenquanto
+
+   nomePerso <- nome
+   gold <- 200000
+
+fimprocedimento
+
+procedimento classe
+var
+   class: inteiro
+
+inicio
+
+   leia(class)
+
+   escolha class
+   caso 1
+      escreval("Você é um Cavaleiro")
+      leia(enter)
+      persoHP <- 70
+      persoHPfixo <- persoHP
+      def <- 10
+      forc <- 8
+      mag <- 3
+      manatotal <- 30
+      mana <- manatotal
+      atk1 <- "Corte"
+      atk2 <- "Ataque Forte (MP-10)"
+      atk3 <- "Defesa"
+
+   caso 2
+      escreval("Você é um Arqueiro")
+      leia(enter)
+      persoHP <- 50
+      persoHPfixo <- persoHP
+      def <- 7
+      forc <- 9
+      mag <- 8
+      manatotal <- 120
+      mana <- manatotal
+      atk1 <- "Flechada"
+      atk2 <- "Headshot (MP-25)"
+      atk3 <- "Evasão"
+
+   caso 3
+      escreval("Você é um Feiticeiro")
+      leia(enter)
+      persoHP <- 30
+      persoHPfixo <- persoHP
+      def <- 5
+      forc <- 3
+      mag <- 20
+      manatotal <- 120
+      mana <- manatotal
+      atk1 <- "Cajadada"
+      atk2 <- "Bola de fogo (MP-20)"
+      atk3 <- "Escudo de mana"
+
+   outrocaso
+      escreval("Classe inválida!")
+   fimescolha
+
+fimprocedimento
+
+procedimento eskeli
+inicio
+
+   escreval("                 _______________________     ")
+   escreval("                /                       \    ")
+   escreval("               /                         \   ")
+   escreval("              /                           \  ")
+   escreval("              |    ______       ______    |  ")
+   escreval("              |   |      |     |      |   |  ")
+   escreval("              |   |      |     |      |   |  ")
+   escreval("             /    |      |     |      |    \ ")
+   escreval("            /     |______| ___ |______|     \")
+   escreval("            |             /   \             |")
+   escreval("            \             | _ |             /")
+   escreval("             \            |/ \|            / ")
+   escreval("              \                           /  ")
+   escreval("              |   _____________________   |  ")
+   escreval("              |  |   |   |    |    |   |  |  ")
+   escreval("              |  |---+---+----+----+---|  |  ")
+   escreval("              |  |___|___|____|____|___|  |  ")
+   escreval("              |                           |  ")
+   escreval("              |___________________________|  ")
+
+fimprocedimento
+
+procedimento eskelidead
+inicio
+   escreval("                 _______________________     ")
+   escreval("                /                       \    ")
+   escreval("               /                         \   ")
+   escreval("              /                           \  ")
+   escreval("              |                           |  ")
+   escreval("              |     \  /         \  /     |  ")
+   escreval("              |      \/           \/      |  ")
+   escreval("             /       /\           /\       \ ")
+   escreval("            /       /  \   ___   /  \       \")
+   escreval("            |             /   \             |")
+   escreval("            \             | _ |             /")
+   escreval("             \            |/ \|            / ")
+   escreval("              \                           /  ")
+   escreval("              |   _____________________   |  ")
+   escreval("              |  |   |   |    |    |   |  |  ")
+   escreval("              |  |---+---+----+----+---|  |  ")
+   escreval("              |  |___|___|____|____|___|  |  ")
+   escreval("              |                           |  ")
+   escreval("              |___________________________|  ")
+fimprocedimento
+
+procedimento goblin
+inicio
+   escreval("                      _                       ")
+   escreval("                     /@\                      ")
+   escreval("                    /@@@\                     ")
+   escreval("       __           |@@@|          __         ")
+   escreval("       \  \         |@@@|         /  /        ")
+   escreval("        \  \_  _____|@@@|_____  _/  /         ")
+   escreval("         \   \/     \@@@/     \/   /          ")
+   escreval("          @ &  \____     ____/  & @           ")
+   escreval("           @   ____ \   / ____   @            ")
+   escreval("            @  \_@_\     /_@_/  @             ")
+   escreval("             \       |_|       /              ")
+   escreval("              \   _________   /               ")
+   escreval("               \  \  \/   /  /                ")
+   escreval("                \  \/\_/\/  /                 ")
+   escreval("                 \_________/                  ")
+   escreval
+fimprocedimento
+
+procedimento goblindead
+inicio
+   escreval("                      _                       ")
+   escreval("                     /@\                      ")
+   escreval("                    /@@@\                     ")
+   escreval("       __           |@@@|          __         ")
+   escreval("       \  \         |@@@|         /  /        ")
+   escreval("        \  \_  _____|@@@|_____  _/  /         ")
+   escreval("         \   \/     \@@@/     \/   /          ")
+   escreval("          @ &                   & @           ")
+   escreval("           @    \ /       \ /    @            ")
+   escreval("            @    X         X    @             ")
+   escreval("             \  / \  |_|  / \  /              ")
+   escreval("              \   _________   /               ")
+   escreval("               \  \  \/   /  /                ")
+   escreval("                \  \/\_/\/  /                 ")
+   escreval("                 \_________/                  ")
+   escreval
+fimprocedimento
+
+procedimento sword
+inicio
+   escreval("         ___________________     ")
+   escreval("        |  Ghuthur's Sword  |    ")
+   escreval("        |         _         |    ")
+   escreval("        |        /|\        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |        |||        |    ")
+   escreval("        |     \__|_|__/     |    ")
+   escreval("        |         |         |    ")
+   escreval("        |         |         |    ")
+   escreval("        |         @         |    ")
+   escreval("        |                   |    ")
+   escreval("        | Forc:+30  Mag:+30 |    ")
+   escreval("        |                   |    ")
+   escreval("        |___________________|    ")
+   escreval
+fimprocedimento
+
+procedimento kazir
+inicio
+
+
+   escreval("        /|                               |\    ")
+   escreval("       / |                               | \   ")
+   escreval("      /  |                               |  \  ")
+   escreval("      |  \                               /  |  ")
+   escreval("      |   \                             /   |  ")
+   escreval("      \    \    __________________     /    /  ")
+   escreval("       \   __\_/        __        \__/_    /   ")
+   escreval("        \ /            /  \            \  /    ")
+   escreval("         /            | ## |            \/     ")
+   escreval("        /              \__/              \     ")
+   escreval("       /                                  \    ")
+   escreval("      |           ___        ___           |   ")
+   escreval("      |          /\  \______/  /\          |   ")
+   escreval("      |         /  \          /  \         |   ")
+   escreval("      |        |  @@\/      \/@@  |        |   ")
+   escreval("      |        |  @@          @@  |        |   ")
+   escreval("      |        |       |  |       |        |   ")
+   escreval("      |        |      (o__o)      |        |   ")
+   escreval("      \        /   ____________   \        /   ")
+   escreval("       \      /\  /            \ / \      /    ")
+   escreval("        \____/  \_______________/   \____/     ")
+
+
+
+
+fimprocedimento
+
+procedimento mostrar_bandido
+inicio
+
+   escreval
+   escreval("              |  (~)                      (~)  |                      ")
+   escreval("             [|]--|--                    --|--[|]                     ")
+   escreval("                  |                        |                          ")
+   escreval("                 D D                      D D                         ")
+   escreval
+fimprocedimento
+
+procedimento textotela1
+inicio
+   dano_wave <- 1
+   escreval("_________________________________________________________________________________")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                   ",nome," caminha pela floresta em busca                               |")
+   escreval("|                        monstros para ficar mais forte...                      |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|                                                                               |")
+   escreval("|_______________________________________________________________________________|")
+
+fimprocedimento
+
+procedimento wave
+inicio
+   escreval("                  Quantos Bandidos quer enfrentar?")
+   leia(quant_wave)
+   limpatela
+   escreval(nome," cruzou com", quant_wave," bandido(s)")
+   mostrar_bandido
+   escreval("            Aperte ENTER para continuar...")
+   leia(enter)
+   limpatela
+   enquanto (cont_horda < quant_wave) faca
+      limpatela
+      escreval("           1 - ",atk1,"    2 - ",atk2,"     3 - ",atk3)
+      escreval
+      escreval("             ",nomePerso,":",PersoHP,"/",persoHPfixo,"HP                       ", nomeInim,": ",inimHP,"/",fixoHP,"HP")
+      escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+      leia(battlePlayer)
+      escolha battlePlayer
+      caso 1
+
+         se (inimDef > forc) entao
+            dano <- 0
+         senao
+            inimHP <- inimHP + inimDef - forc
+            dano <- (inimDef - forc)*-1
+         fimse
+      caso 2
+         se (mana <= 0) entao
+            dano <- 0
+            manastats <- "Sem mana"
+         senao
+            inimHP <- inimHP - (forc + mag)
+            mana <- mana - 20
+            dano <- mag + forc
+         fimse
+      caso 3
+         se (contDef > 0) entao
+            escreval("Pode ser usado somente 1 vez por batalha")
+         senao
+            atk <- "Defesa aumentada"
+            def <- def + 7
+            contDef <- contDef + 1
+         fimse
+      fimescolha
+
+      battleInim <- randi(100)
+      se (battleInim > 15) e (battleInim <= 100) entao
+         inimAtk <- "Facadas")
+         inimForc <- randi(4 * (dano_wave + 1))
+         PersoHP <- PersoHP - inimForc
+         inimDano <- inimForc * -1
+      senao
+         inimAtk <- "Ataque Forte")
+         inimForc <- randi(6 * (dano_wave + 1))
+         PersoHP <- PersoHP - inimForc
+         inimDano <- inimForc * -1
+      fimse
+
+
+      se (PersoHP <= 0) entao
+         cpu <- verdadeiro
+fimalgoritmo
+fimse
+se (inimHP <= 0) entao
+   jogador1 <- verdadeiro
+fimse
+limpatela
+escreval("             Seu ataque: ",atk, "                     Ataque inimigo: ", inimAtk)
+escreval("             ",nomePerso,":",PersoHP,"/",persoHPfixo,"HP                        ", nomeInim,": ",inimHP,"/",fixoHP)
+escreval("             Seu dano: ",dano,"                           ","Dano inimigo: ", inimDano)
+escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+se (jogador1 = verdadeiro) entao
+   jogador1 <- falso
+   cont_horda <- cont_horda + 1
+   begin_bandido
+   escreval("             Você derrotou ",cont_horda," ", nomeInim,"(s)")
+fimse
+escreval("                         ENTER para continuar")
+leia(enter)
+manastats <- " "
+fimenquanto
+jogador1 <- verdadeiro
+fimprocedimento
+
+procedimento lojaouboss //para ir para os bosses depois de visitar a loja caso digite outro numero ao inves de 1 o player não enfrenta os bosses
+inicio
+
+   escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+   leia(loja)
+   enquanto (vitoria = falso) faca
+      enquanto (loja = 1) faca
+         begin_bandido
+         dano <- 0
+         inimDano <- 0
+         limpatela
+         escreval("               1 - ",atk1," 2 - ",atk2,"  3 - ",atk3)
+         escreval
+         escreval("             ", nomePerso,":",PersoHP,"/",persoHPfixo,"HP                       ", nomeInim,": ",inimHP,"/",fixoHP,"HP")
+         escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+         limpatela
+         wave
+
+         se (def > 5) entao
+            def <- 5               //caso o jogador utilize defesa aumentada
+         fimse
+         limpatela
+         se (jogador1 = verdadeiro) entao
+            lootgold <- randi(2)
+            se (lootgold = 0) entao
+               goldrecebido <- 25 * quant_wave
+            fimse
+            se (lootgold = 1) entao
+               goldrecebido <- 50  * quant_wave
+            fimse
+            se (lootgold = 2) entao
+               goldrecebido <- 70  * quant_wave
+            fimse
+            limpatela
+            escreval("                Você recebeu",goldrecebido," Golds")
+            gold <- gold + goldrecebido
+            leia(enter)
+            jogador1 <- falso
+            persoHP <- persoHPfixo
+            mana <- manatotal
+            condicao_wave <- condicao_wave + 1
+            se(condicao_wave > 2) entao
+               dano_wave <- dano_wave + 1
+               vida_wave <- vida_wave + 1
+               condicao_wave <- 0
+            fimse
+
+         fimse
+         se (cpu = verdadeiro) entao
+            escreval("Você foi derrotado...")
+         fimse
+         escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+         leia(loja)
+         cont_horda <- 0
+      fimenquanto
+
+      enquanto (loja = 3) faca
+         escreval("                    BOSSES")
+         escreval("1 - REI GOBLIN")
+         escreval("2 - ESKELI")
+         escreval("3 - KAZIR(HARD)")
+         leia(inimigo)
+         escolha inimigo
+         caso 1
+            nomeInim <- "REI GOBLIN"
+            inimHP <- 100
+            fixoHP <- 100
+            inimForc <- 30
+            inimMag <- 3
+            inimDef  <- 7
+            manaInim <- 20
+            goblin
+            escreval("Aperte ENTER para continuar...")
+            leia (enter)
+         caso 2
+            nomeInim <- "ESKELI"
+            inimHP <- 150
+            fixoHP <- 150
+            inimForc <- 40
+            inimMag <- 3
+            inimDef  <- 12
+            eskeli
+            escreval("Aperte ENTER para continuar...")
+            leia (enter)
+         caso 3
+            nomeInim <- "KAZIR"
+            inimHP <- 300
+            fixoHP <- 300
+            inimForc <- 50
+            inimMag <- 25
+            inimDef  <- 20
+            kazir
+            escreval("Aperte ENTER para continuar...")
+            leia (enter)
+         fimescolha
+
+
+         limpatela
+
+         persoHP <- persoHPfixo
+         enquanto (jogador1 = falso) e (cpu = falso) faca
+            dano <- 0
+            inimDano <- 0
+            limpatela
+            //---------------------------MENU-------------------------------//
+            escreval("               1 - ",atk1,"    2 - ",atk2,"     3 - ",atk3)
+            escreval("             ",nomePerso,":",PersoHP,"/",persoHPfixo,"HP                       ", nomeInim,": ",inimHP,"/",fixoHP)
+            escreval("             Mana:", mana," ",manastats,"                                Mana:",manaInim)
+            //---------------------------------------------------------------//
+            //----------------------------ATQ_PLAYER-------------------------//
+            leia(battlePlayer)
+            limpatela
+            escolha battlePlayer
+            caso 1
+               atk <- "Corte"
+               se (inimDef > forc) entao
+                  dano <- 0
+               senao
+                  inimHP <- inimHP + inimDef - forc
+                  dano <- (inimDef - forc)*-1
+               fimse
+            caso 2
+               atk <- "Ataque Forte"
+               forc <- forc + 5
+               se (inimDef > forc) entao
+                  dano <- 0
+               fimse
+               se (mana <= 0) entao
+                  dano <- 0
+                  manastats <- "Sem mana"
+               senao
+                  inimHP <- inimHP - forc
+                  mana <- mana - 7
+                  dano <-  (inimDef - forc)*-1
+               fimse
+            caso 3
+               se (contDef > 0) entao
+                  escreval("Pode ser usado somente 1 vez por batalha")
+               senao
+                  atk <- "Defesa aumentada"
+                  def <- def + 7
+                  contDef <- contDef + 1
+               fimse
+            fimescolha
+
+            //-------------------------ATQ_INIMIGO_ALEATORIO-----------------//
+
+            battleInim <- randi(100)
+            se (battleInim > 20) e (battleInim <= 100) entao
+               inimAtk <- "Perfurar")
+               se (def > inimForc) entao
+                  inimDano <- 0
+               senao
+                  PersoHP <- PersoHP + def - inimForc
+                  inimDano <- (def - inimForc)*-1
+               fimse
+            fimse
+            se (battleInim >= 0) e (battleInim <= 20) entao
+               inimAtk <- "Ataque escondido"
+               se (def > inimForc + 10) entao
+                  inimDano <- 0
+               senao
+                  PersoHP <- PersoHP + def - (inimForc+10)
+
+                  inimDano <- def - inimForc - 10
+                  inimDano <- inimDano*-1
+               fimse
+            fimse
+            //------------------------------------------------------------//
+            //-----------------------CONDIÇÃO_VITORIA---------------------//
+            se (PersoHP <= 0) entao
+               cpu <- verdadeiro
+            fimse
+            se (inimHP <= 0) entao
+               jogador1 <- verdadeiro
+            fimse
+            //-----------------------------------------------------------//
+            //-----------------------MENU_NOVAMENTE----------------------//
+            escreval("               Seu ataque: ",atk, "                     Ataque inimigo: ", inimAtk)
+            escreval("               ", nomePerso,":",PersoHP,"/",persoHPfixo,"HP                        ", nomeInim,": ",inimHP,"/",fixoHP)
+            escreval("               Seu dano: ",dano,"                           ","Dano inimigo: ", inimDano)
+            escreval("               Mana:", mana," ",manastats,"                                Mana:",manaInim)
+            escreval("                             ENTER para continuar")
+            leia(enter)
+            manastats <- " "
+
+         fimenquanto
+         def <- 5               //caso o jogador utilize defesa aumentada
+         limpatela
+         se (jogador1 = verdadeiro) entao
+            se (inimigo = 3) entao
+               vitoria <- verdadeiro
+            fimse
+            jogador1 <- falso
+            escreval("Você derrotou o ",nomeInim,"!!!")
+            se (inimigo = 1) entao
+               goblindead
+               escreval("     Aperte Enter para continuar...")
+               leia(enter)
+               limpatela
+               lootgold <- randi(2)
+               escolha lootgold
+               caso 0
+                  goldrecebido <- 10
+               caso 1
+                  goldrecebido <- 20
+               caso 2
+                  goldrecebido <- 30
+               fimescolha
+               escreval("Você recebeu ",goldrecebido,"Golds")
+               gold <- gold + goldrecebido
+            fimse
+            se (inimigo = 2) entao
+               eskelidead
+               escreval("     Aperte Enter para continuar...")
+               leia(enter)
+               limpatela
+            fimse
+            lootgold <- randi(2)
+            escolha lootgold
+            caso 0
+               goldrecebido <- 10
+            caso 1
+               goldrecebido <- 20
+            caso 2
+               goldrecebido <- 30
+            fimescolha
+            escreval("        Você recebeu ",goldrecebido," Gold(s)")
+            loot <- randi(100)
+            se (loot > 0) e (loot < 100) entao
+               escreval("     Você recebeu um item raro!!!")
+               sword
+               forc <- forc + 30
+               mag <- mag + 30
+
+               escreval("     Aperte Enter para continuar...")
+               leia(enter)
+            fimse
+         fimse
+         se(inimigo = 3) entao
+            vitoria <- verdadeiro
+            interrompa
+         fimse
+         se (cpu = verdadeiro) entao
+            escreval("Você foi derrotado...")
+fimalgoritmo
+fimse
+limpatela
+escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+leia(loja)
+fimenquanto
+se(loja = 2) entao
+   lojas
+   escreval("                 1 - Batalhar       2 - Loja        3 - Bosses")
+   leia(loja)
+fimse
+fimenquanto
+
+
+fimprocedimento
+
+procedimento lojas
+inicio
+   lj <- 200
+   enquanto (lj <> 0) faca
+      escreval("_________________________________________________________________________________")
+      escreval("|                                                                               |")
+      escreval("|                                                              GOLD:",gold,"               |")
+      escreval("|                                                                               |")
+      escreval("|        1 - Amuleto da vida(+20HP) = 200G                                      |")
+      escreval("|                                                                               |")
+      escreval("|        2 - Talismã da força(+15F)  = 300G                                     |")
+      escreval("|                                                                               |")
+      escreval("|        3 - Corrente Mágica(+15Mg)  = 300G                                     |")
+      escreval("|                                                                               |")
+      escreval("|        4 - Upgrade Arma(+30F/Mg)  = 700G                                      |")
+      escreval("|                                                                               |")
+      escreval("|        5 - Encantar Armadura(+7DF)= 500G                                      |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|                                                                               |")
+      escreval("|     0 - Sair                                                                  |")
+      escreval("|_______________________________________________________________________________|")
+      leia(lj)
+      se (lj = 1) entao
+         se(gold >= 200) entao
+            persoHPFIXO <- persoHPfixo + 20
+            persoHP <- persoHPfixo
+            gold <- gold - 200
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 2) entao
+         se(gold >= 300) entao
+            forc <- forc + 15
+            gold <- gold - 300
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 3) entao
+         se(gold >= 300) entao
+            mag <- mag + 15
+            gold <- gold - 300
+
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 4) entao
+         se(gold >= 700) entao
+            forc <- forc + 30
+            mag <- mag + 30
+            gold <- gold - 700
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+      se (lj = 5) entao
+         se(gold >= 500) entao
+            def <- def + 7
+            gold <- gold - 500
+         senao
+            escreval("Você não tem gold o suficiente")
+         fimse
+      fimse
+   fimenquanto
+   limpatela
+
+
+fimprocedimento
+
+
+
+inicio
+
+   repita
+      conmenu7 <- "S"
+
+
+
+      escreval("       [1]START GAME")
+      escreval("")
+      escreval("       [2] MANUAL")
+      escreval("")
+      escreval("       [3]RANKING")
+      escreval("")
+      escreval("       [4]MENU")
+      escreval("")
+      escreval("       [5]SAIR")
+      leia(menu7)
+
+      escolha menu7
+
+
+      caso 1
+         inicial  //nome dos alunos
+         nome_jogo  //nome para introdução
+         menu_inicial //menu do jogo
+         se(menu = 1) entao
+            nome_perso
+            criacao
+            classe
+            limpatela
+            historia_papel
+         senao
+fimalgoritmo
+
+fimse
+textotela1
+leia(enter)
+limpatela
+lojaouboss
+se(vitoria = verdadeiro) entao
+   escreval("            Você zerou o game!!!")
+fimse
+
+
+caso 2
+   Escreval("FALTA O MANUAL")
+
+   repita
+      leia(sair7)
+
+   até sair7 = "S"
+   limpatela
+
+caso 3
+   limpatela
+   escreval("Ranking ainda não implementado!")
+   escreval("Digite 'S' para voltar ao menu.")
+   leia(sair7)
+   limpatela
+
+caso 4
+   limpatela
+   escreval("Menu de opções ainda em desenvolvimento.")
+   escreval("Digite 'S' para voltar ao menu.")
+   leia(sair7)
+   limpatela
+
+caso 5
+   conmenu7 <- "N" // Sai do menu principal
+   limpatela
+   escreval("Saindo do jogo... Até mais!")
+
+
+outrocaso
+
+   escreval("FUDEU....")
+
+fimescolha
+
+ate conmenu7 <> "S"
+
+
+
+fimalgoritmo
