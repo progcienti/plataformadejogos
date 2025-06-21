@@ -1,0 +1,172 @@
+algoritmo "semnome"
+
+const
+   TAM = 10
+
+var
+   //VAR DE CONTROLE
+   menu6: inteiro
+   sair6, conmenu6: caractere
+
+
+   //VAR JOGO
+
+   campo: vetor[1..TAM, 1..TAM] de caractere
+   cabecaX, cabecaY, frutaX, frutaY, i, j, direcao, pontos: inteiro
+   jogoAtivo: logico
+
+procedimento desenharCampo()
+inicio
+   limpatela
+   para i de 1 ate TAM faca
+      para j de 1 ate TAM faca
+         escreva(campo[i,j], " ")
+      fimpara
+      escreval()
+   fimpara
+   escreval("Pontos: ", pontos)
+fimprocedimento
+
+procedimento posicionarFruta()
+inicio
+   frutaX <- randi(TAM - 2) + 2   // Não gerar na parede de cima
+   frutaY <- randi(TAM - 2) + 2   // Não gerar nas laterais
+   enquanto campo[frutaX, frutaY] <> " " faca
+      frutaX <- randi(TAM - 2) + 2
+      frutaY <- randi(TAM - 2) + 2
+   fimenquanto
+   campo[frutaX, frutaY] <- "F"
+fimprocedimento
+
+
+inicio
+
+   repita
+      conmenu6 <- "S"
+
+
+
+      escreval("       [1]START GAME")
+      escreval("")
+      escreval("       [2] MANUAL")
+      escreval("")
+      escreval("       [3]RANKING")
+      escreval("")
+      escreval("       [4]MENU")
+      escreval("")
+      escreval("       [5]SAIR")
+      leia(menu6)
+
+      escolha menu6
+
+
+      caso 1
+         // Inicializar campo com espaços
+         para i de 1 ate TAM faca
+            para j de 1 ate TAM faca
+               campo[i,j] <- " "
+            fimpara
+         fimpara
+
+         // Criar as paredes (#)
+         para i de 1 ate TAM faca
+            campo[i,1] <- "#"
+            campo[i,TAM] <- "#"
+         fimpara
+
+         para j de 1 ate TAM faca
+            campo[1,j] <- "#"
+            campo[TAM,j] <- "#"
+         fimpara
+
+         // Início da cobra (no meio)
+         cabecaX <- TAM div 2
+         cabecaY <- TAM div 2
+         campo[cabecaX, cabecaY] <- "O"
+
+         pontos <- 0
+         jogoAtivo <- verdadeiro
+         posicionarFruta()
+
+         enquanto jogoAtivo faca
+            desenharCampo()
+            escreval("Digite a direção: 1=Cima, 2=Baixo, 3=Esquerda, 4=Direita")
+            leia(direcao)
+
+            // Apagar posição anterior da cabeça
+            campo[cabecaX, cabecaY] <- " "
+
+            // Mover cabeça
+            se direcao = 1 entao
+               cabecaX <- cabecaX - 1
+            fimse
+            se direcao = 2 entao
+               cabecaX <- cabecaX + 1
+            fimse
+
+            se direcao = 3 entao
+               cabecaY <- cabecaY - 1
+            fimse
+
+            se direcao = 4 entao
+               cabecaY <- cabecaY + 1
+            fimse
+
+            // Verificar colisão com parede
+            se (campo[cabecaX, cabecaY] = "#") entao
+               escreval("?? Você bateu na parede! Fim de jogo.")
+               jogoAtivo <- falso
+            senao
+               // Verificar se pegou fruta
+               se (cabecaX = frutaX) e (cabecaY = frutaY) entao
+                  pontos <- pontos + 1
+                  posicionarFruta()
+               fimse
+               campo[cabecaX, cabecaY] <- "O"
+            fimse
+         fimEnquanto
+
+         escreval("Pontuação final: ", pontos)
+
+
+
+      caso 2
+
+         escreval("FALTA AS REGRAS ")
+
+         repita
+            leia(sair6)
+
+         até sair6 = "S"
+         limpatela
+
+      caso 3
+         limpatela
+         escreval("Ranking ainda não implementado!")
+         escreval("Digite 'S' para voltar ao menu.")
+         leia(sair6)
+         limpatela
+
+      caso 4
+         limpatela
+         escreval("Menu de opções ainda em desenvolvimento.")
+         escreval("Digite 'S' para voltar ao menu.")
+         leia(sair6)
+         limpatela
+
+      caso 5
+         conmenu6 <- "N" // Sai do menu principal
+         limpatela
+         escreval("Saindo do jogo... Até mais!")
+
+
+      outrocaso
+
+         escreval("FUDEU....")
+
+      fimescolha
+
+   ate conmenu6 <> "S"
+
+
+fimalgoritmo
