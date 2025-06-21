@@ -1,0 +1,34 @@
+leia(menu1)
+
+            escolha menu1
+
+            caso 1
+               limpatela
+
+               conmenu2 <- "S"
+
+               escreval("==========================================================")
+               escreval("                       BATALHA NAVAL")
+               escreval("==========================================================")
+               escreval("")
+               se meno = 1 entao
+                  escreval("")
+               senao
+                  escreval ("Escreva um numero valido !")
+               fimse
+               escreval("Informe o numero de barcos para o jogo (de 1 a 20)")
+               leia(numero_barcos)
+               limpatela
+               se numero_barcos <> 1001101 entao
+                  se numero_barcos>= 1 entao
+                     se numero_barcos <= 20 entao
+                        meno <- 1
+                     senao
+                        meno<- 0
+                     fimse
+                  senao
+                     meno<-0
+                  fimse
+               senao
+                  adm <- 1
+               fimse
