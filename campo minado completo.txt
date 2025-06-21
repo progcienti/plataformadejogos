@@ -1,0 +1,156 @@
+algoritmo "semnome"
+
+var
+   //VAR DE CONTROLE
+
+
+   menu5: inteiro
+   sair5, conmenu5: caractere
+
+   //VAR DO JOGO
+
+   campo: vetor [1..5, 1..5] de caractere
+   linha, coluna, i, j: inteiro
+   jogoAtivo: logico
+   casasSeguras: inteiro
+
+
+inicio
+
+
+   repita
+      conmenu5 <- "S"
+
+
+
+      escreval("       [1]START GAME")
+      escreval("")
+      escreval("       [2] MANUAL")
+      escreval("")
+      escreval("       [3]RANKING")
+      escreval("")
+      escreval("       [4]MENU")
+      escreval("")
+      escreval("       [5]SAIR")
+      leia(menu5)
+
+      escolha menu5
+
+
+      caso 1
+         // Inicializar campo
+         para i de 1 ate 5 faca
+            para j de 1 ate 5 faca
+               campo[i, j] <- "-"
+            fimpara
+         fimpara
+
+         // Posicionar minas (fixas para facilitar no Visualg)
+         campo[2,3] <- "*"
+         campo[4,1] <- "*"
+         campo[1,5] <- "*"
+         campo[3,4] <- "*"
+         campo[5,2] <- "*"
+
+         casasSeguras <- 25 - 5  // Total de casas sem mina
+         jogoAtivo <- verdadeiro
+
+         Enquanto jogoAtivo faca
+            // Exibir campo (ocultando as minas)
+            escreval("Campo atual:")
+            para i de 1 ate 5 faca
+               para j de 1 ate 5 faca
+                  se campo[i,j] = "A" entao
+                     escreva(" A ")
+                  senao
+                     escreva(" - ")
+                  fimse
+               fimpara
+               escreval()
+            fimpara
+
+            escreval("Digite a linha (1 a 5): ")
+            leia(linha)
+            escreval("Digite a coluna (1 a 5): ")
+            leia(coluna)
+
+            // Verificar entrada válida
+            se (linha < 1) ou (linha > 5) ou (coluna < 1) ou (coluna > 5) entao
+               escreval("Posição inválida. Tente novamente.")
+            senao
+               se campo[linha, coluna] = "*" entao
+                  escreval("?? Você acertou uma mina! Fim de jogo.")
+                  jogoAtivo <- falso
+               senao
+                  se campo[linha, coluna] <> "A" entao
+                     campo[linha, coluna] <- "A"
+                     casasSeguras <- casasSeguras - 1
+                  fimse
+
+                  // Verificar se venceu
+                  se casasSeguras = 0 entao
+                     escreval("?? Parabéns! Você venceu o jogo, abriu todas as casas seguras!")
+                     jogoAtivo <- falso
+                  fimse
+               fimse
+            fimse
+         fimEnquanto
+
+         // Mostrar campo final revelando as minas
+         escreval("Campo Final:")
+         para i de 1 ate 5 faca
+            para j de 1 ate 5 faca
+               se campo[i,j] = "*" entao
+                  escreva(" * ")
+               senao
+                  escreva(" ", campo[i,j], " ")
+               fimse
+            fimpara
+            escreval()
+         fimpara
+
+
+
+
+      caso 2
+
+         escreval("FALTA AS REGRAS ")
+
+         repita
+            leia(sair5)
+
+         até sair5 = "S"
+         limpatela
+
+      caso 3
+         limpatela
+         escreval("Ranking ainda não implementado!")
+         escreval("Digite 'S' para voltar ao menu.")
+         leia(sair5)
+         limpatela
+
+      caso 4
+         limpatela
+         escreval("Menu de opções ainda em desenvolvimento.")
+         escreval("Digite 'S' para voltar ao menu.")
+         leia(sair5)
+         limpatela
+
+      caso 5
+         conmenu5 <- "N" // Sai do menu principal
+         limpatela
+         escreval("Saindo do jogo... Até mais!")
+
+
+      outrocaso
+
+         escreval("FUDEU....")
+
+      fimescolha
+
+   ate conmenu5 <> "S"
+
+
+
+
+fimalgoritmo
